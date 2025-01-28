@@ -49,13 +49,13 @@ flowchart LR
 
 <HTMLBlock>{`
 <style>
-@media (prefers-color-scheme: light) {
-[data-color-mode="system"] .edge-thickness-normal .edge-pattern-solid .edge-thickness-normal .edge-pattern-solid .flowchart-link {
+@media (prefers-color-scheme: dark) {
+[data-color-mode="system"] #L_A_B_O.edge-thickness-normal .edge-pattern-solid .edge-thickness-normal .edge-pattern-solid .flowchart-link {
   color: white;
 }
 }
  
-[data-color-mode="light"] .edge-thickness-normal .edge-pattern-solid .edge-thickness-normal .edge-pattern-solid .flowchart-link{
+[data-color-mode="dark"] #L_A_B_O.edge-thickness-normal .edge-pattern-solid .edge-thickness-normal .edge-pattern-solid .flowchart-link{
  color: white;
 }
 </style>
