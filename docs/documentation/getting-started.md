@@ -37,3 +37,12 @@ ReadMe has a *ton* of ways to make your docs the envy of any <Glossary>parliamen
 We're excited you're here! :blue_heart:
 
 ![This won't be fun to clean up...](https://owlbert.io/images/popper.gif)
+
+<br />
+
+```mermaid
+flowchart LR 
+ A --- B[fa:fa-spinner B] 
+ B --> C[fa:fa-check C] 
+ B --> D[fa:fa-ban D]
+```
