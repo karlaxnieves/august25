@@ -46,3 +46,16 @@ flowchart LR
  B --> C[fa:fa-check C] 
  B --> D[fa:fa-ban D]
 ```
+
+<HTMLBlock>{`
+<style>
+@media (prefers-color-scheme: dark) {
+[data-color-mode="system"] .Mermaid {
+  background-color: pink;
+}
+}
+ 
+[data-color-mode="dark"] .Mermaid {
+ background-color: pink;
+}</style>
+`}</HTMLBlock>
