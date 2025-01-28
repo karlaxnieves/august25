@@ -50,12 +50,12 @@ flowchart LR
 <HTMLBlock>{`
 <style>
 @media (prefers-color-scheme: light) {
-[data-color-mode="system"] .Mermaid {
+[data-color-mode="system"] .line.messageLine0 {
   color: white;
 }
 }
  
-[data-color-mode="light"] .Mermaid {
+[data-color-mode="light"] .line.messageLine0 {
  color: white;
 }
 </style>
