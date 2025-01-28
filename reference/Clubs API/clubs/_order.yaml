@@ -1,0 +1,9 @@
+- get_v1-clubs-templates
+- get_v1-clubs
+- post_v1-clubs
+- get_v1-clubs-club-id
+- get_v1-clubs-club-id-members
+- get_v1-clubs-club-id-members-customer-id
+- post_v1-clubs-club-id-members-customer-id-remove
+- post_v1-clubs-club-id-members-customer-id-ban
+- post_v1-clubs-club-id-members-customer-id-unban
