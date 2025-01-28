@@ -48,5 +48,15 @@ flowchart LR
 ```
 
 <HTMLBlock>{`
-
+<style>
+@media (prefers-color-scheme: light) {
+[data-color-mode="system"] .Mermaid {
+  background-color: white;
+}
+}
+ 
+[data-color-mode="light"] .Mermaid {
+ background-color: white;
+}
+</style>
 `}</HTMLBlock>
