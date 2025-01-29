@@ -18,8 +18,8 @@ This is a test string to be edited!
         color: red !important;
       }
       
-     [class^="messageLine"], .messageText  {
-				stroke: white !important;
+     [data-color-mode="dark"] [class^="messageLine"], .messageText   {
+       color: white !important;
 			}
     </style>
   </head>
