@@ -17,6 +17,10 @@ This is a test string to be edited!
       html[data-theme="dark"] h1 {
         color: red !important;
       }
+      
+     [class^="messageLine"], .messageText  {
+				stroke: white !important;
+			}
     </style>
   </head>
   <body>
