@@ -18,7 +18,7 @@ This is a test string to be edited!
         color: red !important;
       }
       
-      [data-theme--mode="dark"] .messageLine0 { 
+      [data-color--mode="dark"] .messageLine0 {
         color: red !important;
       }
     </style>
