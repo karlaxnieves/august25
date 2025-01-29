@@ -1,0 +1,5516 @@
+{
+  "openapi": "3.1.0",
+  "info": {
+    "description": "The Riipen API uses [REST](https://en.wikipedia.org/wiki/Representational_state_transfer) and RESTful principles. Our URLs are predictable and resource-oriented. Riipen accepts [JSON](https://en.wikipedia.org/wiki/JSON) encoded request bodies and returns JSON encoded responses and uses standard HTTP codes and verbs.",
+    "title": "Riipen API",
+    "termsOfService": "http://riipen.com/terms",
+    "version": "1.0.0"
+  },
+  "servers": [
+    {
+      "url": "http://app.riipen.com/api/v1"
+    }
+  ],
+  "paths": {
+    "/companies": {
+      "get": {
+        "summary": "List companies",
+        "description": "List companies.",
+        "operationId": "companyList",
+        "tags": ["Companies"],
+        "parameters": [
+          {
+            "in": "query",
+            "name": "name",
+            "description": "Filters companies by name \"eq\" (case insensitive).",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "eq": {
+                  "type": "string"
+                }
+              }
+            }
+          },
+          {
+            "in": "query",
+            "name": "sort",
+            "schema": {
+              "type": "string",
+              "enum": ["created_at", "updated_at"]
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Response to a valid request",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "data": {
+                      "type": "array",
+                      "items": {
+                        "$ref": "#/components/schemas/CompanyIncludes"
+                      }
+                    },
+                    "pagination": {
+                      "$ref": "#/components/schemas/Pagination"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "default": {
+            "description": "Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/companies/{id}": {
+      "get": {
+        "summary": "Get a company",
+        "description": "Get a company by ID.",
+        "operationId": "companyGet",
+        "tags": ["Companies"],
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "description": "The id of the company to retrieve",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Response to a valid request",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/CompanyIncludes"
+                }
+              }
+            }
+          },
+          "default": {
+            "description": "Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/experiences": {
+      "get": {
+        "summary": "List experiences",
+        "description": "List experiences.",
+        "operationId": "experienceList",
+        "tags": ["Experiences"],
+        "parameters": [
+          {
+            "in": "query",
+            "name": "in_marketplace",
+            "description": "Filters experiences by whether experience is in marketplace.",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "eq": {
+                  "type": "boolean"
+                }
+              }
+            }
+          },
+          {
+            "in": "query",
+            "name": "name",
+            "description": "Filters experiences by name \"eq\" (case insensitive).",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "eq": {
+                  "type": "string"
+                }
+              }
+            }
+          },
+          {
+            "in": "query",
+            "name": "portal_id",
+            "description": "Filters experiences by portal.",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "eq": {
+                  "type": "string"
+                }
+              }
+            }
+          },
+          {
+            "in": "query",
+            "name": "state",
+            "description": "Filters experiences by state, only usable when portal_id=YOUR_PORTAL_ID.",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "eq": {
+                  "type": "string",
+                  "enum": ["draft", "published"]
+                }
+              }
+            }
+          },
+          {
+            "in": "query",
+            "name": "sort",
+            "schema": {
+              "type": "string",
+              "enum": ["created_at", "updated_at"]
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Response to a valid request",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "data": {
+                      "type": "array",
+                      "items": {
+                        "$ref": "#/components/schemas/ExperienceIncludes"
+                      }
+                    },
+                    "pagination": {
+                      "$ref": "#/components/schemas/Pagination"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "default": {
+            "description": "Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          }
+        }
+      },
+      "post": {
+        "summary": "Create an experience",
+        "description": "Create an experience.",
+        "operationId": "experienceCreate",
+        "tags": ["Experiences"],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/Experience"
+              }
+            }
+          }
+        },
+        "responses": {
+          "201": {
+            "description": "Response to a valid request",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ExperienceIncludes"
+                }
+              }
+            }
+          },
+          "default": {
+            "description": "Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/experiences/{id}": {
+      "get": {
+        "summary": "Get an experience",
+        "description": "Get an experience by ID.",
+        "operationId": "experienceGet",
+        "tags": ["Experiences"],
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "description": "The id of the experience to retrieve",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Response to a valid request",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ExperienceIncludes"
+                }
+              }
+            }
+          },
+          "default": {
+            "description": "Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          }
+        }
+      },
+      "patch": {
+        "summary": "Update an experience",
+        "description": "Update an experience by ID.",
+        "operationId": "experienceUpdate",
+        "tags": ["Experiences"],
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "description": "The id of the experience to update",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/Experience"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Response to a valid request",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ExperienceIncludes"
+                }
+              }
+            }
+          },
+          "default": {
+            "description": "Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          }
+        }
+      },
+      "delete": {
+        "summary": "Delete an experience",
+        "description": "Delete an experience by ID.",
+        "operationId": "experienceDelete",
+        "tags": ["Experiences"],
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "description": "The id of the experience to delete.",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Response to a valid request",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Deleted"
+                },
+                "example": {
+                  "id": "123ABC",
+                  "object": "Experience",
+                  "deleted": true
+                }
+              }
+            }
+          },
+          "default": {
+            "description": "Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/experiences/{id}/publish": {
+      "post": {
+        "summary": "Publish an experience",
+        "description": "Publish an experience by ID.",
+        "operationId": "experiencePublish",
+        "tags": ["Experiences"],
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "description": "The id of the experience to publish",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Response to a valid request",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ExperienceIncludes"
+                }
+              }
+            }
+          },
+          "default": {
+            "description": "Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/feedbacks/{id}": {
+      "get": {
+        "summary": "Get a feedback",
+        "description": "Get a feedback by ID.",
+        "operationId": "feedbackGet",
+        "tags": ["Feedback"],
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "description": "The id of the feedback to retrieve",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Response to a valid request",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/FeedbackIncludes"
+                }
+              }
+            }
+          },
+          "default": {
+            "description": "Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/invites": {
+      "get": {
+        "summary": "List invites",
+        "description": "List invites.",
+        "operationId": "inviteList",
+        "tags": ["Invites"],
+        "parameters": [
+          {
+            "in": "query",
+            "name": "inviteable_id",
+            "description": "Filters invites by their inviteable id (for a company this would be the company's id).",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "eq": {
+                  "type": "string"
+                }
+              }
+            }
+          },
+          {
+            "in": "query",
+            "name": "inviteable_type",
+            "description": "Filters invites by inviteable type.",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "eq": {
+                  "type": "string"
+                }
+              }
+            }
+          },
+          {
+            "in": "query",
+            "name": "state",
+            "description": "Filters invites by state.",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "eq": {
+                  "type": "string",
+                  "enum": ["accepted", "pending"]
+                }
+              }
+            }
+          },
+          {
+            "in": "query",
+            "name": "sort",
+            "schema": {
+              "type": "string",
+              "enum": ["created_at", "email"]
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Response to a valid request",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "data": {
+                      "type": "array",
+                      "items": {
+                        "$ref": "#/components/schemas/Invite"
+                      }
+                    },
+                    "pagination": {
+                      "$ref": "#/components/schemas/Pagination"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "default": {
+            "description": "Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          }
+        }
+      },
+      "post": {
+        "summary": "Create an invite",
+        "description": "Create an invite.",
+        "operationId": "inviteCreate",
+        "tags": ["Invites"],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/Invite"
+              }
+            }
+          }
+        },
+        "responses": {
+          "201": {
+            "description": "Response to a valid request",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/InviteIncludes"
+                }
+              }
+            }
+          },
+          "default": {
+            "description": "Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/invites/{id}": {
+      "get": {
+        "summary": "Get an invite",
+        "description": "Get an invite by ID.",
+        "operationId": "inviteGet",
+        "tags": ["Invites"],
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "description": "The id of the invite to retrieve",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Response to a valid request",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/InviteIncludes"
+                }
+              }
+            }
+          },
+          "default": {
+            "description": "Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/matches/{id}": {
+      "get": {
+        "summary": "Get a match",
+        "description": "Get a match by ID.",
+        "operationId": "matchGet",
+        "tags": ["Matches"],
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "description": "The id of the match to retrieve",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Response to a valid request",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "allOf": [
+                    {
+                      "$ref": "#/components/schemas/Match"
+                    }
+                  ],
+                  "example": {
+                    "applications_due_at": "2017-09-28T22:39:11-06:00",
+                    "created_at": "2017-09-28T22:39:11-06:00",
+                    "end_date": "2020-05-22T12:13:11-06:00",
+                    "experience_id": "8mepY2aX",
+                    "id": "8mepY2aX",
+                    "learners_maximum": 5,
+                    "match_request_id": "8mepY2aX",
+                    "object": "Match",
+                    "project_id": "8mepY2aX",
+                    "question_set_id": "8mepY2aX",
+                    "start_date": "2020-05-22T12:13:11-06:00",
+                    "teams_maximum": 4,
+                    "updated_at": "2020-05-22T12:13:11-06:00"
+                  }
+                }
+              }
+            }
+          },
+          "default": {
+            "description": "Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/match_requests/{id}": {
+      "get": {
+        "summary": "Get a match request",
+        "description": "Get a match request by ID.",
+        "operationId": "matchRequestGet",
+        "tags": ["Match Requests"],
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "description": "The id of the match request to retrieve",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Response to a valid request",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/MatchRequestIncludes"
+                }
+              }
+            }
+          },
+          "default": {
+            "description": "Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/match_requests/{id}/experience_accept": {
+      "post": {
+        "summary": "Accept a match request for the experience",
+        "description": "Accept a match request for the experience by ID.",
+        "operationId": "matchRequestExperienceAccept",
+        "tags": ["Match Requests"],
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "description": "The id of the match request.",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Response to a valid request",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/MatchRequestIncludes"
+                }
+              }
+            }
+          },
+          "default": {
+            "description": "Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/match_requests/{id}/decline": {
+      "post": {
+        "summary": "Decline a match request",
+        "description": "Decline a match request by ID.",
+        "operationId": "matchRequestDecline",
+        "tags": ["Match Requests"],
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "description": "The id of the match request.",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "decline_reason": {
+                    "type": "string",
+                    "description": "The reason for declining the match request.",
+                    "enum": [
+                      "company_attributes",
+                      "company_matches_maximum",
+                      "experience_company_matches_maximum",
+                      "experience_scope",
+                      "full",
+                      "learner_level",
+                      "project_matches_maximum",
+                      "project_scope",
+                      "other"
+                    ]
+                  },
+                  "recipient_notes": {
+                    "type": "string",
+                    "description": "Additional notes why the match request was declined."
+                  }
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Response to a valid request",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/MatchRequestIncludes"
+                }
+              }
+            }
+          },
+          "default": {
+            "description": "Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/match_requests/{id}/project_accept": {
+      "post": {
+        "summary": "Accept a match request for the project",
+        "description": "Accept a match request for the project by ID.",
+        "operationId": "matchRequestProjectAccept",
+        "tags": ["Match Requests"],
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "description": "The id of the match request.",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Response to a valid request",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/MatchRequestIncludes"
+                }
+              }
+            }
+          },
+          "default": {
+            "description": "Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/members": {
+      "get": {
+        "summary": "List members",
+        "description": "List members.",
+        "operationId": "memberList",
+        "tags": ["Members"],
+        "parameters": [
+          {
+            "in": "query",
+            "name": "memberable_id",
+            "description": "Filters members by their entity id (for a project this would be the project's id).",
+            "required": true,
+            "schema": {
+              "type": "object",
+              "properties": {
+                "eq": {
+                  "type": "string"
+                }
+              }
+            }
+          },
+          {
+            "in": "query",
+            "name": "memberable_type",
+            "description": "Filters members by object type.",
+            "required": true,
+            "schema": {
+              "type": "object",
+              "properties": {
+                "eq": {
+                  "type": "string"
+                }
+              }
+            }
+          },
+          {
+            "in": "query",
+            "name": "user_id",
+            "description": "Filters members by user_id.",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "eq": {
+                  "type": "string"
+                }
+              }
+            }
+          },
+          {
+            "in": "query",
+            "name": "sort",
+            "schema": {
+              "type": "string",
+              "enum": ["created_at", "updated_at"]
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Response to a valid request",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "data": {
+                      "type": "array",
+                      "items": {
+                        "$ref": "#/components/schemas/MemberIncludes"
+                      }
+                    },
+                    "pagination": {
+                      "$ref": "#/components/schemas/Pagination"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "default": {
+            "description": "Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/portals": {
+      "get": {
+        "summary": "List portals",
+        "description": "List portals.",
+        "operationId": "portalList",
+        "tags": ["Portals"],
+        "parameters": [
+          {
+            "in": "query",
+            "name": "name",
+            "description": "Filters portals by name \"eq\" (case insensitive).",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "eq": {
+                  "type": "string"
+                }
+              }
+            }
+          },
+          {
+            "in": "query",
+            "name": "sort",
+            "schema": {
+              "type": "string",
+              "enum": ["created_at", "updated_at"]
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Response to a valid request",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "data": {
+                      "type": "array",
+                      "items": {
+                        "$ref": "#/components/schemas/PortalIncludes"
+                      }
+                    },
+                    "pagination": {
+                      "$ref": "#/components/schemas/Pagination"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "default": {
+            "description": "Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/portals/{id}": {
+      "get": {
+        "summary": "Get a portal",
+        "description": "Get a portal by ID.",
+        "operationId": "portalGet",
+        "tags": ["Portals"],
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "description": "The id of the portal to retrieve",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Response to a valid request",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/PortalIncludes"
+                }
+              }
+            }
+          },
+          "default": {
+            "description": "Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/portal_passes": {
+      "get": {
+        "summary": "List portal passes",
+        "description": "List portal passes.",
+        "operationId": "portalPassList",
+        "tags": ["Portal Passes"],
+        "parameters": [
+          {
+            "in": "query",
+            "name": "company_id",
+            "description": "Filters portal passes by company.",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "eq": {
+                  "type": "string"
+                }
+              }
+            }
+          },
+          {
+            "in": "query",
+            "name": "portal_id",
+            "description": "Filters portal passes by portal.",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "eq": {
+                  "type": "string"
+                }
+              }
+            }
+          },
+          {
+            "in": "query",
+            "name": "sort",
+            "schema": {
+              "type": "string",
+              "enum": ["created_at"]
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Response to a valid request",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "data": {
+                      "type": "array",
+                      "items": {
+                        "$ref": "#/components/schemas/PortalPassIncludes"
+                      }
+                    },
+                    "pagination": {
+                      "$ref": "#/components/schemas/Pagination"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "default": {
+            "description": "Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/portal_passes/{id}": {
+      "get": {
+        "summary": "Get a portal pass",
+        "description": "Get a portal pass by ID.",
+        "operationId": "portalPassGet",
+        "tags": ["Portal Passes"],
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "description": "The id of the portal pass to retrieve",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Response to a valid request",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/PortalPassIncludes"
+                }
+              }
+            }
+          },
+          "default": {
+            "description": "Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/portal_pass_invites": {
+      "get": {
+        "summary": "List portal pass invites",
+        "description": "List portal pass invites.",
+        "operationId": "portalPassInviteList",
+        "tags": ["Portal Pass Invites"],
+        "parameters": [
+          {
+            "in": "query",
+            "name": "portal_id",
+            "description": "Filters portal pass invites by their portal id.",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "eq": {
+                  "type": "string"
+                }
+              }
+            }
+          },
+          {
+            "in": "query",
+            "name": "state",
+            "description": "Filters portal pass invites by state.",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "eq": {
+                  "type": "string"
+                }
+              }
+            }
+          },
+          {
+            "in": "query",
+            "name": "sort",
+            "schema": {
+              "type": "string",
+              "enum": ["created_at", "updated_at"]
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Response to a valid request",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "data": {
+                      "type": "array",
+                      "items": {
+                        "$ref": "#/components/schemas/PortalPassInviteIncludes"
+                      }
+                    },
+                    "pagination": {
+                      "$ref": "#/components/schemas/Pagination"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "default": {
+            "description": "Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          }
+        }
+      },
+      "post": {
+        "summary": "Create a portal pass invite",
+        "description": "Create a portal pass invite.",
+        "operationId": "portalPassInviteCreate",
+        "tags": ["Portal Pass Invites"],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/PortalPassInvite"
+              }
+            }
+          }
+        },
+        "responses": {
+          "201": {
+            "description": "Response to a valid request",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/PortalPassInviteIncludes"
+                }
+              }
+            }
+          },
+          "default": {
+            "description": "Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/portal_pass_invites/{id}": {
+      "get": {
+        "summary": "Get a portal pass invite",
+        "description": "Get a portal pass invite by ID.",
+        "operationId": "portalPassInviteGet",
+        "tags": ["Portal Pass Invites"],
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "description": "The id of the portal pass invite to retrieve",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Response to a valid request",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/PortalPassInviteIncludes"
+                }
+              }
+            }
+          },
+          "default": {
+            "description": "Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/projects": {
+      "get": {
+        "summary": "List projects",
+        "description": "List projects.",
+        "operationId": "projectList",
+        "tags": ["Projects"],
+        "parameters": [
+          {
+            "in": "query",
+            "name": "company_id",
+            "description": "Filters projects by company.",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "eq": {
+                  "type": "string"
+                }
+              }
+            }
+          },
+          {
+            "in": "query",
+            "name": "state",
+            "description": "Filters projects by state.",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "eq": {
+                  "type": "string",
+                  "enum": ["draft", "published"]
+                }
+              }
+            }
+          },
+          {
+            "in": "query",
+            "name": "sort",
+            "schema": {
+              "type": "string",
+              "enum": ["created_at", "updated_at"]
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Response to a valid request",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "data": {
+                      "type": "array",
+                      "items": {
+                        "$ref": "#/components/schemas/ProjectIncludes"
+                      }
+                    },
+                    "pagination": {
+                      "$ref": "#/components/schemas/Pagination"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "default": {
+            "description": "Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          }
+        }
+      },
+      "post": {
+        "summary": "Create a project",
+        "description": "Create a project.",
+        "operationId": "projectCreate",
+        "tags": ["Projects"],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/Project"
+              }
+            }
+          }
+        },
+        "responses": {
+          "201": {
+            "description": "Response to a valid request",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ProjectIncludes"
+                }
+              }
+            }
+          },
+          "default": {
+            "description": "Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/projects/{id}": {
+      "get": {
+        "summary": "Get a project",
+        "description": "Get a project by ID.",
+        "operationId": "projectGet",
+        "tags": ["Projects"],
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "description": "The id of the project to retrieve",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Response to a valid request",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ProjectIncludes"
+                }
+              }
+            }
+          },
+          "default": {
+            "description": "Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          }
+        }
+      },
+      "patch": {
+        "summary": "Update a project",
+        "description": "Update a project by ID.",
+        "operationId": "projectUpdate",
+        "tags": ["Projects"],
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "description": "The id of the project to update",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/Project"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Response to a valid request",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ProjectIncludes"
+                }
+              }
+            }
+          },
+          "default": {
+            "description": "Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          }
+        }
+      },
+      "delete": {
+        "summary": "Delete a project",
+        "description": "Delete a project by ID.",
+        "operationId": "projectDelete",
+        "tags": ["Projects"],
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "description": "The id of the project to delete.",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Response to a valid request",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "allOf": [
+                    {
+                      "$ref": "#/components/schemas/Deleted"
+                    },
+                    {
+                      "type": "object",
+                      "properties": {
+                        "object": {
+                          "type": "string",
+                          "example": "Project",
+                          "description": "The resource type which was deleted."
+                        }
+                      }
+                    }
+                  ]
+                }
+              }
+            }
+          },
+          "default": {
+            "description": "Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/projects/{id}/publish": {
+      "post": {
+        "summary": "Publish a project",
+        "description": "Publish a project by ID.",
+        "operationId": "projectPublish",
+        "tags": ["Projects"],
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "description": "The id of the project to publish",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Response to a valid request",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ProjectIncludes"
+                }
+              }
+            }
+          },
+          "default": {
+            "description": "Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/project_templates": {
+      "get": {
+        "summary": "List project templates",
+        "description": "List project templates.",
+        "operationId": "projectTemplateList",
+        "tags": ["Project Templates"],
+        "parameters": [
+          {
+            "in": "query",
+            "name": "name",
+            "description": "Filters project templates by name \"eq\" (case insensitive).",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "eq": {
+                  "type": "string"
+                }
+              }
+            }
+          },
+          {
+            "in": "query",
+            "name": "sort",
+            "schema": {
+              "type": "string",
+              "enum": ["created_at", "updated_at"]
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Response to a valid request",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "data": {
+                      "type": "array",
+                      "items": {
+                        "$ref": "#/components/schemas/ProjectTemplateIncludes"
+                      }
+                    },
+                    "pagination": {
+                      "$ref": "#/components/schemas/Pagination"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "default": {
+            "description": "Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/project_templates/{id}": {
+      "get": {
+        "summary": "Get a project template",
+        "description": "Get a project template by ID.",
+        "operationId": "projectTemplateGet",
+        "tags": ["Project Templates"],
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "description": "The id of the project template to retrieve",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Response to a valid request",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ProjectTemplateIncludes"
+                }
+              }
+            }
+          },
+          "default": {
+            "description": "Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/teams": {
+      "post": {
+        "summary": "Create a team",
+        "description": "Create a team.",
+        "operationId": "teamCreate",
+        "tags": ["Teams"],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/Team"
+              }
+            }
+          }
+        },
+        "responses": {
+          "201": {
+            "description": "Response to a valid request",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/TeamIncludes"
+                }
+              }
+            }
+          },
+          "default": {
+            "description": "Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/teams/{id}": {
+      "get": {
+        "summary": "Get a team",
+        "description": "Get a team by ID.",
+        "operationId": "teamGet",
+        "tags": ["Teams"],
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "description": "The id of the team to retrieve",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Response to a valid request",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/TeamIncludes"
+                }
+              }
+            }
+          },
+          "default": {
+            "description": "Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/users/{id}": {
+      "get": {
+        "summary": "Get a user",
+        "description": "Get a user by ID.",
+        "operationId": "userGet",
+        "tags": ["Users"],
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "description": "The id of the user to retrieve",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Response to a valid request",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/UserIncludes"
+                }
+              }
+            }
+          },
+          "default": {
+            "description": "Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  },
+  "webhooks": {
+    "experience.created": {
+      "post": {
+        "operationId": "webhook-experience-created",
+        "summary": "Experience created",
+        "description": "Webhook for the `experience.created` event.",
+        "tags": ["Experience events"],
+        "parameters": [
+          {
+            "name": "X-Riipen-Signature",
+            "in": "header",
+            "description": "An HMAC that you should use to check that requests are authentic. Compare this value with your own digest, computed from the request body and your webhook secret.",
+            "schema": {
+              "type": "string",
+              "examples": [
+                "t=1709686052,v1=n3ulUDfqGSkzarlvyeg2oZe3qx3sQjbSno5s7Icx4dy8CbTPqu8xvQ5ZyEJy"
+              ]
+            }
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "type": {
+                    "type": "string",
+                    "const": "experience.created",
+                    "description": "The type of event."
+                  }
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Response to a valid request"
+          }
+        }
+      }
+    }
+  },
+  "tags": [
+    {
+      "name": "Companies"
+    },
+    {
+      "name": "Experiences"
+    },
+    {
+      "name": "Feedback"
+    },
+    {
+      "name": "Invites"
+    },
+    {
+      "name": "Matches"
+    },
+    {
+      "name": "Match Requests"
+    },
+    {
+      "name": "Members"
+    },
+    {
+      "name": "Portals"
+    },
+    {
+      "name": "Portal Passes"
+    },
+    {
+      "name": "Portal Pass Invites"
+    },
+    {
+      "name": "Projects"
+    },
+    {
+      "name": "Teams"
+    },
+    {
+      "name": "Users"
+    }
+  ],
+  "components": {
+    "parameters": {
+      "Limit": {
+        "name": "limit",
+        "in": "query",
+        "description": "Number of items to return.",
+        "required": false,
+        "schema": {
+          "default": 10,
+          "format": "int32",
+          "maximum": 30,
+          "minimum": 1,
+          "type": "integer"
+        }
+      },
+      "Offset": {
+        "name": "offset",
+        "in": "query",
+        "description": "Number of items to skip before returning the results.",
+        "required": false,
+        "schema": {
+          "default": 0,
+          "format": "int32",
+          "minimum": 0,
+          "type": "integer"
+        }
+      }
+    },
+    "schemas": {
+      "Deleted": {
+        "type": "object",
+        "required": ["deleted", "id", "object"],
+        "properties": {
+          "id": {
+            "type": "string",
+            "example": "123ABC",
+            "description": "The ID of the deleted resource."
+          },
+          "object": {
+            "type": "string",
+            "example": "Experience",
+            "description": "The resource type which was deleted."
+          },
+          "deleted": {
+            "type": "boolean",
+            "example": true,
+            "description": "Whether the resource has been deleted."
+          }
+        }
+      },
+      "Error": {
+        "type": "object",
+        "required": ["id", "message", "status"],
+        "properties": {
+          "errors": {
+            "type": "object"
+          },
+          "id": {
+            "type": "string"
+          },
+          "message": {
+            "type": "string"
+          },
+          "status": {
+            "type": "integer",
+            "format": "int64"
+          }
+        }
+      },
+      "Pagination": {
+        "type": "object",
+        "required": ["limit", "offset", "has_more"],
+        "properties": {
+          "limit": {
+            "type": "integer",
+            "format": "int64",
+            "example": 20
+          },
+          "offset": {
+            "type": "integer",
+            "format": "int64",
+            "example": 0
+          },
+          "has_more": {
+            "type": "boolean",
+            "example": false
+          }
+        }
+      },
+      "Achievement": {
+        "type": "object",
+        "required": ["id"],
+        "properties": {
+          "action": {
+            "type": "string",
+            "description": "The action needed to award the achievement.",
+            "enum": ["created", "published"]
+          },
+          "conditions": {
+            "type": "string",
+            "description": "A JSON formatted string of conditions needing to be met on the target to award the achievement."
+          },
+          "count": {
+            "type": "integer",
+            "description": "The number of events needed to be completed before the achievement is awarded."
+          },
+          "created_at": {
+            "type": "string",
+            "description": "When the achievement was created on Riipen.",
+            "format": "date-time",
+            "readOnly": true
+          },
+          "description": {
+            "type": "string",
+            "description": "A description of the achievement."
+          },
+          "id": {
+            "type": "string",
+            "description": "The unique ID for the achievement.",
+            "readOnly": true
+          },
+          "name": {
+            "type": "string",
+            "description": "The name of the achievement."
+          },
+          "owner_id": {
+            "type": "string",
+            "description": "The ID of the owning entity of the achievement."
+          },
+          "owner_type": {
+            "type": "string",
+            "description": "The type of the owning entity of the achievement.",
+            "enum": ["Portal"]
+          },
+          "state": {
+            "type": "string",
+            "description": "The state of the achievement.",
+            "enum": ["active", "retired"],
+            "readOnly": true
+          },
+          "target": {
+            "type": "string",
+            "description": "The target entity for the action to be performed to award the achievement.",
+            "enum": [
+              "Experience",
+              "Feedback",
+              "FeedbackRecipient",
+              "Invite",
+              "Kickoff",
+              "Match",
+              "MatchRequest",
+              "Member",
+              "Message",
+              "Milestone",
+              "PortalPass",
+              "PortalPassInvite",
+              "PortalProject",
+              "Project",
+              "Submission"
+            ]
+          },
+          "tier": {
+            "type": "integer",
+            "description": "The tier between 1-3 of the achievement."
+          },
+          "updated_at": {
+            "type": "string",
+            "description": "When the achievement was last updated on Riipen.",
+            "format": "date-time",
+            "readOnly": true
+          }
+        }
+      },
+      "AchievementProgress": {
+        "type": "object",
+        "required": ["id"],
+        "properties": {
+          "count": {
+            "type": "integer",
+            "description": "The number of events completed as progress towards the achievement being awarded."
+          },
+          "created_at": {
+            "type": "string",
+            "description": "When the achievement progress was created on Riipen.",
+            "format": "date-time",
+            "readOnly": true
+          },
+          "id": {
+            "type": "string",
+            "description": "The unique id for the achievement progress.",
+            "readOnly": true
+          },
+          "state": {
+            "type": "string",
+            "description": "The state of the achievement progress.",
+            "enum": ["awarded", "in_progress"],
+            "readOnly": true
+          },
+          "updated_at": {
+            "type": "string",
+            "description": "When the achievement was last updated on Riipen.",
+            "format": "date-time",
+            "readOnly": true
+          }
+        }
+      },
+      "Answer": {
+        "type": "object",
+        "required": ["id"],
+        "properties": {
+          "created_at": {
+            "type": "string",
+            "description": "When the answer was created on Riipen."
+          },
+          "answer_set_id": {
+            "type": "string",
+            "description": "The id of the answer set the answer belongs to."
+          },
+          "data": {
+            "type": "jsonb",
+            "description": "The data associated with the answer."
+          },
+          "id": {
+            "type": "string",
+            "description": "The unique id for the answer."
+          },
+          "updated_at": {
+            "type": "string",
+            "description": "When the answer was last updated on Riipen."
+          }
+        }
+      },
+      "AnswerSet": {
+        "type": "object",
+        "required": ["id"],
+        "properties": {
+          "created_at": {
+            "type": "string",
+            "description": "When the answer set was created on Riipen."
+          },
+          "id": {
+            "type": "string",
+            "description": "The unique id for the answer set."
+          },
+          "question_set_id": {
+            "type": "string",
+            "description": "The id of the question set the answer set belongs to."
+          },
+          "updated_at": {
+            "type": "string",
+            "description": "When the answer set was last updated on Riipen."
+          }
+        }
+      },
+      "Company": {
+        "type": "object",
+        "required": ["id"],
+        "properties": {
+          "active_at": {
+            "type": "string",
+            "description": "When the company was active.",
+            "format": "date-time",
+            "readOnly": true
+          },
+          "avatar_url": {
+            "type": "string",
+            "description": "The company's avatar image data url.",
+            "format": "uri",
+            "readOnly": true
+          },
+          "category_list": {
+            "type": "array",
+            "description": "An array of relevant categories tagged by the company.",
+            "items": {
+              "type": "string"
+            }
+          },
+          "cover_url": {
+            "type": "string",
+            "description": "The company's cover image data url.",
+            "format": "uri",
+            "readOnly": true
+          },
+          "created_at": {
+            "type": "string",
+            "description": "When the company was created.",
+            "format": "date-time",
+            "readOnly": true
+          },
+          "description": {
+            "type": "string",
+            "description": "A written description for the company."
+          },
+          "draft_at": {
+            "type": "string",
+            "description": "When the company was a draft.",
+            "format": "date-time",
+            "readOnly": true
+          },
+          "established_year": {
+            "type": "integer",
+            "description": "The year the company was established."
+          },
+          "estimated_size_high": {
+            "type": "integer",
+            "description": "The high end of a companies employee count estimate."
+          },
+          "estimated_size_low": {
+            "type": "integer",
+            "description": "The low end of a companies employee count estimate.",
+            "minimum": 1
+          },
+          "id": {
+            "type": "string",
+            "description": "The unique id for the company.",
+            "readOnly": true
+          },
+          "industry_list": {
+            "type": "array",
+            "description": "An array of relevant industries tagged by the experience.",
+            "items": {
+              "type": "string"
+            }
+          },
+          "locale": {
+            "type": "string",
+            "description": "The locale the company uses."
+          },
+          "location_id": {
+            "type": "string",
+            "description": "The ID of the associated location.",
+            "readOnly": true
+          },
+          "magic_token_enabled": {
+            "type": "boolean",
+            "description": "Whether the company has a magic token enabled."
+          },
+          "name": {
+            "type": "string",
+            "description": "The company's name."
+          },
+          "plan_id": {
+            "type": "string",
+            "description": "The ID of the associated plan."
+          },
+          "plan_renewal_date": {
+            "type": "string",
+            "description": "The company's plan renewal date.",
+            "format": "date",
+            "readOnly": true
+          },
+          "state": {
+            "type": "string",
+            "description": "The current state of the company.",
+            "enum": ["active", "draft", "suspended"],
+            "readOnly": true
+          },
+          "suspended_at": {
+            "type": "string",
+            "description": "When the company was suspended.",
+            "format": "date-time",
+            "readOnly": true
+          },
+          "updated_at": {
+            "type": "string",
+            "description": "When the company was last updated.",
+            "format": "date-time",
+            "readOnly": true
+          }
+        }
+      },
+      "Conversation": {
+        "type": "object",
+        "required": ["id"],
+        "properties": {
+          "active_at": {
+            "type": "string",
+            "description": "When the conversation was active on Riipen.",
+            "format": "date-time",
+            "readOnly": true
+          },
+          "created_at": {
+            "type": "string",
+            "description": "When the conversation was created on Riipen.",
+            "format": "date-time",
+            "readOnly": true
+          },
+          "creator_id": {
+            "type": "string",
+            "description": "The creator of the conversation.",
+            "readOnly": true
+          },
+          "id": {
+            "type": "string",
+            "description": "The unique id for the conversation.",
+            "readOnly": true
+          },
+          "locked_at": {
+            "type": "string",
+            "description": "When the conversation was locked on Riipen.",
+            "format": "date-time",
+            "readOnly": true
+          },
+          "name": {
+            "type": "string",
+            "description": "The name of the conversation.",
+            "readOnly": true
+          },
+          "state": {
+            "type": "string",
+            "description": "The current state of the conversation.",
+            "enum": ["active", "locked"],
+            "readOnly": true
+          },
+          "topic_id": {
+            "type": "string",
+            "description": "The id of the conversation topic.",
+            "readOnly": true
+          },
+          "topic_type": {
+            "type": "string",
+            "description": "The type of the conversation topic.",
+            "readOnly": true
+          },
+          "updated_at": {
+            "type": "string",
+            "description": "When the conversation was last updated on Riipen.",
+            "format": "date-time",
+            "readOnly": true
+          }
+        }
+      },
+      "Endorsement": {
+        "type": "object",
+        "required": ["id"],
+        "properties": {
+          "body": {
+            "type": "string",
+            "description": "The body of the endorsement."
+          },
+          "created_at": {
+            "type": "string",
+            "description": "When the endorsement was created on Riipen.",
+            "format": "date-time",
+            "readOnly": true
+          },
+          "feedback_id": {
+            "type": "string",
+            "description": "The id of the feedback the endorsement belongs to."
+          },
+          "id": {
+            "type": "string",
+            "description": "The unique id for the endorsement.",
+            "readOnly": true
+          },
+          "user_id": {
+            "type": "string",
+            "description": "The id of the user the endorsement was created by."
+          },
+          "updated_at": {
+            "type": "string",
+            "description": "When the endorsement was last updated on Riipen.",
+            "format": "date-time",
+            "readOnly": true
+          }
+        }
+      },
+      "Experience": {
+        "type": "object",
+        "required": ["id", "portal_id"],
+        "properties": {
+          "applications_due_at": {
+            "type": "string",
+            "description": "If applications are enabled, when the applications are due for the experience.",
+            "format": "date-time"
+          },
+          "applications_enabled": {
+            "type": "boolean",
+            "description": "Whether learner teams should apply to the experience."
+          },
+          "category_list": {
+            "type": "array",
+            "description": "An array of relevant categories tagged by the experience.",
+            "items": {
+              "type": "string"
+            }
+          },
+          "created_at": {
+            "type": "string",
+            "description": "When the experience was created.",
+            "readOnly": true
+          },
+          "close_date": {
+            "type": "string",
+            "description": "When the experience automatically closes and no longer accepts match requests from projects.",
+            "format": "date-time"
+          },
+          "closed_at": {
+            "type": "string",
+            "description": "When the experience was closed.",
+            "format": "date-time",
+            "readOnly": true
+          },
+          "creator_id": {
+            "type": "string",
+            "description": "ID of the user that created the experience.",
+            "readOnly": true
+          },
+          "dates_controller": {
+            "type": "string",
+            "description": "What entity sets the due dates for the team.",
+            "enum": ["experience", "match", "team"]
+          },
+          "deliverables": {
+            "type": "string",
+            "description": "Rich text HTML string of final experience deliverables."
+          },
+          "details": {
+            "type": "string",
+            "description": "Rich text HTML string of final experience details."
+          },
+          "end_date": {
+            "type": "string",
+            "description": "When the experience ends.",
+            "format": "date-time"
+          },
+          "examples": {
+            "type": "string",
+            "description": "Rich text HTML string of project examples that would match well with this experience."
+          },
+          "faculty": {
+            "type": "string",
+            "description": "The faculty the experience is part of."
+          },
+          "hours": {
+            "type": "integer",
+            "description": "How many hours a learner should spend on the project.",
+            "minimum": 1
+          },
+          "id": {
+            "type": "string",
+            "description": "The ID of the experience.",
+            "readOnly": true
+          },
+          "in_marketplace": {
+            "type": "boolean",
+            "description": "Whether the experience is shown in the marketplace."
+          },
+          "industry_list": {
+            "type": "array",
+            "description": "An array of relevant industries tagged by the experience.",
+            "items": {
+              "type": "string"
+            }
+          },
+          "learner_member_question_set_id": {
+            "type": "string",
+            "description": "ID of the learner member question set associated with the experience.",
+            "readOnly": true
+          },
+          "learner_member_questions_enabled": {
+            "type": "boolean",
+            "description": "Whether learners must answer questions during the application process."
+          },
+          "learner_year_list": {
+            "type": "array",
+            "description": "An array of relevant learner years tagged by the experience.",
+            "items": {
+              "type": "string",
+              "enum": [
+                "first_year",
+                "second_year",
+                "third_year",
+                "fourth_year",
+                "other"
+              ]
+            }
+          },
+          "locale": {
+            "type": "string",
+            "description": "The locale the experience uses."
+          },
+          "location_preference": {
+            "type": "string",
+            "description": "How nearby matching projects should be.",
+            "enum": ["national", "regional", "local"]
+          },
+          "magic_token_enabled": {
+            "type": "boolean",
+            "description": "Whether the experience allows invites via a magic token."
+          },
+          "match_learners_maximum": {
+            "type": "integer",
+            "description": "The maximum number of learners per matched project."
+          },
+          "match_request_expiry_days": {
+            "type": "integer",
+            "description": "The number of days received requests will expire after."
+          },
+          "match_request_pending_maximum": {
+            "type": "integer",
+            "description": "Maximum number of received pending requests."
+          },
+          "match_request_question_set_id": {
+            "type": "string",
+            "description": "The id of the match request question set associated with the experience.",
+            "readOnly": true
+          },
+          "match_request_questions_enabled": {
+            "type": "string",
+            "description": "Whether the project must answer questions from the experience when creating a match request."
+          },
+          "match_teams_maximum": {
+            "type": "integer",
+            "description": "Teams per matched project maximum."
+          },
+          "match_unique_learners_enabled": {
+            "type": "boolean",
+            "description": "Whether learners must be unique per matched project."
+          },
+          "name": {
+            "type": "string",
+            "description": "The display name of the experience."
+          },
+          "open": {
+            "type": "boolean",
+            "description": "Whether the experience is open to requests or not."
+          },
+          "opened_at": {
+            "type": "string",
+            "description": "When the experience was opened.",
+            "readOnly": true
+          },
+          "payment_amount_cents": {
+            "type": "integer",
+            "description": "The amount to pay learners."
+          },
+          "payment_currency": {
+            "type": "string",
+            "description": "The currency to pay learners.",
+            "enum": ["CAD", "USD"]
+          },
+          "payment_required": {
+            "type": "boolean",
+            "description": "Whether payment is required for the experience."
+          },
+          "payment_type": {
+            "type": "string",
+            "description": "Type of payment for the experience.",
+            "enum": ["flat_fee", "hourly", "unpaid"]
+          },
+          "portal_id": {
+            "type": "string",
+            "description": "ID of the associated portal."
+          },
+          "program_code": {
+            "type": "string",
+            "description": "The program code for the experience."
+          },
+          "program_learner_size": {
+            "type": "integer",
+            "description": "The amount of learners for the experience."
+          },
+          "program_name": {
+            "type": "string",
+            "description": "The program name for the experience."
+          },
+          "program_type": {
+            "type": "string",
+            "description": "What type of program this experience is for.",
+            "enum": [
+              "bootcamp",
+              "certificate",
+              "continuing",
+              "diploma",
+              "graduate",
+              "micro",
+              "post",
+              "phd",
+              "undergraduate",
+              "workforce"
+            ]
+          },
+          "projects_wanted": {
+            "type": "integer",
+            "description": "How many projects the experience wants to match with.",
+            "minimum": 1
+          },
+          "published_at": {
+            "type": "string",
+            "description": "When the experience was last published",
+            "readOnly": true
+          },
+          "skill_list": {
+            "type": "array",
+            "description": "An array of relevant skills tagged by the experience.",
+            "items": {
+              "type": "string"
+            }
+          },
+          "start_date": {
+            "type": "string",
+            "description": "When the experience starts."
+          },
+          "state": {
+            "type": "string",
+            "description": "The current state of the experience.",
+            "enum": ["draft", "published"],
+            "readOnly": true
+          },
+          "team_creation": {
+            "type": "string",
+            "description": "How team creation is controlled.",
+            "enum": ["educator_assign", "learner_application", "learner_assign"]
+          },
+          "team_size": {
+            "type": "integer",
+            "description": "The maximum amount of learners per team."
+          },
+          "team_submission_description": {
+            "type": "string",
+            "description": "Rich text HTML string of a description for team submission."
+          },
+          "updated_at": {
+            "type": "string",
+            "description": "When the experience was last updated.",
+            "readOnly": true
+          }
+        }
+      },
+      "Feedback": {
+        "type": "object",
+        "required": ["id"],
+        "properties": {
+          "author_id": {
+            "type": "string",
+            "description": "The id for the author/writer of the feedback.",
+            "readOnly": true
+          },
+          "author_type": {
+            "type": "string",
+            "description": "The type for the author/writer of the feedback.",
+            "readOnly": true
+          },
+          "body_public": {
+            "type": "string",
+            "description": "The private free text feedback written by the author"
+          },
+          "communication_rating": {
+            "type": "number",
+            "description": "The specific rating, a number between 0 and 5 in increments of 0.5.",
+            "format": "float",
+            "maximum": 5,
+            "minimum": 1
+          },
+          "created_at": {
+            "type": "string",
+            "description": "When the feedback was created on Riipen.",
+            "format": "date-time",
+            "readOnly": true
+          },
+          "creativity_rating": {
+            "type": "number",
+            "description": "The specific rating, a number between 0 and 5 in increments of 0.5.",
+            "format": "float",
+            "maximum": 5,
+            "minimum": 1
+          },
+          "creator_id": {
+            "type": "string",
+            "description": "The id of the user that created the feedback.",
+            "readOnly": true
+          },
+          "critical_thinking_rating": {
+            "type": "number",
+            "description": "The specific rating, a number between 0 and 5 in increments of 0.5.",
+            "format": "float",
+            "maximum": 5,
+            "minimum": 1
+          },
+          "draft_at": {
+            "type": "string",
+            "description": "When the feedback was a draft on Riipen.",
+            "format": "date-time",
+            "readOnly": true
+          },
+          "employability_rating": {
+            "type": "number",
+            "description": "The specific rating, a number between 0 and 5 in increments of 0.5.",
+            "format": "float",
+            "maximum": 5,
+            "minimum": 1
+          },
+          "id": {
+            "type": "string",
+            "description": "The unique id for the feedback.",
+            "readOnly": true
+          },
+          "match_id": {
+            "type": "string",
+            "description": "The id of the match associated with the feedback.",
+            "readOnly": true
+          },
+          "preparedness_rating": {
+            "type": "number",
+            "description": "The specific rating, a number between 0 and 5 in increments of 0.5.",
+            "format": "float",
+            "maximum": 5,
+            "minimum": 1
+          },
+          "professionalism_rating": {
+            "type": "number",
+            "description": "The specific rating, a number between 0 and 5 in increments of 0.5.",
+            "format": "float",
+            "maximum": 5,
+            "minimum": 1
+          },
+          "published_at": {
+            "type": "string",
+            "description": "When the feedback was published on Riipen.",
+            "format": "date-time",
+            "readOnly": true
+          },
+          "rating": {
+            "type": "number",
+            "description": "The overall rating, a number between 0 and 5 in increments of 0.5.",
+            "format": "float",
+            "maximum": 5,
+            "minimum": 1
+          },
+          "recipient_id": {
+            "type": "string",
+            "description": "The id for the subject of the feedback,"
+          },
+          "recipient_response": {
+            "type": "string",
+            "description": "The response from the recipient."
+          },
+          "recipient_type": {
+            "type": "string",
+            "description": "Specifies what type of object the `recipient_id` field is for."
+          },
+          "responsiveness_rating": {
+            "type": "number",
+            "description": "The specific rating, a number between 0 and 5 in increments of 0.5.",
+            "format": "float"
+          },
+          "state": {
+            "type": "string",
+            "description": "The state of the feedback.",
+            "enum": ["draft", "published"],
+            "readOnly": true
+          },
+          "type": {
+            "type": "string",
+            "description": "The type of feedback."
+          },
+          "updated_at": {
+            "type": "string",
+            "description": "When the feedback was last updated on Riipen.",
+            "format": "date-time",
+            "readOnly": true
+          }
+        }
+      },
+      "Invite": {
+        "type": "object",
+        "required": ["id"],
+        "properties": {
+          "accepted_at": {
+            "type": "string",
+            "description": "When the invite was accepted on Riipen.",
+            "format": "date-time",
+            "readOnly": true
+          },
+          "body": {
+            "type": "string",
+            "description": "The content of the invite."
+          },
+          "created_at": {
+            "type": "string",
+            "description": "When the invite was created on Riipen.",
+            "format": "date-time",
+            "readOnly": true
+          },
+          "email": {
+            "type": "string",
+            "description": "The email address invited to Riipen.",
+            "format": "email"
+          },
+          "id": {
+            "type": "string",
+            "description": "The unique id for the invite",
+            "readOnly": true
+          },
+          "inviteable_id": {
+            "type": "string",
+            "description": "The id of the inviteable this invite is for."
+          },
+          "inviteable_type": {
+            "type": "string",
+            "description": "The model this invite is for."
+          },
+          "pending_at": {
+            "type": "string",
+            "description": "When the invite was pending on Riipen.",
+            "format": "date-time",
+            "readOnly": true
+          },
+          "role_id": {
+            "type": "string",
+            "description": "The id of the role to generate from this invite."
+          },
+          "state": {
+            "type": "string",
+            "description": "The current state of the invite.",
+            "enum": ["accepted", "pending"],
+            "readOnly": true
+          },
+          "updated_at": {
+            "type": "string",
+            "description": "When the invite was last updated on Riipen.",
+            "format": "date-time",
+            "readOnly": true
+          },
+          "user_id": {
+            "type": "string",
+            "description": "The user associated with the email.",
+            "readOnly": true
+          }
+        }
+      },
+      "Kickoff": {
+        "type": "object",
+        "required": ["id", "team_id"],
+        "properties": {
+          "created_at": {
+            "type": "string",
+            "description": "When the kickoff was created on Riipen.",
+            "format": "date-time",
+            "readOnly": true
+          },
+          "id": {
+            "type": "string",
+            "description": "The unique id for the kickoff.",
+            "readOnly": true
+          },
+          "team_id": {
+            "type": "string",
+            "description": "The id of the team that created the kickoff."
+          },
+          "updated_at": {
+            "type": "string",
+            "description": "When the kickoff was last updated on Riipen.",
+            "format": "date-time",
+            "readOnly": true
+          }
+        }
+      },
+      "Location": {
+        "type": "object",
+        "required": ["id"],
+        "properties": {
+          "address": {
+            "type": "string",
+            "description": "The address for the location."
+          },
+          "city": {
+            "type": "string",
+            "description": "The city for the location."
+          },
+          "country": {
+            "type": "string",
+            "description": "The country for the location."
+          },
+          "created_at": {
+            "type": "string",
+            "description": "When the location was created on Riipen."
+          },
+          "id": {
+            "type": "string",
+            "description": "The ID of the location.",
+            "readOnly": true
+          },
+          "postal_code": {
+            "type": "string",
+            "description": "The postal code for the location."
+          },
+          "state": {
+            "type": "string",
+            "description": "The state or province for the location."
+          },
+          "updated_at": {
+            "type": "string",
+            "description": "When the location was last updated on Riipen."
+          }
+        }
+      },
+      "Match": {
+        "type": "object",
+        "required": ["id"],
+        "properties": {
+          "applications_due_at": {
+            "type": "string",
+            "description": "When the match applications are due on Riipen.",
+            "format": "date-time"
+          },
+          "created_at": {
+            "type": "string",
+            "description": "When the match was created on Riipen.",
+            "format": "date-time",
+            "readOnly": true
+          },
+          "end_date": {
+            "type": "string",
+            "description": "When the matched experience ends, otherwise null.",
+            "format": "date-time"
+          },
+          "experience_id": {
+            "type": "string",
+            "description": "The unique id for the matched experience object.",
+            "readOnly": true
+          },
+          "id": {
+            "type": "string",
+            "description": "The unique id for the match.",
+            "readOnly": true
+          },
+          "learners_maximum": {
+            "type": "integer",
+            "description": "The maximum numbers of learners for the match."
+          },
+          "match_request_id": {
+            "type": "string",
+            "description": "The match request id associated with the match.",
+            "readOnly": true
+          },
+          "project_id": {
+            "type": "string",
+            "description": "The unique id for the matched project object.",
+            "readOnly": true
+          },
+          "question_set_id": {
+            "type": "string",
+            "description": "The id of the question set associated with the match.",
+            "readOnly": true
+          },
+          "start_date": {
+            "type": "string",
+            "description": "When the matched experience starts, otherwise null."
+          },
+          "teams_maximum": {
+            "type": "integer",
+            "description": "The maximum numbers of teams for the match."
+          },
+          "updated_at": {
+            "type": "string",
+            "description": "When the match was last updated on Riipen.",
+            "format": "date-time",
+            "readOnly": true
+          }
+        }
+      },
+      "MatchRequest": {
+        "type": "object",
+        "required": ["id"],
+        "properties": {
+          "accepted_at": {
+            "type": "string",
+            "description": "When the match request was accepted on Riipen.",
+            "format": "date-time",
+            "readOnly": true
+          },
+          "cancelled_at": {
+            "type": "string",
+            "description": "When the match request was cancelled on Riipen.",
+            "format": "date-time",
+            "readOnly": true
+          },
+          "company_id": {
+            "type": "string",
+            "description": "The ID of the associated company.",
+            "readOnly": true
+          },
+          "created_at": {
+            "type": "string",
+            "description": "When the match request was created on Riipen.",
+            "format": "date-time",
+            "readOnly": true
+          },
+          "creator_id": {
+            "type": "string",
+            "description": "The id of the user that created the match request.",
+            "readOnly": true
+          },
+          "decline_reason": {
+            "type": "string",
+            "description": "The reason for declining the match request.",
+            "enum": [
+              "company_attributes",
+              "experience_scope",
+              "full",
+              "learner_level",
+              "project_scope",
+              "other"
+            ],
+            "readOnly": true
+          },
+          "declined_at": {
+            "type": "string",
+            "description": "When the match request was declined on Riipen.",
+            "format": "date-time",
+            "readOnly": true
+          },
+          "draft_at": {
+            "type": "string",
+            "description": "When the match request was a draft on Riipen.",
+            "format": "date-time",
+            "readOnly": true
+          },
+          "experience_id": {
+            "type": "string",
+            "description": "The ID of the associated experience.",
+            "readOnly": true
+          },
+          "experience_accepted": {
+            "type": "boolean",
+            "description": "Whether the experience has accepted the match request.",
+            "readOnly": true
+          },
+          "experience_answer_set_id": {
+            "type": "string",
+            "description": "The id of the answer set associated with the experience of the match request.",
+            "readOnly": true
+          },
+          "expired_at": {
+            "type": "string",
+            "description": "When the match request expired on Riipen.",
+            "format": "date-time",
+            "readOnly": true
+          },
+          "expires_at": {
+            "type": "string",
+            "description": "When the match request expires on Riipen.",
+            "format": "date-time"
+          },
+          "expiring_reminder_sent": {
+            "type": "boolean",
+            "description": "Whether the reminder that the match request is expirining was sent.",
+            "readOnly": true
+          },
+          "id": {
+            "type": "string",
+            "description": "The unique id for the match request.",
+            "readOnly": true
+          },
+          "pending_at": {
+            "type": "string",
+            "description": "When the match request was pending on Riipen.",
+            "format": "date-time",
+            "readOnly": true
+          },
+          "project_id": {
+            "type": "string",
+            "description": "The ID of the associated project.",
+            "readOnly": true
+          },
+          "project_accepted": {
+            "type": "boolean",
+            "description": "Whether the project has accepted the match request.",
+            "readOnly": true
+          },
+          "project_answer_set_id": {
+            "type": "string",
+            "description": "The id of the answer set associated with the project of the match request.",
+            "readOnly": true
+          },
+          "recipient_notes": {
+            "type": "string",
+            "description": "The notes from the recipient.",
+            "readOnly": true
+          },
+          "recipient_replied": {
+            "type": "boolean",
+            "description": "Whether the recipient has replied to the match request.",
+            "readOnly": true
+          },
+          "recipient_viewed": {
+            "type": "boolean",
+            "description": "Whether the recipient has viewed to the match request.",
+            "readOnly": true
+          },
+          "requester_notes": {
+            "type": "string",
+            "description": "The notes from the requester."
+          },
+          "requester_type": {
+            "type": "string",
+            "description": "The type of requester.",
+            "enum": ["experience", "project"],
+            "readOnly": true
+          },
+          "state": {
+            "type": "string",
+            "description": "The current status of the match request.",
+            "readOnly": true
+          },
+          "updated_at": {
+            "type": "string",
+            "description": "When the match request was last updated on Riipen.",
+            "format": "date-time",
+            "readOnly": true
+          }
+        }
+      },
+      "Member": {
+        "type": "object",
+        "required": ["id"],
+        "properties": {
+          "created_at": {
+            "type": "string",
+            "description": "When the member was created on Riipen.",
+            "format": "date-time",
+            "readOnly": true
+          },
+          "id": {
+            "type": "string",
+            "description": "The unique id for the member.",
+            "readOnly": true
+          },
+          "primary": {
+            "type": "boolean",
+            "description": "If the user is the primary contact for the memberable object."
+          },
+          "memberable": {
+            "oneOf": [
+              {
+                "$ref": "#/components/schemas/Company"
+              },
+              {
+                "$ref": "#/components/schemas/Conversation"
+              },
+              {
+                "$ref": "#/components/schemas/Experience"
+              },
+              {
+                "$ref": "#/components/schemas/Portal"
+              },
+              {
+                "$ref": "#/components/schemas/Project"
+              }
+            ],
+            "description": "The object the user is a member of.",
+            "readOnly": true,
+            "discriminator": {
+              "propertyName": "memberable_type"
+            }
+          },
+          "memberable_id": {
+            "type": "string",
+            "description": "The id for the subject of the membership.",
+            "readOnly": true
+          },
+          "memberable_type": {
+            "type": "string",
+            "description": "Specifies what type of object the `memberable_id` field is for.",
+            "enum": [
+              "Company",
+              "Converation",
+              "Experience",
+              "Portal",
+              "Project",
+              "Team"
+            ],
+            "readOnly": true
+          },
+          "role_id": {
+            "type": "string",
+            "description": "The ID of the associated role.",
+            "readOnly": true
+          },
+          "updated_at": {
+            "type": "string",
+            "description": "When the member was last updated on Riipen.",
+            "format": "date-time",
+            "readOnly": true
+          },
+          "user_id": {
+            "type": "string",
+            "description": "The ID of the associated user.",
+            "readOnly": true
+          }
+        }
+      },
+      "Plan": {
+        "type": "object",
+        "required": ["id"],
+        "properties": {
+          "active_at": {
+            "type": "string",
+            "description": "When the plan was activated on Riipen.",
+            "format": "date-time",
+            "readOnly": true
+          },
+          "created_at": {
+            "type": "string",
+            "description": "When the plan was created on Riipen.",
+            "format": "date-time",
+            "readOnly": true
+          },
+          "enabled_features": {
+            "type": "array",
+            "description": "An array of enabled features for the plan.",
+            "items": {
+              "type": "string"
+            },
+            "readOnly": true
+          },
+          "id": {
+            "type": "string",
+            "description": "The unique id for the plan.",
+            "readOnly": true
+          },
+          "interval": {
+            "type": "string",
+            "description": "The plan's interval.",
+            "readOnly": true
+          },
+          "interval_count": {
+            "type": "integer",
+            "description": "The plan's interval count.",
+            "readOnly": true
+          },
+          "matches_maximum": {
+            "type": "integer",
+            "description": "The maximum number of matches for the plan.",
+            "readOnly": true
+          },
+          "name": {
+            "type": "string",
+            "description": "The plan's name.",
+            "readOnly": true
+          },
+          "payment_gateway_id": {
+            "type": "string",
+            "description": "The plan's payment gateway id.",
+            "readOnly": true
+          },
+          "price_cents": {
+            "type": "integer",
+            "description": "The plan's price in cents.",
+            "readOnly": true
+          },
+          "price_currency": {
+            "type": "string",
+            "description": "The plan's payment currency.",
+            "readOnly": true
+          },
+          "primary": {
+            "type": "string",
+            "description": "Whether the plan is the primary plan.",
+            "readOnly": true
+          },
+          "retired_at": {
+            "type": "string",
+            "description": "When the plan was retired on Riipen.",
+            "format": "date-time",
+            "readOnly": true
+          },
+          "state": {
+            "type": "string",
+            "description": "The state of the plan.",
+            "enum": ["active", "retired"],
+            "readOnly": true
+          },
+          "trial_period_days": {
+            "type": "integer",
+            "description": "The trial period of the plan.",
+            "readOnly": true
+          },
+          "updated_at": {
+            "type": "string",
+            "description": "When the plan was last updated on Riipen.",
+            "format": "date-time",
+            "readOnly": true
+          }
+        }
+      },
+      "Portal": {
+        "type": "object",
+        "required": ["id"],
+        "properties": {
+          "active_at": {
+            "type": "string",
+            "description": "When the portal was activated on Riipen.",
+            "readOnly": true
+          },
+          "ancestry": {
+            "type": "string",
+            "description": "The id of an ancestor of the portal.",
+            "readOnly": true
+          },
+          "avatar_url": {
+            "type": "string",
+            "description": "A url for the portal's avatar image.",
+            "readOnly": true
+          },
+          "color_primary": {
+            "type": "string",
+            "description": "The primary color for the portal.",
+            "readOnly": true
+          },
+          "color_secondary": {
+            "type": "string",
+            "description": "The secondary color for the portal.",
+            "readOnly": true
+          },
+          "cover_url": {
+            "type": "string",
+            "description": "A url for the portal's banner image.",
+            "readOnly": true
+          },
+          "created_at": {
+            "type": "string",
+            "description": "When the portal was created on Riipen.",
+            "readOnly": true
+          },
+          "description": {
+            "type": "string",
+            "description": "A written description for the portal.",
+            "readOnly": true
+          },
+          "educator_member_requests_enabled": {
+            "type": "boolean",
+            "description": "Whether educator member requests are enabled for the portal.",
+            "readOnly": true
+          },
+          "enabled_features": {
+            "type": "array",
+            "description": "Features enabled for the portal.",
+            "items": {
+              "type": "string"
+            },
+            "readOnly": true
+          },
+          "experiences_in_marketplace": {
+            "type": "boolean",
+            "description": "Whether experiences are enabled in the marketplace for the portal.",
+            "readOnly": true
+          },
+          "experiences_match_request_expiry_days": {
+            "type": "integer",
+            "description": "The match request expiry dates for the portal's experiences.",
+            "readOnly": true
+          },
+          "id": {
+            "type": "string",
+            "description": "The ID of the portal.",
+            "readOnly": true
+          },
+          "learner_experiences_maximum": {
+            "type": "integer",
+            "description": "The max number of learner experiences for the portal.",
+            "readOnly": true
+          },
+          "learner_experiences_remaining": {
+            "type": "integer",
+            "description": "The number of learner experiences remaining.",
+            "readOnly": true
+          },
+          "learner_member_question_set_id": {
+            "type": "string",
+            "description": "The id of the question set for learner members.",
+            "readOnly": true
+          },
+          "learner_member_questions_enabled": {
+            "type": "boolean",
+            "description": "Whether learner member questions are enabled.",
+            "readOnly": true
+          },
+          "learner_member_requests_enabled": {
+            "type": "boolean",
+            "description": "Whether learner member requests are enabled.",
+            "readOnly": true
+          },
+          "locale": {
+            "type": "string",
+            "description": "The locale the company uses.",
+            "readOnly": true
+          },
+          "location_id": {
+            "type": "string",
+            "description": "The ID of the associated location.",
+            "readOnly": true
+          },
+          "marketplace_enabled": {
+            "type": "boolean",
+            "description": "Whether the marketplace is enabled for the portal.",
+            "readOnly": true
+          },
+          "name": {
+            "type": "string",
+            "description": "The portal's display name.",
+            "readOnly": true
+          },
+          "portal_pass_applications_enabled": {
+            "type": "boolean",
+            "description": "Whether portal pass applications are enabled.",
+            "readOnly": true
+          },
+          "portal_pass_question_set_id": {
+            "type": "string",
+            "description": "The id of the question set for portal passes.",
+            "readOnly": true
+          },
+          "portal_pass_questions_enabled": {
+            "type": "boolean",
+            "description": "Whether portal pass questions are enabled.",
+            "readOnly": true
+          },
+          "renewal_date": {
+            "type": "string",
+            "description": "When the portal should be renewed on Riipen.",
+            "readOnly": true
+          },
+          "state": {
+            "type": "string",
+            "description": "The current state of the portal.",
+            "enum": ["active", "suspended"],
+            "readOnly": true
+          },
+          "subdomain": {
+            "type": "string",
+            "description": "A url subdomain (unique to each portal).",
+            "readOnly": true
+          },
+          "vocabulary_id": {
+            "type": "string",
+            "description": "The id of the portal's vocabulary set.",
+            "readOnly": true
+          },
+          "updated_at": {
+            "type": "string",
+            "description": "When the portal was last updated on Riipen.",
+            "readOnly": true
+          }
+        }
+      },
+      "PortalPass": {
+        "type": "object",
+        "required": ["id"],
+        "properties": {
+          "company_id": {
+            "type": "string",
+            "description": "The id of the company this portal pass is for."
+          },
+          "created_at": {
+            "type": "string",
+            "description": "When the portal pass was created on Riipen.",
+            "format": "date-time",
+            "readOnly": true
+          },
+          "id": {
+            "type": "string",
+            "description": "The unique id for the portal pass.",
+            "readOnly": true
+          },
+          "portal_id": {
+            "type": "string",
+            "description": "The id of the portal this portal pass is for."
+          },
+          "updated_at": {
+            "type": "string",
+            "description": "When the portal pass was last updated on Riipen.",
+            "format": "date-time",
+            "readOnly": true
+          }
+        }
+      },
+      "PortalPassInvite": {
+        "type": "object",
+        "required": ["id"],
+        "properties": {
+          "accepted_at": {
+            "type": "string",
+            "description": "When the portal pass invite was accepted on Riipen.",
+            "format": "date-time",
+            "readOnly": true
+          },
+          "company_id": {
+            "type": "string",
+            "description": "The company associated with the email.",
+            "readOnly": true
+          },
+          "company_name": {
+            "type": "string",
+            "description": "The name of the company invited to the portal."
+          },
+          "created_at": {
+            "type": "string",
+            "description": "When the portal pass invite was created on Riipen.",
+            "format": "date-time",
+            "readOnly": true
+          },
+          "creator_id": {
+            "type": "string",
+            "description": "The user who created the portal pass invite.",
+            "readOnly": true
+          },
+          "email": {
+            "type": "string",
+            "description": "The email address invited to create a portal pass."
+          },
+          "id": {
+            "type": "string",
+            "description": "The unique id for the portal pass invite",
+            "readOnly": true
+          },
+          "pending_at": {
+            "type": "string",
+            "description": "When the portal pass invite was pending on Riipen.",
+            "format": "date-time",
+            "readOnly": true
+          },
+          "portal_id": {
+            "type": "string",
+            "description": "The portal to which the company is being invited."
+          },
+          "state": {
+            "type": "string",
+            "description": "The current state of the portal pass invite.",
+            "enum": ["pending", "accepted"],
+            "readOnly": true
+          },
+          "updated_at": {
+            "type": "string",
+            "description": "When the invite was last updated on Riipen.",
+            "format": "date-time",
+            "readOnly": true
+          },
+          "user_id": {
+            "type": "string",
+            "description": "The user associated with the email.",
+            "readOnly": true
+          }
+        }
+      },
+      "Project": {
+        "type": "object",
+        "required": ["id"],
+        "properties": {
+          "category_list": {
+            "type": "array",
+            "description": "An array of relevant categories tagged by the project.",
+            "items": {
+              "type": "string"
+            }
+          },
+          "closed_at": {
+            "type": "string",
+            "description": "When the project was closed on Riipen.",
+            "format": "date-time",
+            "readOnly": true
+          },
+          "company_id": {
+            "type": "string",
+            "description": "The ID of the associated company.",
+            "readOnly": true
+          },
+          "created_at": {
+            "type": "string",
+            "description": "When the project was created on Riipen.",
+            "format": "date-time",
+            "readOnly": true
+          },
+          "creator_id": {
+            "type": "string",
+            "description": "The id of the user that created the project.",
+            "readOnly": true
+          },
+          "details": {
+            "type": "string",
+            "description": "Rich text html string of details for the project."
+          },
+          "deliverables": {
+            "type": "string",
+            "description": "Rich text html string of deliverables for the project."
+          },
+          "id": {
+            "type": "string",
+            "description": "The unique id for the project.",
+            "readOnly": true
+          },
+          "in_marketplace": {
+            "type": "boolean",
+            "description": "Whether the project is listed in the marketplace."
+          },
+          "learner_knowledge": {
+            "type": "string",
+            "description": "Rich text html string of learner knowledge for the project."
+          },
+          "locale": {
+            "type": "string",
+            "description": "The locale the project uses."
+          },
+          "location_preference": {
+            "type": "string",
+            "description": "How nearby matching experiences should be.",
+            "enum": ["local", "regional", "national", "anywhere"]
+          },
+          "magic_token_enabled": {
+            "type": "boolean",
+            "description": "Whether the project allows invites via a magic token."
+          },
+          "mentorship": {
+            "type": "string",
+            "description": "Rich text html string of mentorship for the project."
+          },
+          "name": {
+            "type": "string",
+            "description": "The display name for the project."
+          },
+          "open": {
+            "type": "boolean",
+            "description": "If the project is open to requests or not."
+          },
+          "opened_at": {
+            "type": "string",
+            "description": "When the project was opened on Riipen.",
+            "format": "date-time",
+            "readOnly": true
+          },
+          "payment_amount_cents": {
+            "type": "integer",
+            "description": "The amount to pay learners."
+          },
+          "payment_currency": {
+            "type": "string",
+            "description": "The currency to pay learners.",
+            "enum": ["CAD", "USD"]
+          },
+          "payment_type": {
+            "type": "string",
+            "description": "Type of payment for the project.",
+            "enum": ["flat_fee", "hourly", "unpaid"]
+          },
+          "private_resources": {
+            "type": "boolean",
+            "description": "Whether to display a project's resources."
+          },
+          "project_template_id": {
+            "type": "string",
+            "description": "The id for the template if this project was created with a template.",
+            "readOnly": true
+          },
+          "published_at": {
+            "type": "string",
+            "description": "When the project was last published.",
+            "format": "date-time",
+            "readOnly": true
+          },
+          "resources": {
+            "type": "string",
+            "description": "Rich text HTML string of project resources for learners."
+          },
+          "skill_list": {
+            "type": "array",
+            "description": "An array of relevant skills tagged by the project.",
+            "items": {
+              "type": "string"
+            }
+          },
+          "state": {
+            "type": "string",
+            "description": "The current state of the project.",
+            "enum": ["draft", "published"],
+            "readOnly": true
+          },
+          "updated_at": {
+            "type": "string",
+            "description": "When the project was last updated on Riipen.",
+            "format": "date-time",
+            "readOnly": true
+          }
+        }
+      },
+      "ProjectTemplate": {
+        "type": "object",
+        "required": ["id"],
+        "properties": {
+          "avatar_url": {
+            "type": "string",
+            "description": "The project template's avatar image data url.",
+            "format": "uri",
+            "readOnly": true
+          },
+          "category_list": {
+            "type": "array",
+            "description": "An array of relevant categories tagged by Riipen.",
+            "items": {
+              "type": "string"
+            }
+          },
+          "created_at": {
+            "type": "string",
+            "description": "When the project template was created on Riipen.",
+            "format": "date-time",
+            "readOnly": true
+          },
+          "deliverables": {
+            "type": "string",
+            "description": "Rich text HTML string of suggested project deliverables."
+          },
+          "details": {
+            "type": "string",
+            "description": "Rich text HTML string of suggested project details."
+          },
+          "id": {
+            "type": "string",
+            "description": "The unique id for the project template.",
+            "readOnly": true
+          },
+          "learner_knowledge": {
+            "type": "string",
+            "description": "Rich text HTML string of suggested project learner knowledge."
+          },
+          "locale": {
+            "type": "string",
+            "description": "The locale the company uses."
+          },
+          "mentorship": {
+            "type": "string",
+            "description": "Rich text HTML string of suggested project mentorship."
+          },
+          "name": {
+            "type": "string",
+            "description": "The project template's name."
+          },
+          "owner_id": {
+            "type": "string",
+            "description": "The id of the owner of the project template."
+          },
+          "owner_type": {
+            "type": "string",
+            "description": "The type of the owner of the project template."
+          },
+          "partner_id": {
+            "type": "string",
+            "description": "The id of the partner of the project template."
+          },
+          "resources": {
+            "type": "string",
+            "description": "Rich text HTML string of suggested project resources."
+          },
+          "skill_list": {
+            "type": "array",
+            "description": "An array of relevant skills tagged by Riipen.",
+            "items": {
+              "type": "string"
+            }
+          },
+          "updated_at": {
+            "type": "string",
+            "description": "When the project template was last updated on Riipen.",
+            "format": "date-time",
+            "readOnly": true
+          }
+        }
+      },
+      "Question": {
+        "type": "object",
+        "required": ["id"],
+        "properties": {
+          "created_at": {
+            "type": "string",
+            "description": "When the question was created on Riipen."
+          },
+          "hint": {
+            "type": "string",
+            "description": "A hint for the question."
+          },
+          "id": {
+            "type": "string",
+            "description": "The unique id for the question."
+          },
+          "label": {
+            "type": "string",
+            "description": "A label for the question."
+          },
+          "maximum_choices_required": {
+            "type": "integer",
+            "description": "When question is a multiple choice, the maximum number of choices required."
+          },
+          "miniimum_choices_required": {
+            "type": "integer",
+            "description": "When question is a multiple choice, the miniimum number of choices required."
+          },
+          "position": {
+            "type": "integer",
+            "description": "The question position in the question set."
+          },
+          "question_set_id": {
+            "type": "string",
+            "description": "The id of the question set the question belongs to."
+          },
+          "required": {
+            "type": "boolean",
+            "description": "Whether the question is required."
+          },
+          "type": {
+            "type": "string",
+            "description": "The type of question."
+          },
+          "updated_at": {
+            "type": "string",
+            "description": "When the question was last updated on Riipen."
+          }
+        }
+      },
+      "Role": {
+        "type": "object",
+        "required": ["id"],
+        "properties": {
+          "created_at": {
+            "type": "string",
+            "description": "When the role was created on Riipen.",
+            "format": "date-time",
+            "readOnly": true
+          },
+          "id": {
+            "type": "string",
+            "description": "The unique id for the role.",
+            "readOnly": true
+          },
+          "name": {
+            "type": "string",
+            "description": "The name of the role."
+          },
+          "permissions": {
+            "type": "array",
+            "description": "An array of permissions associated with the role.",
+            "items": {
+              "type": "string"
+            }
+          },
+          "roleable_id": {
+            "type": "string",
+            "description": "The id of the model that the role belongs to."
+          },
+          "roleable_type": {
+            "type": "string",
+            "description": "The type of model that the role belongs to."
+          },
+          "updated_at": {
+            "type": "string",
+            "description": "When the role was last updated on Riipen.",
+            "format": "date-time",
+            "readOnly": true
+          }
+        }
+      },
+      "Submission": {
+        "type": "object",
+        "required": ["id", "team_id"],
+        "properties": {
+          "created_at": {
+            "type": "string",
+            "description": "When the submission was created on Riipen.",
+            "format": "date-time",
+            "readOnly": true
+          },
+          "body": {
+            "type": "string",
+            "description": "The text of the submission."
+          },
+          "id": {
+            "type": "string",
+            "description": "The unique id for the submission.",
+            "readOnly": true
+          },
+          "submittable_id": {
+            "type": "string",
+            "description": "The id of the submittable object."
+          },
+          "submittable_type": {
+            "type": "string",
+            "description": "The type of the submittable object."
+          },
+          "team_id": {
+            "type": "string",
+            "description": "The id of the team associated with the submission."
+          },
+          "updated_at": {
+            "type": "string",
+            "description": "When the submission was last updated on Riipen.",
+            "format": "date-time",
+            "readOnly": true
+          }
+        }
+      },
+      "Survey": {
+        "type": "object",
+        "required": ["id"],
+        "properties": {
+          "id": {
+            "type": "string",
+            "description": "The unique id for the survey."
+          },
+          "created_at": {
+            "type": "string",
+            "description": "When the survey was created on Riipen."
+          },
+          "editable": {
+            "type": "boolean",
+            "description": "Whether the survey can be edited."
+          },
+          "employer_timing": {
+            "type": "string",
+            "description": "For user_type Users::Employer surveys, whether survey timings are based on Match or Team relative dates.",
+            "enum": ["Match", "Team"]
+          },
+          "state": {
+            "type": "string",
+            "description": "The current state of the survey.",
+            "enum": ["draft", "published"]
+          },
+          "title": {
+            "type": "string",
+            "description": "The title of the survey."
+          },
+          "user_type": {
+            "type": "string",
+            "description": "The user type that the survey is intended for.",
+            "enum": ["Users::Employer", "Users::Learner"]
+          },
+          "updated_at": {
+            "type": "string",
+            "description": "When the survey was last updated on Riipen."
+          }
+        }
+      },
+      "SurveyInstance": {
+        "$ref": "#/components/schemas/Achievement"
+      },
+      "SurveyResponse": {
+        "type": "object",
+        "required": ["id"],
+        "properties": {
+          "id": {
+            "type": "string",
+            "description": "The unique id for the survey response."
+          },
+          "created_at": {
+            "type": "string",
+            "description": "When the survey response was created on Riipen."
+          },
+          "published_at": {
+            "type": "string",
+            "description": "When the survey response was published on Riipen."
+          },
+          "state": {
+            "type": "string",
+            "description": "The current state of the survey response.",
+            "enum": ["draft", "published"]
+          },
+          "updated_at": {
+            "type": "string",
+            "description": "When the survey response was last updated on Riipen."
+          }
+        }
+      },
+      "Talent": {
+        "type": "object",
+        "required": ["company_id", "id", "user_id"],
+        "properties": {
+          "company_id": {
+            "type": "string",
+            "description": "The ID of the company associated to the talent."
+          },
+          "created_at": {
+            "type": "string",
+            "description": "When the team was created on Riipen.",
+            "format": "date-time",
+            "readOnly": true
+          },
+          "id": {
+            "type": "string",
+            "description": "The unique ID for the team.",
+            "readOnly": true
+          },
+          "updated_at": {
+            "type": "string",
+            "description": "When the team was last updated on Riipen.",
+            "format": "date-time",
+            "readOnly": true
+          },
+          "user_id": {
+            "type": "string",
+            "description": "The ID of the user associated to the talent."
+          }
+        }
+      },
+      "Team": {
+        "type": "object",
+        "required": ["id"],
+        "properties": {
+          "created_at": {
+            "type": "string",
+            "description": "When the team was created on Riipen.",
+            "format": "date-time",
+            "readOnly": true
+          },
+          "id": {
+            "type": "string",
+            "description": "The unique id for the team.",
+            "readOnly": true
+          },
+          "match_id": {
+            "type": "string",
+            "description": "The id of the match connected to the team."
+          },
+          "name": {
+            "type": "string",
+            "description": "The name of the team."
+          },
+          "updated_at": {
+            "type": "string",
+            "description": "When the team was last updated on Riipen.",
+            "format": "date-time",
+            "readOnly": true
+          }
+        }
+      },
+      "User": {
+        "type": "object",
+        "required": ["id"],
+        "properties": {
+          "avatar_url": {
+            "type": "string",
+            "description": "A url for the user's avatar image.",
+            "readOnly": true
+          },
+          "category_list": {
+            "type": "array",
+            "description": "An array of relevant categories tagged by the user.",
+            "items": {
+              "type": "string"
+            }
+          },
+          "created_at": {
+            "type": "string",
+            "description": "When the user was created on Riipen.",
+            "format": "date-time",
+            "readOnly": true
+          },
+          "email": {
+            "type": "string",
+            "description": "The user's primary email address.",
+            "readOnly": true
+          },
+          "first_name": {
+            "type": "string",
+            "description": "The user's first / given name."
+          },
+          "id": {
+            "type": "string",
+            "description": "The unique id for the user.",
+            "readOnly": true
+          },
+          "location_id": {
+            "type": "string",
+            "description": "The ID of the associated location.",
+            "readOnly": true
+          },
+          "locale": {
+            "type": "string",
+            "description": "The locale the user uses."
+          },
+          "last_name": {
+            "type": "string",
+            "description": "The user's last name."
+          },
+          "pronoun_list": {
+            "type": "array",
+            "description": "An array of the user's preferred pronouns.",
+            "items": {
+              "type": "string"
+            }
+          },
+          "state": {
+            "type": "string",
+            "description": "The current state of the user.",
+            "enum": ["active", "suspended"],
+            "readOnly": true
+          },
+          "type": {
+            "type": "string",
+            "description": "The type of user.",
+            "enum": ["Users::Learner", "Users::Employer", "Users::Educator"],
+            "readOnly": true
+          },
+          "updated_at": {
+            "type": "string",
+            "description": "When the user was last updated on Riipen.",
+            "format": "date-time",
+            "readOnly": true
+          }
+        }
+      },
+      "AchievementProgressIncludes": {
+        "allOf": [
+          {
+            "$ref": "#/components/schemas/AchievementProgress"
+          },
+          {
+            "type": "object",
+            "properties": {
+              "achievement": {
+                "$ref": "#/components/schemas/Achievement"
+              },
+              "user": {
+                "$ref": "#/components/schemas/User"
+              }
+            }
+          }
+        ],
+        "example": {
+          "achievement": {
+            "id": "8mepY2aM",
+            "object": "Achievement",
+            "action": "created",
+            "conditions": null,
+            "count": 1,
+            "created_at": "2015-07-28T22:47:06+00:00",
+            "description": "My example achievement",
+            "name": "Example achievement",
+            "owner_id": "8mepY2aV",
+            "owner_type": "Portal",
+            "state": "active",
+            "target": "Experience",
+            "tier": 1,
+            "updated_at": "2017-02-11T15:08:36+00:00"
+          },
+          "count": 1,
+          "created_at": "2015-07-28T22:47:06+00:00",
+          "id": "8mepY2aM",
+          "state": "awarded",
+          "updated_at": "2017-02-11T15:08:36+00:00",
+          "user": {
+            "avatar_url": "https://riipen-platform-ca-central-1-production.s3.amazonaws.com/avatars/cropped/d3d53d4e-c318-496b-b0dd-c0f4ba10b879.jpeg",
+            "category_list": ["engineering"],
+            "created_at": "2017-09-28T22:39:11-06:00",
+            "email": "email@riipen.com",
+            "first_name": "Example",
+            "id": "8mepY2aX",
+            "last_name": "Example",
+            "locale": "en-CA",
+            "location": {
+              "address": "123 Fake St.",
+              "city": "Springfield",
+              "country": "United States",
+              "created_at": "2024-04-20T13:37:00Z",
+              "id": "A1B2C3",
+              "postal_code": "40069",
+              "state": "KY",
+              "updated_at": "2024-04-20T13:37:00Z"
+            },
+            "object": "User",
+            "pronoun_list": ["they"],
+            "state": "active",
+            "type": "Users::Educator",
+            "updated_at": "2020-05-22T12:13:11-06:00"
+          }
+        }
+      },
+      "CompanyIncludes": {
+        "allOf": [
+          {
+            "$ref": "#/components/schemas/Company"
+          },
+          {
+            "type": "object",
+            "properties": {
+              "location": {
+                "$ref": "#/components/schemas/Location"
+              }
+            }
+          }
+        ],
+        "example": {
+          "active_at": "2020-03-02T13:16:01+00:00",
+          "created_at": "2019-09-18T18:08:22+00:00",
+          "creator_id": "A1B2C3",
+          "id": "A1B2C3",
+          "location": {
+            "address": "123 Fake St.",
+            "city": "Springfield",
+            "country": "United States",
+            "created_at": "2024-04-20T13:37:00Z",
+            "id": "A1B2C3",
+            "postal_code": "40069",
+            "state": "KY",
+            "updated_at": "2024-04-20T13:37:00Z"
+          },
+          "locked_at": "2020-03-02T13:16:01+00:00",
+          "name": "The Conversation",
+          "object": "Conversation",
+          "state": "active",
+          "topic_id": "A1B2C3",
+          "topic_type": "Match",
+          "updated_at": "2020-03-02T13:16:01+00:00"
+        }
+      },
+      "ExperienceIncludes": {
+        "allOf": [
+          {
+            "$ref": "#/components/schemas/Experience"
+          },
+          {
+            "type": "object",
+            "properties": {
+              "portal": {
+                "allOf": [
+                  {
+                    "$ref": "#/components/schemas/Portal"
+                  },
+                  {
+                    "type": "object",
+                    "properties": {
+                      "location": {
+                        "$ref": "#/components/schemas/Location"
+                      }
+                    }
+                  }
+                ]
+              }
+            }
+          }
+        ],
+        "example": {
+          "applications_due_at": "2019-09-18T18:08:22+00:00",
+          "applications_enabled": true,
+          "category_list": ["entrepreneurship"],
+          "close_date": "2020-01-20T00:59:59+00:00",
+          "closed_at": "2020-01-20T00:59:59+00:00",
+          "company_type_list": ["business"],
+          "created_at": "2019-09-18T18:08:22+00:00",
+          "creator_id": "8mepY2aV",
+          "dates_controller": "project",
+          "deliverables": "<p>test</p>",
+          "details": "<p>test</p>",
+          "end_date": "2020-01-20T00:59:59+00:00",
+          "examples": "<p>test</p>",
+          "faculty": "Engineering",
+          "hours": 42,
+          "id": "8mepY2aV",
+          "in_marketplace": true,
+          "industry_list": ["business"],
+          "learner_member_question_set_id": "8mepY2aV",
+          "learner_member_questions_enabled": true,
+          "learner_year_list": ["sophomore"],
+          "locale": "en-CA",
+          "location_preference": "anywhere",
+          "magic_token_enabled": true,
+          "match_learners_maximum": 5,
+          "match_request_expiry_days": 5,
+          "match_request_pending_maximum": 4,
+          "match_request_question_set_id": "8mepY2aV",
+          "match_request_questions_enabled": true,
+          "match_teams_maximum": 5,
+          "match_unique_learners_enabled": true,
+          "name": "Master's Strategy Consulting",
+          "object": "Experience",
+          "open": false,
+          "opened_at": "2020-03-02T13:16:01+00:00",
+          "payment_amount_cents": 100,
+          "payment_currency": "USD",
+          "payment_required": true,
+          "payment_type": "hourly",
+          "portal": {
+            "active_at": "2017-02-21T16:25:51+00:00",
+            "ancestry": "8mepY2aZ",
+            "avatar_url": "https://riipen-platform-ca-central-1-production.s3.amazonaws.com/avatars/cropped/d3d53d4e-c318-496b-b0dd-c0f4ba10b879.jpeg",
+            "color_primary": "FFFFFF",
+            "color_secondary": "FFFFFF",
+            "cover_url": "https://riipen-platform-ca-central-1-production.s3.amazonaws.com/images/cropped/549b2d0e-b8c7-45b1-a668-f9c51375ce96.jpeg",
+            "created_at": "2017-02-21T16:25:51+00:00",
+            "description": "Riipen is is North America's largest marketplace for project-based collaboration between employers, educators and learners. Our mission is to empower emerging talent to gain relevant skills and find jobs they love. \n\nWe use this portal for demos with educators and faculty administration. If you would like to book a demo with us for your team, please feel free to contact us at info@riipen.com!",
+            "educator_member_requests_enabled": true,
+            "enabled_features": ["communication"],
+            "experiences_in_marketplace": true,
+            "experiences_match_request_expiry_days": 3,
+            "id": "8mepY2aZ",
+            "learner_experiences_maximum": 4,
+            "learner_experiences_remaining": 5,
+            "learner_member_question_set_id": "8mepY2aZ",
+            "learner_member_questions_enabled": false,
+            "learner_member_requests_enabled": true,
+            "locale": "en-CA",
+            "location": {
+              "address": "123 Fake St.",
+              "city": "Springfield",
+              "country": "United States",
+              "created_at": "2024-04-20T13:37:00Z",
+              "id": "A1B2C3",
+              "postal_code": "40069",
+              "state": "KY",
+              "updated_at": "2024-04-20T13:37:00Z"
+            },
+            "marketplace_enabled": false,
+            "name": "Riipen Demo University",
+            "object": "Portal",
+            "portal_pass_applications_enabled": true,
+            "portal_pass_question_set_id": "8mepY2aZ",
+            "portal_pass_questions_enabled": true,
+            "renewal_date": "2017-02-21T16:25:51+00:00",
+            "state": "active",
+            "subdomain": "riipenu",
+            "updated_at": "2020-03-20T14:26:46+00:00",
+            "vocabulary_id": "8mepY2aZ"
+          },
+          "program_code": "ABC101",
+          "program_learner_size": 10,
+          "program_name": "Cool Program",
+          "program_type": "undergraduate",
+          "projects_wanted": 1,
+          "published_at": "2020-01-14T00:59:59+00:00",
+          "skill_list": ["test automation"],
+          "start_date": "2020-01-15T01:00:00+00:00",
+          "state": "published",
+          "team_creation": "educator_assign",
+          "team_size": 3,
+          "team_submission_description": "<p>test</p>",
+          "updated_at": "2020-03-02T13:16:01+00:00"
+        }
+      },
+      "FeedbackIncludes": {
+        "allOf": [
+          {
+            "$ref": "#/components/schemas/Company"
+          },
+          {
+            "type": "object",
+            "properties": {
+              "endorsements": {
+                "type": "array",
+                "items": {
+                  "$ref": "#/components/schemas/Endorsement"
+                }
+              }
+            }
+          }
+        ],
+        "example": {
+          "author_id": "8mepY2aX",
+          "author_type": "Project",
+          "body_public": "Example User from the portal competed individually and demonstrated very strong qualities",
+          "communication_rating": 5,
+          "created_at": "2015-07-28T22:47:06+00:00",
+          "creativity_rating": 4.5,
+          "creator_id": "8mepY2aM",
+          "critical_thinking_rating": 5,
+          "draft_at": "2015-07-28T22:47:06+00:00",
+          "employability_rating": 3,
+          "endorsements": [
+            {
+              "body": "An endorsement",
+              "created_at": "2019-09-18T18:08:22+00:00",
+              "feedback_id": "8mepY2aM",
+              "id": "8mepY2aM",
+              "object": "Endorsement",
+              "updated_at": "2020-03-02T13:16:01+00:00",
+              "user_id": "8mepY2aM"
+            }
+          ],
+          "id": "8mepY2aM",
+          "match_id": "8mepY2aX",
+          "object": "Feedback",
+          "preparedness_rating": 4.5,
+          "professionalism_rating": 5,
+          "published_at": "2015-07-28T22:47:06+00:00",
+          "rating": 5,
+          "recipient_id": "8mepY2aV",
+          "recipient_response": "Thanks!",
+          "recipient_type": "Experience",
+          "responsiveness_rating": 5,
+          "state": "draft",
+          "type": "Feedbacks::ExperienceFeedback",
+          "updated_at": "2017-02-11T15:08:36+00:00"
+        }
+      },
+      "InviteIncludes": {
+        "allOf": [
+          {
+            "$ref": "#/components/schemas/Invite"
+          }
+        ],
+        "example": {
+          "accepted_at": "2019-09-18T18:08:22+00:00",
+          "body": "Email body",
+          "created_at": "2019-09-18T18:08:22+00:00",
+          "email": "email@riipen.com",
+          "id": "8mepY2aV",
+          "inviteable_id": "ABC123",
+          "inviteable_type": "Company",
+          "object": "Invite",
+          "pending_at": "2020-03-02T13:16:01+00:00",
+          "role_id": "8mepY2aV",
+          "state": "pending",
+          "updated_at": "2020-03-02T13:16:01+00:00",
+          "user_id": "8mepY2aV"
+        }
+      },
+      "KickoffIncludes": {
+        "allOf": [
+          {
+            "$ref": "#/components/schemas/Kickoff"
+          }
+        ],
+        "example": {
+          "created_at": "2019-09-18T18:08:22+00:00",
+          "id": "8mepY2aV",
+          "team_id": "8mepY2aV",
+          "updated_at": "2020-03-02T13:16:01+00:00"
+        }
+      },
+      "MatchRequestIncludes": {
+        "allOf": [
+          {
+            "$ref": "#/components/schemas/MatchRequest"
+          },
+          {
+            "type": "object",
+            "properties": {
+              "company": {
+                "$ref": "#/components/schemas/Company"
+              },
+              "experience": {
+                "$ref": "#/components/schemas/Experience"
+              },
+              "project": {
+                "$ref": "#/components/schemas/Project"
+              }
+            }
+          }
+        ],
+        "example": {
+          "accepted_at": "2019-09-18T18:08:22+00:00",
+          "cancelled_at": "2019-09-18T18:08:22+00:00",
+          "company": null,
+          "created_at": "2019-09-18T18:08:22+00:00",
+          "creator_id": "8mepY2aM",
+          "decline_reason": "other",
+          "declined_at": "2019-09-18T18:08:22+00:00",
+          "draft_at": "2019-09-18T18:08:22+00:00",
+          "experience": {
+            "applications_due_at": "2019-09-18T18:08:22+00:00",
+            "applications_enabled": true,
+            "category_list": ["entrepreneurship"],
+            "close_date": "2020-01-20T00:59:59+00:00",
+            "closed_at": "2020-01-20T00:59:59+00:00",
+            "company_type_list": ["business"],
+            "created_at": "2019-09-18T18:08:22+00:00",
+            "creator_id": "8mepY2aV",
+            "dates_controller": "project",
+            "deliverables": "<p>test</p>",
+            "details": "<p>test</p>",
+            "end_date": "2020-01-20T00:59:59+00:00",
+            "examples": "<p>test</p>",
+            "faculty": "Engineering",
+            "hours": 42,
+            "id": "8mepY2aV",
+            "in_marketplace": true,
+            "industry_list": ["business"],
+            "learner_member_question_set_id": "8mepY2aV",
+            "learner_member_questions_enabled": true,
+            "learner_year_list": ["sophomore"],
+            "locale": "en-CA",
+            "location_preference": "anywhere",
+            "magic_token_enabled": true,
+            "match_learners_maximum": 5,
+            "match_request_expiry_days": 5,
+            "match_request_pending_maximum": 4,
+            "match_request_question_set_id": "8mepY2aV",
+            "match_request_questions_enabled": true,
+            "match_teams_maximum": 5,
+            "match_unique_learners_enabled": true,
+            "name": "Master's Strategy Consulting",
+            "object": "Experience",
+            "open": false,
+            "opened_at": "2020-03-02T13:16:01+00:00",
+            "payment_amount_cents": 100,
+            "payment_currency": "USD",
+            "payment_required": true,
+            "payment_type": "hourly",
+            "program_code": "ABC101",
+            "program_learner_size": 10,
+            "program_name": "Cool Program",
+            "program_type": "undergraduate",
+            "projects_wanted": 1,
+            "published_at": "2020-01-14T00:59:59+00:00",
+            "skill_list": ["test automation"],
+            "start_date": "2020-01-15T01:00:00+00:00",
+            "state": "published",
+            "team_creation": "educator_assign",
+            "team_size": 3,
+            "team_submission_description": "<p>test</p>",
+            "updated_at": "2020-03-02T13:16:01+00:00"
+          },
+          "experience_accepted": true,
+          "experience_answer_set_id": "8mepY2aM",
+          "expired_at": "2019-09-18T18:08:22+00:00",
+          "expires_at": "2019-09-18T18:08:22+00:00",
+          "expiring_reminder_sent": true,
+          "id": "8mepY2aM",
+          "object": "MatchRequest",
+          "pending_at": "2019-09-18T18:08:22+00:00",
+          "project": {
+            "category_list": ["marketing"],
+            "closed_at": "2019-01-09T14:41:46+00:00",
+            "created_at": "2019-01-09T14:41:46+00:00",
+            "creator_id": "8mepY2aM",
+            "deliverables": "<p>It’s important for us to have a better understanding of how our target audience perceives our brand and competitors.</p>",
+            "details": "<p>It’s important for us to have a better understanding of how our target audience perceives our brand and competitors.</p>",
+            "id": "8mepY2aM",
+            "in_marketplace": true,
+            "learner_knowledge": "<p>Learner knowledge</p>",
+            "locale": "en-CA",
+            "location_preference": "anywhere",
+            "magic_token_enabled": true,
+            "mentorship": "<p>Mentorship</p>",
+            "name": "Competitive Analysis - Riipen Test",
+            "object": "Project",
+            "open": true,
+            "opened_at": "2020-01-14T00:59:59+00:00",
+            "payment_amount_cents": 100,
+            "payment_currency": "USD",
+            "payment_type": "hourly",
+            "private_resources": false,
+            "project_template_id": "8mepY2aV",
+            "published_at": "2020-01-14T00:59:59+00:00",
+            "resources": "<p>Internal documents. Access to contacts within our organization.</p>",
+            "skill_list": ["analysis"],
+            "state": "published",
+            "updated_at": "2019-11-20T18:33:13+00:00"
+          },
+          "project_accepted": false,
+          "project_answer_set_id": "8mepY2aM",
+          "recipient_notes": "Recipient notes",
+          "recipient_replied": false,
+          "recipient_viewed": true,
+          "requester_notes": "Requester notes",
+          "requester_type": "experience",
+          "state": "accepted",
+          "updated_at": "2020-03-02T13:16:01+00:00"
+        }
+      },
+      "MemberIncludes": {
+        "allOf": [
+          {
+            "$ref": "#/components/schemas/Member"
+          },
+          {
+            "type": "object",
+            "properties": {
+              "role": {
+                "$ref": "#/components/schemas/Role"
+              },
+              "user": {
+                "$ref": "#/components/schemas/User"
+              }
+            }
+          }
+        ],
+        "example": {
+          "created_at": "2020-06-09T21:17:05+00:00",
+          "id": "WONjpK2O",
+          "memberable": {
+            "category_list": ["marketing"],
+            "closed_at": "2019-01-09T14:41:46+00:00",
+            "created_at": "2019-01-09T14:41:46+00:00",
+            "creator_id": "8mepY2aM",
+            "deliverables": "<p>It’s important for us to have a better understanding of how our target audience perceives our brand and competitors.</p>",
+            "details": "<p>It’s important for us to have a better understanding of how our target audience perceives our brand and competitors.</p>",
+            "id": "8mepY2aM",
+            "in_marketplace": true,
+            "learner_knowledge": "<p>Learner knowledge</p>",
+            "locale": "en-CA",
+            "location_preference": "anywhere",
+            "magic_token_enabled": true,
+            "mentorship": "<p>Mentorship</p>",
+            "name": "Competitive Analysis - Riipen Test",
+            "object": "Project",
+            "open": true,
+            "opened_at": "2020-01-14T00:59:59+00:00",
+            "payment_amount_cents": 100,
+            "payment_currency": "USD",
+            "payment_type": "hourly",
+            "private_resources": false,
+            "project_template_id": "8mepY2aV",
+            "published_at": "2020-01-14T00:59:59+00:00",
+            "resources": "<p>Internal documents. Access to contacts within our organization.</p>",
+            "skill_list": ["analysis"],
+            "state": "published",
+            "updated_at": "2019-11-20T18:33:13+00:00"
+          },
+          "memberable_id": "1zEPr9OY",
+          "memberable_type": "Project",
+          "object": "Member",
+          "primary": true,
+          "role": {
+            "created_at": "2019-09-18T18:08:22+00:00",
+            "id": "8mepY2aM",
+            "name": "Administrator",
+            "object": "Role",
+            "permissions": ["match_requests"],
+            "roleable_id": "8mepY2aM",
+            "roleable_type": "Project",
+            "updated_at": "2020-03-02T13:16:01+00:00"
+          },
+          "updated_at": "2020-06-12T18:05:27+00:00",
+          "user_id": "AVMJD0OE"
+        }
+      },
+      "PortalIncludes": {
+        "allOf": [
+          {
+            "$ref": "#/components/schemas/Portal"
+          },
+          {
+            "type": "object",
+            "properties": {
+              "location": {
+                "$ref": "#/components/schemas/Location"
+              }
+            }
+          }
+        ],
+        "example": {
+          "active_at": "2017-02-21T16:25:51+00:00",
+          "ancestry": "8mepY2aZ",
+          "avatar_url": "https://riipen-platform-ca-central-1-production.s3.amazonaws.com/avatars/cropped/d3d53d4e-c318-496b-b0dd-c0f4ba10b879.jpeg",
+          "color_primary": "FFFFFF",
+          "color_secondary": "FFFFFF",
+          "cover_url": "https://riipen-platform-ca-central-1-production.s3.amazonaws.com/images/cropped/549b2d0e-b8c7-45b1-a668-f9c51375ce96.jpeg",
+          "created_at": "2017-02-21T16:25:51+00:00",
+          "description": "Riipen is is North America's largest marketplace for project-based collaboration between employers, educators and learners. Our mission is to empower emerging talent to gain relevant skills and find jobs they love. \n\nWe use this portal for demos with educators and faculty administration. If you would like to book a demo with us for your team, please feel free to contact us at info@riipen.com!",
+          "educator_member_requests_enabled": true,
+          "enabled_features": ["communication"],
+          "experiences_in_marketplace": true,
+          "experiences_match_request_expiry_days": 3,
+          "id": "8mepY2aZ",
+          "learner_experiences_maximum": 4,
+          "learner_experiences_remaining": 5,
+          "learner_member_question_set_id": "8mepY2aZ",
+          "learner_member_questions_enabled": false,
+          "learner_member_requests_enabled": true,
+          "locale": "en-CA",
+          "location": {
+            "address": "123 Fake St.",
+            "city": "Springfield",
+            "country": "United States",
+            "created_at": "2024-04-20T13:37:00Z",
+            "id": "A1B2C3",
+            "postal_code": "40069",
+            "state": "KY",
+            "updated_at": "2024-04-20T13:37:00Z"
+          },
+          "marketplace_enabled": false,
+          "name": "Riipen Demo University",
+          "object": "Portal",
+          "portal_pass_applications_enabled": true,
+          "portal_pass_question_set_id": "8mepY2aZ",
+          "portal_pass_questions_enabled": true,
+          "renewal_date": "2017-02-21T16:25:51+00:00",
+          "state": "active",
+          "subdomain": "riipenu",
+          "updated_at": "2020-03-20T14:26:46+00:00",
+          "vocabulary_id": "8mepY2aZ"
+        }
+      },
+      "PortalPassIncludes": {
+        "allOf": [
+          {
+            "$ref": "#/components/schemas/PortalPass"
+          }
+        ],
+        "example": {
+          "company_id": "8mepY2aV",
+          "created_at": "2020-04-20T13:37:00+00:00",
+          "id": "1a2b3c",
+          "object": "PortalPass",
+          "portal_id": "A917yT5v",
+          "updated_at": "2020-04-20T13:37:00+00:00"
+        }
+      },
+      "PortalPassInviteIncludes": {
+        "allOf": [
+          {
+            "$ref": "#/components/schemas/PortalPassInvite"
+          }
+        ],
+        "example": {
+          "accepted_at": null,
+          "company_id": "7WVjDz4A",
+          "company_name": "Kshlerin Group-1",
+          "created_at": "2024-01-17T18:35:59.105Z",
+          "creator_id": null,
+          "email": "setsuko@bogan.test",
+          "id": "qWONjOn2",
+          "object": "PortalPassInvite",
+          "pending_at": "2024-01-17T18:35:59.105Z",
+          "portal_id": "7WVjDz4A",
+          "state": "pending",
+          "updated_at": "2024-01-17T18:35:59.252Z",
+          "user_id": "7WVjDz4A"
+        }
+      },
+      "ProjectIncludes": {
+        "allOf": [
+          {
+            "$ref": "#/components/schemas/Project"
+          },
+          {
+            "type": "object",
+            "properties": {
+              "portal": {
+                "allOf": [
+                  {
+                    "$ref": "#/components/schemas/Company"
+                  },
+                  {
+                    "type": "object",
+                    "properties": {
+                      "location": {
+                        "$ref": "#/components/schemas/Location"
+                      }
+                    }
+                  }
+                ]
+              }
+            }
+          }
+        ],
+        "example": {
+          "category_list": ["marketing"],
+          "closed_at": "2019-01-09T14:41:46+00:00",
+          "company": {
+            "active_at": "2020-03-02T13:16:01+00:00",
+            "created_at": "2019-09-18T18:08:22+00:00",
+            "creator_id": "A1B2C3",
+            "id": "A1B2C3",
+            "location": {
+              "address": "123 Fake St.",
+              "city": "Springfield",
+              "country": "United States",
+              "created_at": "2024-04-20T13:37:00Z",
+              "id": "A1B2C3",
+              "postal_code": "40069",
+              "state": "KY",
+              "updated_at": "2024-04-20T13:37:00Z"
+            },
+            "locked_at": "2020-03-02T13:16:01+00:00",
+            "name": "The Conversation",
+            "object": "Conversation",
+            "state": "active",
+            "topic_id": "A1B2C3",
+            "topic_type": "Match",
+            "updated_at": "2020-03-02T13:16:01+00:00"
+          },
+          "created_at": "2019-01-09T14:41:46+00:00",
+          "creator_id": "8mepY2aM",
+          "deliverables": "<p>It’s important for us to have a better understanding of how our target audience perceives our brand and competitors.</p>",
+          "details": "<p>It’s important for us to have a better understanding of how our target audience perceives our brand and competitors.</p>",
+          "id": "8mepY2aM",
+          "in_marketplace": true,
+          "learner_knowledge": "<p>Learner knowledge</p>",
+          "locale": "en-CA",
+          "location_preference": "anywhere",
+          "magic_token_enabled": true,
+          "mentorship": "<p>Mentorship</p>",
+          "name": "Competitive Analysis - Riipen Test",
+          "object": "Project",
+          "open": true,
+          "opened_at": "2020-01-14T00:59:59+00:00",
+          "payment_amount_cents": 100,
+          "payment_currency": "USD",
+          "payment_type": "hourly",
+          "private_resources": false,
+          "project_template_id": "8mepY2aV",
+          "published_at": "2020-01-14T00:59:59+00:00",
+          "resources": "<p>Internal documents. Access to contacts within our organization.</p>",
+          "skill_list": ["analysis"],
+          "state": "published",
+          "updated_at": "2019-11-20T18:33:13+00:00"
+        }
+      },
+      "ProjectTemplateIncludes": {
+        "allOf": [
+          {
+            "$ref": "#/components/schemas/ProjectTemplate"
+          }
+        ],
+        "example": {
+          "avatar_url": "https://riipen-platform-ca-central-1-production.s3.amazonaws.com/avatars/cropped/d3d53d4e-c318-496b-b0dd-c0f4ba10b879.jpeg",
+          "category_list": ["human resources"],
+          "created_at": "2019-04-17T13:31:57+00:00",
+          "deliverables": "<p>Our staff and volunteers are at the heart of what we do, and their recruitment is critical to our organization’s success.</p>",
+          "details": "<p>Our staff and volunteers are at the heart of what we do, and their recruitment is critical to our organization’s success.</p>",
+          "id": "8mepY2aM",
+          "learner_knowledge": "<p>Learner knowledge</p>",
+          "locale": "en-CA",
+          "mentorship": "<p>Mentorship</p>",
+          "name": "Non-Profit Staffing and Volunteer Recruitment Optimization",
+          "object": "ProjectTemplate",
+          "owner_id": "8mepY2aM",
+          "owner_type": "Company",
+          "partner_id": "8mepY2aM",
+          "resources": "<p>We will provide interviews with learners to describe our current recruitment process and our goals and requirements.</p>",
+          "skill_list": [],
+          "updated_at": "2019-04-22T13:01:04+00:00"
+        }
+      },
+      "SubmissionIncludes": {
+        "allOf": [
+          {
+            "$ref": "#/components/schemas/Submission"
+          }
+        ],
+        "example": {
+          "body": "Submission body",
+          "created_at": "2020-05-08T13:19:21+00:00",
+          "id": "WONjpK2O",
+          "submittable_id": "WONjpK2O",
+          "submittable_type": "Milestone",
+          "team_id": "WONjpK2O",
+          "updated_at": "2020-05-08T13:19:21+00:00"
+        }
+      },
+      "SurveyResponseIncludes": {
+        "allOf": [
+          {
+            "$ref": "#/components/schemas/SurveyResponse"
+          },
+          {
+            "type": "object",
+            "properties": {
+              "answer_set": {
+                "allOf": [
+                  {
+                    "$ref": "#/components/schemas/SurveyResponse"
+                  },
+                  {
+                    "type": "object",
+                    "properties": {
+                      "answers": [
+                        {
+                          "allOf": [
+                            {
+                              "$ref": "#/components/schemas/Answer"
+                            },
+                            {
+                              "type": "object",
+                              "properties": {
+                                "question": {
+                                  "$ref": "#/components/schemas/Question"
+                                }
+                              }
+                            }
+                          ]
+                        }
+                      ]
+                    }
+                  }
+                ]
+              },
+              "creator": {
+                "$ref": "#/components/schemas/User"
+              },
+              "survey": {
+                "$ref": "#/components/schemas/Survey"
+              },
+              "survey_instance": {
+                "type": "object",
+                "required": ["id"],
+                "properties": {
+                  "id": {
+                    "type": "string",
+                    "description": "The unique id for the survey instance."
+                  },
+                  "created_at": {
+                    "type": "string",
+                    "description": "When the survey instance was created on Riipen."
+                  },
+                  "dates_source_type": {
+                    "type": "string",
+                    "description": "Which source entity type the due date instance is based on.",
+                    "enum": ["Match", "Team"]
+                  },
+                  "dates_source_id": {
+                    "type": "string",
+                    "description": "The ID of the dates_source for which the due date instance is based on."
+                  },
+                  "due_at": {
+                    "type": "string",
+                    "description": "When the survey instance is due at."
+                  },
+                  "updated_at": {
+                    "type": "string",
+                    "description": "When the survey instance was last updated on Riipen."
+                  }
+                }
+              }
+            }
+          }
+        ],
+        "example": {
+          "answer_set": {
+            "id": "8mepY2aM",
+            "object": "AnswerSet",
+            "created_at": "2015-07-28T22:47:06+00:00",
+            "question_set_id": "8mepY2aM",
+            "updated_at": "2017-02-11T15:08:36+00:00",
+            "answers": [
+              {
+                "id": "8mepY2aM",
+                "object": "Answer",
+                "created_at": "2015-07-28T22:47:06+00:00",
+                "answer_set_id": "8mepY2aM",
+                "data": {
+                  "value": "true"
+                },
+                "question": {
+                  "id": "8mepY2aM",
+                  "object": "Question",
+                  "created_at": "2015-07-28T22:47:06+00:00",
+                  "hint": "Hint",
+                  "label": "Label",
+                  "maximum_choices_required": 5,
+                  "minimum_choices_required": 1,
+                  "position": 1,
+                  "question_set_id": "8mepY2aM",
+                  "required": true,
+                  "type": "Questions::Boolean",
+                  "updated_at": "2017-02-11T15:08:36+00:00"
+                },
+                "updated_at": "2017-02-11T15:08:36+00:00"
+              }
+            ]
+          },
+          "created_at": "2019-09-18T18:08:22+00:00",
+          "creator": {
+            "id": "8mepY2aX",
+            "object": "User",
+            "avatar_url": "https://riipen-platform-ca-central-1-production.s3.amazonaws.com/avatars/cropped/d3d53d4e-c318-496b-b0dd-c0f4ba10b879.jpeg",
+            "category_list": [],
+            "created_at": "2017-09-28T22:39:11-06:00",
+            "first_name": "Example",
+            "last_name": "Example",
+            "locale": "en-CA",
+            "location": null,
+            "pronoun_list": [],
+            "state": "active",
+            "type": "Users::Educator",
+            "updated_at": "2020-05-22T12:13:11-06:00"
+          },
+          "id": "8mepY2aV",
+          "object": "SurveyResponse",
+          "published_at": "2020-03-02T13:16:01+00:00",
+          "state": "published",
+          "survey": {
+            "id": "WONjpK2O",
+            "editable": false,
+            "employer_timing": null,
+            "state": "published",
+            "title": "Title",
+            "user_type": "Users::Learner"
+          },
+          "survey_id": "8mepY2aV",
+          "survey_instance": {
+            "id": "WONjpK2O",
+            "dates_source_type": "Team",
+            "dates_source_id": "8mepY2aM",
+            "due_at": "2020-05-08T13:19:21+00:00"
+          },
+          "updated_at": "2020-03-02T13:16:01+00:00"
+        }
+      },
+      "TalentIncludes": {
+        "allOf": [
+          {
+            "$ref": "#/components/schemas/Talent"
+          }
+        ],
+        "example": {
+          "company_id": "8mepY2aV",
+          "created_at": "2020-04-20T13:37:00+00:00",
+          "id": "1a2b3c",
+          "name": "team name",
+          "object": "Talent",
+          "updated_at": "2020-04-20T13:37:00+00:00",
+          "user_id": "8mepY2aV"
+        }
+      },
+      "TeamIncludes": {
+        "allOf": [
+          {
+            "$ref": "#/components/schemas/Team"
+          }
+        ],
+        "example": {
+          "created_at": "2020-04-20T13:37:00+00:00",
+          "id": "1a2b3c",
+          "match_id": "8mepY2aV",
+          "name": "team name",
+          "object": "Team",
+          "updated_at": "2020-04-20T13:37:00+00:00"
+        }
+      },
+      "UserIncludes": {
+        "allOf": [
+          {
+            "$ref": "#/components/schemas/User"
+          },
+          {
+            "type": "object",
+            "properties": {
+              "location": {
+                "$ref": "#/components/schemas/Location"
+              }
+            }
+          }
+        ],
+        "example": {
+          "avatar_url": "https://riipen-platform-ca-central-1-production.s3.amazonaws.com/avatars/cropped/d3d53d4e-c318-496b-b0dd-c0f4ba10b879.jpeg",
+          "category_list": ["engineering"],
+          "created_at": "2017-09-28T22:39:11-06:00",
+          "email": "email@riipen.com",
+          "first_name": "Example",
+          "id": "8mepY2aX",
+          "last_name": "Example",
+          "locale": "en-CA",
+          "location": {
+            "address": "123 Fake St.",
+            "city": "Springfield",
+            "country": "United States",
+            "created_at": "2024-04-20T13:37:00Z",
+            "id": "A1B2C3",
+            "postal_code": "40069",
+            "state": "KY",
+            "updated_at": "2024-04-20T13:37:00Z"
+          },
+          "object": "User",
+          "pronoun_list": ["they"],
+          "state": "active",
+          "type": "Users::Educator",
+          "updated_at": "2020-05-22T12:13:11-06:00"
+        }
+      },
+      "Event": {
+        "type": "object",
+        "required": ["created_at", "data", "id", "type"],
+        "properties": {
+          "created_at": {
+            "type": "string",
+            "description": "When the event was created.",
+            "format": "date-time",
+            "readOnly": true
+          },
+          "data": {
+            "type": "object",
+            "descrition": "The payload of the event.",
+            "readOnly": true,
+            "properties": {
+              "object": {
+                "type": "object",
+                "description": "The event resource object."
+              }
+            }
+          },
+          "id": {
+            "type": "string",
+            "description": "The unique ID for the event.",
+            "readOnly": true
+          },
+          "type": {
+            "type": "string",
+            "description": "The event type.",
+            "readOnly": true
+          }
+        },
+        "example": {
+          "created_at": "2019-09-18T18:08:22+00:00",
+          "data": {
+            "object": {
+              "foo": "bar"
+            }
+          },
+          "id": "123ABC",
+          "type": "experience.created"
+        }
+      },
+      "EventDeleted": {
+        "type": "object",
+        "required": ["created_at", "data", "id", "type"],
+        "properties": {
+          "created_at": {
+            "type": "string",
+            "description": "When the event was created.",
+            "format": "date-time",
+            "readOnly": true
+          },
+          "data": {
+            "type": "object",
+            "descrition": "The payload of the event.",
+            "readOnly": true,
+            "properties": {
+              "object": {
+                "type": "object",
+                "description": "A refernece to the delete resource.",
+                "properties": {
+                  "id": {
+                    "type": "string",
+                    "description": "The ID of the deleted resource."
+                  },
+                  "entity_type": {
+                    "type": "string",
+                    "description": "The deleted resource type."
+                  }
+                }
+              }
+            }
+          },
+          "id": {
+            "type": "string",
+            "description": "The unique ID for the event.",
+            "readOnly": true
+          },
+          "type": {
+            "type": "string",
+            "description": "The event type.",
+            "readOnly": true
+          }
+        },
+        "example": {
+          "created_at": "2019-09-18T18:08:22+00:00",
+          "data": {
+            "object": {
+              "id": "A1B2C3",
+              "entity_type": "Experience"
+            }
+          },
+          "id": "123ABC",
+          "type": "experience.deleted"
+        }
+      },
+      "EventUpdated": {
+        "type": "object",
+        "required": ["created_at", "data", "id", "type"],
+        "properties": {
+          "created_at": {
+            "type": "string",
+            "description": "When the event was created.",
+            "format": "date-time",
+            "readOnly": true
+          },
+          "data": {
+            "type": "object",
+            "descrition": "The payload of the event.",
+            "readOnly": true,
+            "properties": {
+              "object": {
+                "type": "object",
+                "description": "The event resource object."
+              },
+              "previous_attributes": {
+                "type": "object",
+                "description": "A hash of changed attributes and their previous values."
+              }
+            }
+          },
+          "id": {
+            "type": "string",
+            "description": "The unique ID for the event.",
+            "readOnly": true
+          },
+          "type": {
+            "type": "string",
+            "description": "The event type.",
+            "readOnly": true
+          }
+        },
+        "example": {
+          "created_at": "2019-09-18T18:08:22+00:00",
+          "data": {
+            "object": {
+              "foo": "bar"
+            },
+            "previous_attributes": {
+              "foo": "baz"
+            }
+          },
+          "id": "123ABC",
+          "type": "experience.updated"
+        }
+      }
+    },
+    "securitySchemes": {
+      "basic": {
+        "scheme": "basic",
+        "type": "http"
+      },
+      "bearer": {
+        "scheme": "bearer",
+        "type": "http",
+        "bearerFormat": "Bearer $SECRET_KEY"
+      }
+    },
+    "responses": {
+      "BadRequest": {
+        "description": "Bad request",
+        "content": {
+          "application/json": {
+            "schema": {
+              "type": "object",
+              "required": ["id", "message", "status"],
+              "properties": {
+                "id": {
+                  "example": "bad_request",
+                  "type": "string"
+                },
+                "message": {
+                  "example": "Bad request",
+                  "type": "string"
+                },
+                "status": {
+                  "example": 400,
+                  "type": "integer",
+                  "format": "int64"
+                }
+              }
+            }
+          }
+        }
+      },
+      "Forbidden": {
+        "description": "Forbidden",
+        "content": {
+          "application/json": {
+            "schema": {
+              "type": "object",
+              "required": ["id", "message", "status"],
+              "properties": {
+                "id": {
+                  "example": "forbidden",
+                  "type": "string"
+                },
+                "message": {
+                  "example": "Forbidden",
+                  "type": "string"
+                },
+                "status": {
+                  "example": 403,
+                  "type": "integer",
+                  "format": "int64"
+                }
+              }
+            }
+          }
+        }
+      },
+      "InternalServerError": {
+        "description": "Internal server error.",
+        "content": {
+          "application/json": {
+            "schema": {
+              "type": "object",
+              "required": ["id", "message", "status"],
+              "properties": {
+                "id": {
+                  "example": "internal_server_error",
+                  "type": "string"
+                },
+                "message": {
+                  "example": "Internal server error",
+                  "type": "string"
+                },
+                "status": {
+                  "example": 500,
+                  "type": "integer",
+                  "format": "int64"
+                }
+              }
+            }
+          }
+        }
+      },
+      "NoContent": {
+        "description": "No content",
+        "content": {
+          "application/json": {
+            "schema": {
+              "type": "object",
+              "required": ["id", "message", "status"],
+              "properties": {
+                "id": {
+                  "example": "no_content",
+                  "type": "string"
+                },
+                "message": {
+                  "example": "No content",
+                  "type": "string"
+                },
+                "status": {
+                  "example": 204,
+                  "type": "integer",
+                  "format": "int64"
+                }
+              }
+            }
+          }
+        }
+      },
+      "NotFound": {
+        "description": "Not found",
+        "content": {
+          "application/json": {
+            "schema": {
+              "type": "object",
+              "required": ["id", "message", "status"],
+              "properties": {
+                "id": {
+                  "example": "not_found",
+                  "type": "string"
+                },
+                "message": {
+                  "example": "Not found",
+                  "type": "string"
+                },
+                "status": {
+                  "example": 404,
+                  "type": "integer",
+                  "format": "int64"
+                }
+              }
+            }
+          }
+        }
+      },
+      "TooManyRequests": {
+        "description": "Too many requests",
+        "content": {
+          "application/json": {
+            "schema": {
+              "type": "object",
+              "required": ["id", "message", "status"],
+              "properties": {
+                "id": {
+                  "example": "too_many_requests",
+                  "type": "string"
+                },
+                "message": {
+                  "example": "Too many requests",
+                  "type": "string"
+                },
+                "status": {
+                  "example": 429,
+                  "type": "integer",
+                  "format": "int64"
+                }
+              }
+            }
+          }
+        }
+      },
+      "Unauthorized": {
+        "description": "Unauthorized",
+        "content": {
+          "application/json": {
+            "schema": {
+              "type": "object",
+              "required": ["id", "message", "status"],
+              "properties": {
+                "id": {
+                  "example": "unauthorized",
+                  "type": "string"
+                },
+                "message": {
+                  "example": "Unauthorized",
+                  "type": "string"
+                },
+                "status": {
+                  "example": 401,
+                  "type": "integer",
+                  "format": "int64"
+                }
+              }
+            }
+          }
+        }
+      },
+      "UnprocessableEntity": {
+        "description": "Unprocessable entity",
+        "content": {
+          "application/json": {
+            "schema": {
+              "type": "object",
+              "required": ["id", "message", "status"],
+              "properties": {
+                "id": {
+                  "example": "unprocessable_entity",
+                  "type": "string"
+                },
+                "message": {
+                  "example": "Unprocessable entity",
+                  "type": "string"
+                },
+                "status": {
+                  "example": 422,
+                  "type": "integer",
+                  "format": "int64"
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  },
+  "security": [
+    {
+      "basic": []
+    },
+    {
+      "bearer": []
+    }
+  ]
+}
