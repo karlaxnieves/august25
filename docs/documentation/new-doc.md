@@ -19,7 +19,7 @@ This is a test string to be edited!
       }
       
      [data-color-mode="dark"] [class^="messageLine"], .messageText   {
-       color: white !important;
+       stroke: white !important;
 			}
     </style>
   </head>
