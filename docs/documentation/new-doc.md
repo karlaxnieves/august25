@@ -111,7 +111,7 @@ sequenceDiagram
 <HTMLBlock>{`
 <style>
 [data-color-mode="dark"] .line .messageLine0 {
-  color: white;
+  color: white important!;
 }
 </style>
 `}</HTMLBlock>
