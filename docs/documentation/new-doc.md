@@ -111,12 +111,12 @@ sequenceDiagram
 <HTMLBlock>{`
 <style>
 @media (prefers-color-scheme: dark) {
- [data-color-mode="system"] .mermaid {
+ [data-color-mode="system"] .messageLine0 .mermaid {
    color: white; 
  }
 }
   
-[data-color-mode="dark"] .mermaid {
+[data-color-mode="dark"] .messageLine0 .mermaid {
   color: white; 
 }
 </style>
