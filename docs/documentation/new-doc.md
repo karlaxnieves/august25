@@ -107,3 +107,11 @@ sequenceDiagram
     deactivate EMP BE
     deactivate EMP App
 ```
+
+<HTMLBlock>{`
+<style>
+[data-color-mode="dark"] .line .messageLine {
+  color: white;
+}
+</style>
+`}</HTMLBlock>
