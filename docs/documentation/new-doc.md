@@ -17,10 +17,6 @@ This is a test string to be edited!
       html[data-theme="dark"] h1 {
         color: red !important;
       }
-      
-      [data-theme--mode="dark"] [class^="messageLine"] { 
-        color: red !important;
-      }
     </style>
   </head>
   <body>
