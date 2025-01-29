@@ -21,6 +21,10 @@ This is a test string to be edited!
       [data-color-mode="dark"] .messageLine0 {
         color: red !important;
       }
+      
+      #mermaid-1738177020901 .messageText {
+        color: blue;
+      }
     </style>
   </head>
   <body>
