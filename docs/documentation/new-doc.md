@@ -110,8 +110,14 @@ sequenceDiagram
 
 <HTMLBlock>{`
 <style>
-[data-color-mode="dark"] .mermaid .line .messageLine0 {
-  color: white important!;
+@media (prefers-color-scheme: dark) {
+ [data-color-mode="system"] .mermaid {
+   color: white; 
+ }
+}
+  
+[data-color-mode="dark"] .mermaid {
+  color: white; 
 }
 </style>
 `}</HTMLBlock>
