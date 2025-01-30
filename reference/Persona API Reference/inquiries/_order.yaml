@@ -1,0 +1,16 @@
+- list-all-inquiries
+- create-an-inquiry
+- redact-an-inquiry
+- retrieve-an-inquiry
+- update-an-inquiry
+- inquiries-add-tag
+- approve-an-inquiry
+- decline-an-inquiry
+- expire-an-inquiry
+- generate-a-one-time-link
+- print-an-inquiry-pdf
+- inquiries-remove-tag
+- resume-an-inquiry
+- inquiries-set-all-tags
+- inquiries-perform-simulate-actions
+- inquiries-set-simulate-stubs

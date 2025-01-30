@@ -1,0 +1,8 @@
+- webhook-inquiry-created
+- webhook-inquiry-expired
+- webhook-inquiry-completed
+- webhook-inquiry-failed
+- webhook-inquiry-marked-for-review
+- webhook-inquiry-approved
+- webhook-inquiry-declined
+- webhook-inquiry-transitioned

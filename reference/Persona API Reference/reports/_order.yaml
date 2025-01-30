@@ -1,0 +1,12 @@
+- list-all-reports
+- create-a-report
+- redact-a-report
+- retrieve-a-report
+- reports-add-tag
+- dismiss-matches
+- report-action-pause-continuous-monitoring
+- print-report-pdf
+- reports-remove-tag
+- report-action-resume-continuous-monitoring
+- report-action-re-run-report
+- reports-set-all-tags
