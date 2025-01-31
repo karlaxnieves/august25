@@ -1,0 +1,8 @@
+- post_loadmanagement-v2-load
+- put_loadmanagement-v2-load-loadguid
+- delete_loadmanagement-v2-load-loadguid
+- get_loadmanagement-v2-load-loadguid
+- post_loadmanagement-v2-load-refresh-integrator
+- post_loadmanagement-v2-load-search
+- get_loadmanagement-v2-load-searchfield
+- get_loadmanagement-v2-load-sortfield
