@@ -1,0 +1,1872 @@
+openapi: 3.0.0
+info:
+  title: Load Management
+  version: 1.0.0
+servers:
+  - url: https://api-int.truckstop.com
+  - url: https://api.truckstop.com
+components:
+  securitySchemes:
+    bearerAuth:
+      type: http
+      scheme: bearer
+  schemas:
+    #Misc Objects
+    StatusSet:
+      type: object
+      properties:
+        code:
+          type: number
+          example: 3713
+        descriptor:
+          type: string
+          example: CarrierAddedToGroup
+        message:
+          type: string
+          example: Carrier Added To Group
+        field:
+          type: string
+          example: null
+    Pagination:
+      type: object
+      properties:
+        totalPages:
+          type: number
+          example: 1
+          readOnly: true
+        pageNumber:
+          type: number
+          example: 1
+        pageSize:
+          type: number
+          example: 100
+        totalItemCount:
+          type: number
+          example: 1
+          readOnly: true
+        resultsTruncated:
+          type: boolean
+          example: false
+          readOnly: true
+    SortFields:
+      type: object
+      properties:
+        sortName:
+          type: string
+          example: AllInRateAmount
+    SearchFields:
+      type: object
+      properties:
+        searchName:
+          type: string
+          example: LoadActionId
+        searchDataType:
+          type: string
+          example: Integer
+        comparisonOperators:
+          type: array
+          items:
+            type: string
+            example: 
+              - Eq
+              - In
+    SearchObject:
+      type: object
+      properties:
+        pagination:
+          $ref: '#/components/schemas/Pagination'
+        searchCriteria:
+          type: array
+          items:
+            type: object
+            properties:
+              name:
+                type: string
+                example: mcnumber
+              operator:
+                type: string
+                example: Eq
+              value:
+                type: string
+                example: 123456
+              valueTo:
+                type: string
+                example: '09/25/2024'
+              logicalOperator:
+                type: string
+                example: Or
+                enum:
+                  - And
+                  - Or
+            required:
+              - Name
+              - Operator
+              - Value
+        sortCriteria:
+          type: array
+          items:
+            type: object
+            properties:
+              direction:
+                type: string
+                example: ascending
+                enum:
+                  - ascending
+                  - descending
+              name:
+                type: string
+                example: mcnumber
+    
+    #Tender Objects
+    Tender:
+      type: object
+      properties:
+        id:
+          type: string
+          example: 01575c62-c902-4fa8-b539-18fd73225c88
+        load:
+          type: object
+          properties:
+            loadId:
+              type: string
+              example: 76508f7a-1411-45f8-94a1-cd200e6661b2
+            loadActionId:
+              type: number
+              example: 1
+            loadTrackingRequired:
+              type: boolean
+              example: false
+            equipmentAttributes:
+              type: object
+              properties:
+                transportationModeId:
+                  type: number
+                  example: 1
+                typeOfEquipmentId:
+                  type: number
+                  example: 43
+                equipmentOptions:
+                  type: array
+                  items:
+                    type: number
+                    example: 1
+                otherEquipmentNeeds:
+                  type: string
+                  example: null
+                commodityId:
+                  type: number
+                  example: 1
+            dimensional:
+              $ref: '#/components/schemas/Dimensional'
+            loadNumber:
+              type: string
+              example: 123ABC
+            loadReferenceNumbers:
+              type: array
+              items:
+                type: string
+                example: ABC123
+            loadState:
+              type: number
+              example: 3
+            note:
+              type: string
+              example: Load specific notes
+            loadStops:
+              type: array
+              items:
+                $ref: '#/components/schemas/LoadStop'
+            postAsUserId:
+              type: string
+              example: a674bba1-b595-bb02-6072-a254a14539d6
+            mileage:
+              type: number
+              example: null
+            sourceType:
+              type: number
+              example: 0
+        tenderAllInRate:
+          type: object
+          properties:
+            amount:
+              type: number
+              example: 123.45
+            currencyCode:
+              type: string
+              example: USD
+        brokerInfo:
+          type: object
+          properties:
+            brokerUserId:
+              type: string
+              example: a674bba1-b595-bb02-6072-a254a14539d6        
+            brokerAccountId:
+              type: string
+              example: 3d45735a-b155-e911-aa1e-b0e52ccc70f6
+            brokerCompanyName:
+              type: string
+              example: My Brokerage
+        termsAndConditionsInfo:
+          type: object
+          properties:
+            tcId:
+              type: string
+              example: 3e5c0f8b-dd93-ea11-aa57-ba6fbe72511d
+            termsAndConditions:
+              type: string
+              example: These are my terms
+        initiatedByUserId:
+          type: string
+          example: a674bba1-b595-bb02-6072-a254a14539d6
+        carrierInfo:
+          type: object
+          properties:
+            carrierUserId:
+              type: string
+              example: a674bba1-b595-bb02-6072-a254a14539d6
+            carrierAccountId:
+              type: string
+              example: 3d45735a-b155-e911-aa1e-b0e52ccc70f6
+            carrierCompanyName:
+              type: string
+              example: TEST COMPANY
+        updated:
+          type: string
+          example: '2024-09-24T20:15:15.567Z'
+        reasonCode:
+          type: string
+          example: null
+        reasonDescription:
+          type: string
+          example: ""
+        tenderState:
+          type: number
+          example: 4
+        tenderStateName:
+          type: string
+          example: Accepted
+
+    #Terms and Conditions Objects
+    TermsAndConditions:
+      type: object
+      properties:
+        id:
+          type: string
+          example: b64f76d0-5ee1-e911-aa11-ac4ba6accd3e
+          readOnly: true
+        createdByAccountId:
+          type: string
+          example: 048d4d8c-9b1d-e911-a9ec-a3b8a698ca96
+          readOnly: true
+        createdBy:
+          type: string
+          example: df7dbc1a-a21d-e911-a9ec-a3b8a698ca96
+          readOnly: true
+        updatedBy:
+          type: string
+          example: df7dbc1a-a21d-e911-a9ec-a3b8a698ca96
+          readOnly: true
+        createdDateTime: 
+          type: string
+          example: '2019-09-27T19:41:30'
+          readOnly: true
+        updatedDateTime:
+          type: string
+          example: '2019-09-27T19:41:30'
+          readOnly: true
+        isDeleted:
+          type: boolean
+          example: false
+          readOnly: true
+        name:
+          type: string
+          example: My Terms
+        content:
+          type: string
+          example: This is the terms and conditions for this load
+
+    #Carrier Related Objects
+    CarrierGroupReturn:
+      type: object
+      properties:
+        assigned:
+          type: boolean
+          example: true
+        id:
+          type: string
+          example: f53705f5-af44-46b0-95cd-340d3a834551
+        status:
+          type: number
+          example: 1
+        name:
+          type: string
+          example: Group 1
+    BulkCarrierGroupAddReturn:
+      type: object
+      properties:
+        success:
+          type: boolean
+          example: true
+        data:
+          type: object
+          properties:
+            carrierGroupId:
+              type: string
+              example: 8c3954a6-ccc2-419a-a125-f33304c7aed2
+            carrierProfileIds:
+              type: array
+              items:
+                type: object
+                properties:
+                  success:
+                    type: boolean
+                    example: true
+                  data: 
+                    type: string
+                    example: c968fa94-b396-ea11-aa57-f6eb2fb44b8a
+                  statusSet:
+                    $ref: '#/components/schemas/StatusSet'                      
+        statusSet:
+          type: array
+          items:
+            $ref: '#/components/schemas/StatusSet'
+          example:
+            - code: 200
+              descriptor: OK
+              message: Request completed successfully
+              field: null
+    CarrierGroup:
+      type: object
+      properties:
+        id:
+          type: string
+          example: 8c3954a6-ccc2-419a-a125-f33304c7aed2
+          readOnly: true
+        status:
+          type: number
+          example: 0
+          readOnly: true
+        name:
+          type: string
+          example: MyCarrierGroup1
+    Carrier:
+      type: object
+      properties:
+        carrierProfileId:
+          type: string
+          example: 941f5fce-2de6-e911-aa12-9f2efc3a92b4
+          readOnly: true
+        createdDateTime:
+          type: string
+          example: "2019-10-03T22:33:15"
+          readOnly: true
+        updatedDateTime:
+          type: string
+          example: null
+          readOnly: true
+        tenderEnabled:
+          type: boolean
+          example: true
+        status:
+          type: number
+          example: 1
+        carrierNumber:
+          type: string
+          example: null
+        customData:
+          type: array
+          items:
+            type: object
+            properties:
+              key:
+                type: string
+                example: My_Custom_Key
+              value:
+                type: string
+                example: My_Custom_Value
+        companyName:
+          type: string
+          example: Haulers
+          readOnly: true
+        mcNumber:
+          type: string
+          example: 123456
+        dotNumber:
+          type: string
+          example: 1234567
+    
+    
+    #Load Related Objects
+    Refresh:
+      type: object
+      properties:
+        declined:
+          type: number
+          example: 0
+        successful:
+          type: number
+          example: 1
+        failed:
+          type: number
+          example: 0
+        jobId:
+          type: string
+          example: fbdac8a3-a6a2-466f-b71f-3a5be37f4a4c
+        statuses:
+          type: array
+          items:
+            type: object
+            properties:
+              loadId:
+                type: string
+                example: ce5f2a3d-89da-4c8c-8a27-454dc2f3d511
+              status:
+                type: number
+                example: 1
+              nextRefreshAvailableAt:
+                type: string
+                example: "2024-09-23T13:49:00Z"
+              error:
+                type: string
+                example: null   
+    
+          example: false        
+    Dimensional:
+      type: object
+      properties:
+        length:
+          type: number
+          example: 53
+        width:
+          type: number
+          example: 8
+        height:
+          type: number
+          example: 10
+        weight:
+          type: number
+          example: 40000
+        palletCount:
+          type: number
+          example: 5
+        pieceCount:
+          type: number
+          example: 500
+        cube:
+          type: number
+          example: 4240.0
+    Rate:
+      type: object
+      properties:
+        amount:
+          type: number
+          example: 123.45
+        currencyCode:
+          type: string
+          example: USD
+          minLength: 3
+          maxLength: 3
+    RateAttributes:
+      description: <span style="color:#eab676">Posted All In Rate is for standard loads<br/>Tender All In Rate is for BIN loads</span>
+      type: object
+      properties:
+        postedAllInRate:
+          $ref: "#/components/schemas/Rate"  
+        tenderAllInRate:
+          $ref: "#/components/schemas/Rate"  
+    PostAsUser:
+      type: object
+      properties:
+        id:
+          type: string
+          example: df7dbc1a-a21d-e911-a9ec-a3b8a698ca96
+        firstName:
+          type: string
+          example: Tom
+        lastName:
+          type: string
+          example: Jerry
+        email:
+          type: string
+          example: tomjerry@truckstop.com
+        phone:
+          type: string
+          example: (123) 456-7890
+        userName:
+          type: string
+          example: TOMJERRY        
+    LoadState:
+      type: object
+      properties:
+        loadStateDescription:
+          type: string
+          example: "Posted"
+        loadStateId:
+          type: number
+          example: 1
+    LoadStateReason:
+      type: object
+      properties:
+        loadStateReasonDescription:
+          type: string
+          example: Not Specified
+        loadStateReasonId:
+          type: number
+          example: 0
+    LoadActivity:
+      type: object
+      properties:
+        id:
+          type: string
+          example: cc6f6efc-f111-4eaf-7a7d-08dcd8c75967
+        createdDate:
+          type: string
+          example: '2024-09-23T15:34:33'
+        loadState:
+          $ref: '#/components/schemas/LoadState'
+        loadStateReason:
+          $ref: "#/components/schemas/LoadStateReason"
+        comment:
+          type: string
+          example: 'null'
+    EquipmentAttributes:
+      type: object
+      properties:
+        equipmentTypeId:
+          type: number
+          example: 17
+          description: (Required) Integer Identifer of the equipment type required for this load.
+        equipmentOptions:
+          type: array
+          items:
+            type: number
+            example: 2
+            description: (Required - Can be empty) Array of integers for equipment options (Tarp, Hazmat, etc)
+        transportationModeId:
+          type: number
+          example: 2
+          description: (Required) Integer identifer of the transportation mode (Full, partial, etc)
+        otherEquipmentNeeds:
+          type: string
+          example: Pallet Return
+          description: (Optional) Text field (128 char) of any other equipment needs.
+    LoadStop:
+      type: object
+      properties:
+        id:
+          type: string
+          example: 8ee4e385-e266-436a-a176-08dcd8c7603b
+          readOnly: true
+        type: 
+          type: number
+          example: 1
+        sequence:
+          type: number
+          example: 1
+          readOnly: true
+        earlyDateTime:
+          type: string
+          example: '2024-09-24T11:34:32'
+        lateDateTime:
+          type: string
+          example: '2024-09-24T11:34:32'
+        location:
+          $ref: '#/components/schemas/Location'
+        contactName:
+          type: string
+          example: Joseph Smith
+        contactPhone:
+          type: string
+          example: 1234567890
+          minLength: 10
+          maxLength: 10
+        stopNotes:
+          type: string
+          example: This is the pickup
+        referenceNumbers:
+          type: array
+          items:
+            type: string        
+    Location:
+      type: object
+      properties:
+        id:
+          type: string
+          example: 'null'
+          readOnly: true
+        locationName:
+          type: string
+          example: Shipper Name
+        city:
+          type: string
+          example: Chicago
+        state:
+          type: string
+          example: IL
+          minLength: 2
+          maxLength: 2
+        streetAddress1:
+          type: string
+          example: 123 Main St.
+        streetAddress2:
+          type: string
+          example: 'null'
+        countryCode:
+          type: string
+          example: USA
+          minLength: 3
+          maxLength: 3
+        postalCode:
+          type: string
+          example: 60007
+        latitude:
+          type: number
+          example: 41.8781
+          readOnly: true
+        longitude:
+          type: number
+          example: -87.6298
+          readOnly: true
+    Load:
+      type: object
+      properties:
+        loadId:
+          type: string
+          example: a020197d-511c-4370-aa8d-2b6172fecc4c
+          readOnly: true
+        legacyLoadId:
+          type: string
+          example: 'null'
+          readOnly: true
+        postasuserID:
+          type: string
+          example: df7dbc1a-a21d-e911-a9ec-a3b8a698ca96
+          description: <span style="color:#eab676">(Optional)<br/>Unique GUID of the user you wish to post the load as (If not the authenticated user)<br/><br/>Leave blank to omit this field</span>
+        postAsUser:
+          allOf:
+            - $ref: "#/components/schemas/PostAsUser"
+            - readOnly: true
+        createdBy:
+          type: string
+          example: df7dbc1a-a21d-e911-a9ec-a3b8a698ca96
+          readOnly: true
+        updatedBy:
+          type: string
+          example: 'null'
+          readOnly: true
+        createdDateTime:
+          type: string
+          example: '2024-09-23T15:34:33'
+          readOnly: true
+        updatedDateTime:
+          type: string
+          example: '2024-09-23T15:34:33'
+          readOnly: true
+        loadState:
+          allOf:
+            - $ref: "#/components/schemas/LoadState"
+            - readOnly: true
+        loadStateReason:
+          allOf:
+            - $ref: "#/components/schemas/LoadStateReason"
+            - readOnly: true
+        tenderId:
+          type: number
+          readOnly: true
+        carrierName:
+          type: string
+          example: 'null'
+          readOnly: true
+        loadActivity:
+          allOf:
+            - $ref: "#/components/schemas/LoadActivity"
+            - readOnly: true
+        equipmentAttributes:
+          $ref: "#/components/schemas/EquipmentAttributes"
+        commodityId:
+          type: number
+          example: 1
+          description: <span style="color:#eab676">(Optional) Integer ID of the commodity for this load <br/><br/><a href="commodities" target="_blank">Commodities List</a></span>
+        loadStops:
+          type: array
+          description: (Required -- Min 2, max 20) Array of LoadStop objects
+          items:
+            $ref: '#/components/schemas/LoadStop'
+          minItems: 2
+          example:
+            - type: 1
+              sequence: 1
+              earlyDateTime: '2024-09-24T11:00:00'
+              lateDateTime: '2024-09-24T11:00:00'
+              location:
+                locationName: Shipper
+                city: Chicago
+                state: IL
+                streetAddress1: 123 Main St
+                streetAddress2: null
+                countryCode: USA
+                postalCode: 60007
+                latitude: 41.8781
+                longitude: -87.6298
+              contactName: Joseph Smith
+              contactPhone: 1234567890
+              stopNotes: Pickup
+            - type: 2
+              sequence: 2
+              earlyDateTime: '2024-09-24T11:00:00'
+              lateDateTime: '2024-09-24T11:00:00'
+              location:
+                locationName: Receiver
+                city: Chicago
+                state: IL
+                streetAddress1: 321 Main St
+                streetAddress2: null
+                countryCode: USA
+                postalCode: 60007
+                latitude: 41.8781
+                longitude: -87.6298
+              contactName: Joseph Smith
+              contactPhone: 1234567890
+              stopNotes: Drop Off
+        note:
+          type: string
+          example: Important Load Info
+          description: <span style="color:#eab676">Any publically visible loads notes (0-4000 characters)</span>
+        freightClassId:
+          type: number
+          example: 1
+        loadNumber:
+          type: string
+          example: Load123-456
+          description: <span style="color:#eab676">Broker specific load identifer</span>
+        loadTrackingRequired:
+          type: boolean
+          example: false
+          description: <span style="color:#eab676">Only used for BIN loads, should be false for standard loads</span>
+        rateAttributes:
+          $ref: "#/components/schemas/RateAttributes"
+        customData:
+          type: array
+          items:
+            type: object
+            properties:
+              key:
+                type: string
+                example: My_Custom_Field
+              value:
+                type: string
+                example: My_Custom_Value
+        distance:
+          type: number
+          example: 123
+          readOnly: true
+        Dimensional:
+          $ref: '#/components/schemas/Dimensional'
+        LoadActionAttributes:
+          type: object
+          description: <span style="color:#eab676">4 - PostOnly is for standard loads<br/>1 - PostOnlineTender is for BIN loads</span>
+          properties:
+            loadActionId:
+              type: string
+              example: 4
+            loadActionOption:
+              type: string
+              example: PostOnly
+        LoadLabel:
+          type: string
+          example: Boxes of screws
+        tenderNotes:
+          type: string
+          example: Notes shown after booking
+          description: <span style="color:#eab676">These notes are not displayed until the load is booked</span>
+        loadReferenceNumbers:
+          type: array
+          items:
+            type: string
+        termsAndConditions:
+          type: object
+          properties:
+            id:
+              type: string
+              example: 1234-56789-0123456
+            name:
+              type: string
+              example: My T&C
+              readOnly: true
+        carrierTenderGroupIds:
+          type: array
+          items:
+            type: number
+          readOnly: true
+        isPrivate:
+          type: boolean
+          example: false
+          readOnly: true
+paths:
+  #Load Operations
+  /loadmanagement/v2/load: #Post a load
+    post:
+      tags:
+        - Load Operations
+      summary: Post a Load
+      security:
+        - bearerAuth: []
+      requestBody:
+        description: JSON payload containing the load details
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Load'                
+      parameters:
+        - in: header
+          name: Content-Type
+          schema:
+            type: string
+            example: application/json
+      responses:
+        '201':
+          description: Successful response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Load'
+  /loadmanagement/v2/load/{LoadGuid}: #Update a Load
+    put:
+      tags:
+        - Load Operations
+      summary: Update a Load
+      security:
+        - bearerAuth: []
+      requestBody:
+        description: JSON payload containing the load details
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Load'
+      parameters:
+        - in: header
+          name: Content-Type
+          schema:
+            type: string
+            example: application/json
+        - name: LoadGuid
+          in: path
+          schema:
+            type: string
+          required: true
+      responses:
+        '201':
+          description: Successful response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Load'
+    delete:
+      tags:
+        - Load Operations
+      summary: Delete a Load
+      security:
+        - bearerAuth: []
+      requestBody:
+        description: JSON payload containing the delete request
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                reason:
+                  type: string
+                  example: 1
+                  description: <span style="color:#eab676">The reason code for deleting the load.</span><br/><a href="https://truckstop.readme.io/reference/load-state-reason-codes">Reason Codes</a>
+                comment:
+                  type: string
+                  description: <span style="color:#eab676">String comment of the delete reason.</span>
+      parameters:
+        - in: header
+          name: Content-Type
+          schema:
+            type: string
+            example: application/json
+        - name: LoadGuid
+          in: path
+          schema:
+            type: string
+          required: true
+      responses:
+        '204':
+          description: Successful response    
+    get:
+      tags:
+        - Load Operations
+      summary: Get details for a specific load
+      security:
+        - bearerAuth: []
+      parameters:
+        - in: header
+          name: Content-Type
+          schema:
+            type: string
+            example: application/json
+        - name: LoadGuid
+          in: path
+          schema:
+            type: string
+          required: true
+      responses:
+        '200':
+          description: Successful response
+          content:
+            application/json: 
+              schema:
+                $ref: '#/components/schemas/Load'
+  /loadmanagement/v2/load/refresh/integrator: #Refresh a Load
+    post:
+      tags:
+        - Load Operations
+      summary: Refresh a Load
+      security:
+        - bearerAuth: []
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: array
+              description: <span style="color:#eab676">Load GUID to refresh</span>
+              items:
+                type: string
+                example: ce5f2a3d-89da-4c8c-8a27-454dc2f3d511
+      parameters:
+        - in: header
+          name: Content-Type
+          schema:
+            type: string
+            example: application/json
+      responses:
+        '202':
+          description: Successful response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Refresh'   
+  /loadmanagement/v2/load/search: #Search for loads
+    post:
+      tags:
+        - Load Operations
+      summary: Search within your posted loads
+      security:
+        - bearerAuth: []
+      requestBody:
+        description: JSON payload containing the search terms
+        required: true
+        content:
+          application/json:
+            schema: 
+              type: object
+              properties:
+                pagination:
+                  type: object
+                  properties:
+                    pageNumber: 
+                      type: integer
+                      example: 1
+                    pageSize:
+                      type: integer
+                      example: 100
+                searchCriteria:
+                  type: array
+                  items:
+                    type: object
+                    properties:
+                      name:
+                        type: string
+                        example: LoadActionId
+                      operator:
+                        type: string
+                        example: eq
+                      value:
+                        type: string
+                        example: 4
+                sortCriteria:
+                  type: array
+                  items:
+                    type: object
+                    properties:
+                      direction:
+                        type: string
+                        example: descending
+                      name:
+                        type: string
+                        example: OriginCity
+      responses:
+        '200':
+          description: Successful response
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  pagination:
+                    $ref: '#/components/schemas/Pagination'
+                  data:
+                    type: array
+                    items:
+                      $ref: '#/components/schemas/Load'
+  /loadmanagement/v2/load/searchfield: #Get available loadsearch criteria fields
+    get:
+      tags:
+        - Load Operations
+      summary: Get the available load search criteria fields
+      security:
+        - bearerAuth: []
+      responses:
+        '200':
+          description: Successful response
+          content:
+            application/json: 
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/SearchFields'
+  /loadmanagement/v2/load/sortfield: #Get available loadsearch sort fields
+    get:
+      tags: 
+        - Load Operations
+      summary: Get the available load search sort fields
+      security:
+        - bearerAuth: []
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/SortFields'
+  
+  #Account Management
+  /accountmanagement/v1/accountuser/active: #Get active users on the account
+    post:
+      tags:
+        - User Management
+      summary: Get all active user details on the account
+      security:
+        - bearerAuth: []
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                pagination:
+                  type: object
+                  properties:
+                    pageNumber: 
+                      type: integer
+                      example: 1
+                    pageSize:
+                      type: integer
+                      example: 100
+                  required:
+                    - pageNumber
+                    - pageSize
+              required:
+                - pagination
+      responses:
+        '200':
+          description: Successful response
+          content:
+            application/json: {}
+  
+  ##BIN##
+  
+  #Company Management
+  /companymanagement/v2/carrier: #Add A Carrier
+    post:
+      tags:
+        - Book It Now
+      summary: Adds a carrier to the user’s BIN Preferred carrier list
+      security:
+        - bearerAuth: []
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Carrier'
+      responses:
+        '201':
+          description: Successful response
+          content:
+            application/json: 
+              schema:
+                $ref: '#/components/schemas/Carrier'
+  /companymanagement/v2/carrier/{carrierProfileId}: #Delete/Update/Get A Carrier
+    delete:
+      tags:
+        - Book It Now
+      summary: Delete a carrier from the BIN Preferred carriers list
+      security:
+        - bearerAuth: []
+      parameters:
+        - name: carrierProfileId
+          in: path
+          schema:
+            type: string
+          required: true
+      responses:
+        '204':
+          description: Successful response
+    get:
+      tags:
+        - Book It Now
+      summary: Get the details of a carrier
+      security:
+        - bearerAuth: []
+      parameters:
+        - name: carrierProfileId
+          in: path
+          schema:
+            type: string
+          required: true
+      responses:
+        '200':
+          description: Successful response
+          content:
+            application/json: 
+              schema:
+                $ref: '#/components/schemas/Carrier'
+    put:
+      tags:
+        - Book It Now
+      summary: Update the details of a carrier
+      security:
+        - bearerAuth: []
+      parameters:
+        - name: carrierProfileId
+          in: path
+          schema:
+            type: string
+          required: true
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Carrier'
+      responses:
+        '200':
+          description: Successful response
+          content:
+            application/json: 
+              schema:
+                $ref: '#/components/schemas/Carrier'
+  /companymanagement/v2/carrier/search: #Search for a preferred carrier
+    post:
+      tags:
+        - Book It Now
+      summary: Search for a carrier in the user’s BIN Preferred carrier list
+      security:
+        - bearerAuth: []
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/SearchObject'
+      responses:
+        '200':
+          description: Successful response
+          content:
+            application/json: 
+              schema:
+                type: object
+                properties:
+                  pagination:
+                    $ref: '#/components/schemas/Pagination'
+                  data:
+                    type: array
+                    items:
+                      $ref: '#/components/schemas/Carrier'
+  /companymanagement/v2/carrier/searchfield: #Get the available search fields
+    get:
+      tags:
+        - Book It Now
+      summary: Get the details for fields that can be used in a search query
+      security:
+        - bearerAuth: []
+      responses:
+        '200':
+          description: Successful response
+          content:
+            application/json: 
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/SearchFields'
+  /companymanagement/v2/carrier/sortfield: #Get the available sort fields
+    get:
+      tags:
+        - Book It Now
+      summary: Get a list of fields that can be used to sort search results
+      security:
+        - bearerAuth: []
+      responses:
+        '200':
+          description: Successful response
+          content:
+            application/json: 
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/SortFields'
+
+  #Group Management
+  /groupmanagement/v2/group: #Create a carrier group
+    post:
+      tags:
+        - Book It Now
+      summary: Creates Carrier Group
+      security:
+        - bearerAuth: []
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CarrierGroup'
+      responses:
+        '201':
+          description: Successful Response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CarrierGroup'
+  /groupmanagement/v2/group/{groupId}: #Update a carrier group
+    put:
+      tags:
+        - Book It Now
+      summary: Updates a Carrier Group name
+      security:
+        - bearerAuth: []
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CarrierGroup'
+      parameters:
+        - name: groupId
+          in: path
+          schema:
+            type: string
+          required: true
+      responses:
+        '202':
+          description: Successful Response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CarrierGroup'
+    delete:
+      tags:
+        - Book It Now
+      summary: Delete a specific Carrier Group
+      security:
+        - bearerAuth: []
+      parameters:
+        - name: groupId
+          in: path
+          schema:
+            type: string
+          required: true
+      responses:
+        '204':
+          description: Successful Response
+    post:
+      tags:
+        - Book It Now
+      summary: Bulk Assigns Carriers to existing Carrier Group
+      security:
+        - bearerAuth: []
+      parameters:
+        - name: groupId
+          in: path
+          schema:
+            type: string
+          required: true
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                carrierProfileIds:
+                  type: array
+                  items: 
+                    type: string
+                    example: c968fa94-b396-ea11-aa57-f6eb2fb44b8a
+      responses:
+        '201':
+          description: Successful Response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/BulkCarrierGroupAddReturn'
+  /groupmanagement/v2/group/{groupId}/carrier/{carrierProfileId}: #Assign carriers to a group
+    post:
+      tags:
+        - Book It Now
+      summary: Assigns Carrier(s) to existing Carrier Group
+      security:
+        - bearerAuth: []
+      parameters:
+        - name: groupId
+          in: path
+          schema:
+            type: string
+          required: true
+        - name: carrierProfileId
+          in: path
+          schema:
+            type: string
+          required: true
+      responses:
+        '201':
+          description: Successful Response
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  carrierGroup:
+                    $ref: '#/components/schemas/CarrierGroup'
+                  carrierProfile:
+                    $ref: '#/components/schemas/Carrier'
+    delete:
+      tags:
+        - Book It Now
+      summary: Delete a carrier from a specific Carrier Group
+      security:
+        - bearerAuth: []
+      parameters:
+        - name: groupId
+          in: path
+          schema:
+            type: string
+          required: true
+        - name: carrierProfileId
+          in: path
+          schema:
+            type: string
+          required: true
+      responses:
+        '204':
+          description: Successful Response    
+  /groupmanagement/v2/group/carrier/{carrierProfileId}: #Obtain carrier group membership
+    post:
+      tags:
+        - Book It Now
+      summary: Obtain Carrier group membership
+      security:
+        - bearerAuth: []
+      parameters:
+        - name: carrierProfileId
+          in: path
+          schema:
+            type: string
+          required: true
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Pagination'
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  pagination:
+                    $ref: '#/components/schemas/Pagination'
+                    example:
+                      totalPages: 1
+                      pageNumber: 1
+                      pageSize: 100
+                      totalItemCount: 2
+                      resultsTruncated: false
+                  data:
+                    type: array
+                    items:
+                      $ref: '#/components/schemas/CarrierGroupReturn'
+                    example:
+                      - assigned: true
+                        id: f53705f5-af44-46b0-95cd-340d3a834551
+                        status: 1
+                        name: Group1
+                      - assigned: false
+                        id: 585396b5-b7ad-46dc-a0ae-7b3fc08f3ba4
+                        status: 1
+                        name: Group2
+  /groupmanagement/v2/group/search: #Search Carrier Groups
+    post:
+      tags:
+        - Book It Now
+      summary: Search for a Broker’s Carrier Groups
+      security:
+        - bearerAuth: []
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/SearchObject'
+            example:
+              pagination:
+                pageNumber: 1
+                pageSize: 100
+              searchCriteria:
+                - name: name
+                  operator: contains
+                  value: test
+              sortCriteria:
+                - direction: ascending
+                  name: name
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  pagination:
+                    $ref: '#/components/schemas/Pagination'
+                  data:
+                    type: array
+                    items:
+                      type: object
+                      properties:
+                        id:
+                          type: string
+                          example: 531c1931-893e-480e-a3e1-83b691970dea
+                        name:
+                          type: string
+                          example: TestGroup1                      
+  /groupmanagement/v2/carrier/search/{groupId}: #Search carriers in a group
+    post:
+      tags:
+        - Book It Now
+      summary: Search for Carriers within a specific Carrier Group
+      security:
+        - bearerAuth: []
+      parameters:
+        - name: groupId
+          in: path
+          schema:
+            type: string
+          required: true
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Pagination'
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  pagination:
+                    $ref: '#/components/schemas/Pagination'
+                  data:
+                    type: array
+                    items:
+                      $ref: '#/components/schemas/Carrier'
+  
+  #Terms And Conditions
+  /termsandconditions/v1/ratecon: #Create a T&C
+    post:
+      tags:
+        - Book It Now
+      summary: Creates a new terms and conditions entry
+      security:
+        - bearerAuth: []
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/TermsAndConditions'
+      responses:
+        '201':
+          description: Successful Response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/TermsAndConditions'
+  /termsandconditions/v1/ratecon/{TC_ID}: 
+    get:
+      tags:
+        - Book It Now
+      summary: Get the details for a terms and conditions entry
+      security:
+        - bearerAuth: []
+      parameters:
+        - name: TC_ID
+          in: path
+          schema:
+            type: string
+            example: b64f76d0-5ee1-e911-aa11-ac4ba6accd3e
+          required: true
+      responses:
+        '200':
+          description: Successful Request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/TermsAndConditions'
+    put:
+      tags:
+        - Book It Now
+      summary: Edits a terms and conditions entry
+      security:
+        - bearerAuth: []
+      parameters:
+        - name: TC_ID
+          in: path
+          schema:
+            type: string
+            example: b64f76d0-5ee1-e911-aa11-ac4ba6accd3e
+          required: true
+      responses:
+        '200':
+          description: Successful Request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/TermsAndConditions'
+    delete:
+      tags:
+        - Book It Now
+      summary: Deletes a terms and conditions entry
+      security:
+        - bearerAuth: []
+      parameters:
+        - name: TC_ID
+          in: path
+          schema:
+            type: string
+            example: b64f76d0-5ee1-e911-aa11-ac4ba6accd3e
+          required: true
+      responses:
+        '204':
+          description: Successful Response
+  /termsandconditions/v1/ratecon/search: #Search for a T&C
+    post:
+      tags:
+        - Book It Now
+      summary: Search for a terms and conditions entry
+      security:
+        - bearerAuth: []
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/SearchObject'
+            example:
+              pagination:
+                pageNumber: 1
+                pageSize: 100
+              searchCriteria:
+                - name: Name
+                  operator: contains
+                  value: TC
+                  logicalOperator: Or
+                - name: CreatedDateTime
+                  operator: Between
+                  value: '2024-09-20T00:00:00'
+                  valueTo: '2024-09-25T00:00:00'
+              sortCriteria:
+                - direction: Ascending
+                  name: Name
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  pagination:
+                    $ref: '#/components/schemas/Pagination'
+                  data:
+                    type: array
+                    items:
+                      $ref: '#/components/schemas/TermsAndConditions'
+  /termsandconditions/v1/ratecon/searchfield: #Get available search fields
+    get:
+      tags: 
+        - Book It Now
+      summary: Get the details for fields that can be used in a search query
+      security:
+        - bearerAuth: []
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  type: object
+                  properties:
+                    dataType:
+                      type: string
+                      example: Guid
+                    fieldName:
+                      type: string
+                      example: Id
+                    operators:
+                      type: array
+                      items:
+                        type: string
+                        example: In
+                    type:
+                      type: string
+                      example: Standard
+  /termsandconditions/v1/ratecon/sortfield: #Get the available sort fields
+    get:
+      tags:
+        - Book It Now
+      summary: Get a list of fields that can be used to sort search results
+      security:
+        - bearerAuth: []
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  type: object
+                  properties:
+                    fieldName:
+                      type: string
+                      example: Name
+  
+  #Tendering
+  /tendering/v1/load/{LoadId}: #Get Booked Loads By ID
+    put:
+      tags:
+        - Book It Now
+      summary: Revoke a tendered load
+      security:
+        - bearerAuth: []
+      parameters:
+        - name: LoadId
+          in: path
+          schema:
+            type: string
+          required: true
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                TenderAction:
+                  type: string
+                  example: Revoke
+                  default: Revoke
+                  enum:
+                    - Revoke
+                ReasonCode:
+                  type: string
+                  example: 13
+                ReasonMessage:
+                  type: string
+                  example: Shipper decided to cancel the load, please call us for more information
+      responses:
+        '200':
+          description: Successful Response
+    get:
+      tags:
+        - Book It Now
+      summary: Get Booked Loads Details By Load Id
+      security:
+        - bearerAuth: []
+      parameters:
+        - name: LoadId
+          in: path
+          schema:
+            type: string
+          required: true
+      responses:
+        '200':
+          description: Successful Response
+  /tendering/v1/tender/{TenderId}:
+    get:
+      tags:
+        - Book It Now
+      summary: Get Tender Details By TenderId
+      security:
+        - bearerAuth: []
+      parameters:
+        - name: TenderId
+          in: path
+          schema:
+            type: string
+          required: true
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Tender'
+  /tendering/v2/account/: #Get Tenders By Account
+    post:
+      tags:
+        - Book It Now
+      summary: Retrieve Tenders by Account
+      security:
+        - bearerAuth: []
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/SearchObject'
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  pagination:
+                    $ref: '#/components/schemas/Pagination'
+                  data:
+                    type: array
+                    items:
+                      $ref: '#/components/schemas/Tender'
+  /tendering/v1/account/tender/overview: #Get Booked Loads Overview
+    post:
+      tags:
+        - Book It Now
+      summary: Retrieve Booked Loads Overviews (JSON Response)
+      security:
+        - bearerAuth: []
+      requestBody:
+        content:
+          application/json:
+            schema:
+              allOf:
+                - properties:
+                    includeChildren:  
+                      type: boolean
+                      example: true
+                - $ref: '#/components/schemas/SearchObject'
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  pagination:
+                    $ref: '#/components/schemas/Pagination'
+                  data:
+                    type: array
+                    items:
+                      type: object
+                      properties:
+                        loadNumber:
+                          type: string
+                          example: LN_3456791
+                        bookedOn:
+                          type: string
+                          example: '2020-01-30T19:53:50.139Z'
+                        origin:
+                          type: object
+                          properties:
+                            city:
+                              type: string
+                              example: Meridian
+                            state:
+                              type: string
+                              example: ID
+                            postalCode:
+                              type: string
+                              example: 83646
+                        destination:
+                          type: object
+                          properties:
+                            city:
+                              type: string
+                              example: Meridian
+                            state:
+                              type: string
+                              example: ID
+                            postalCode:
+                              type: string
+                              example: 83646
+                        companyName:
+                          type: string
+                          example: My Company Name
+                        postedByFullName:
+                          type: string
+                          example: Joe Posterman
+                        postedAsFullName:
+                          type: string
+                          example: null
+                        carrierCompanyName:
+                          type: string
+                          example: I Haul For You
+                        tenderAllInRate:
+                          type: object
+                          properties:
+                            amount:
+                              type: number
+                              example: 123.45
+                            currencyCode:
+                              type: string
+                              example: USD
+  /tendering/v1/account/tender/overview?: #Get a CSV of Booked Loads
+    post:
+      tags:
+        - Book It Now
+      summary: Get a CSV file of Booked Loads Overviews
+      security:
+        - bearerAuth: []
+      parameters:
+        - name: Accept
+          in: header
+          schema:
+            type: string
+            example: text/csv
+            default: text/csv
+          required: true
+      requestBody:
+        content:
+          application/json:
+            schema:
+              allOf:
+                - properties:
+                    includeChildren:  
+                      type: boolean
+                      example: true
+                - $ref: '#/components/schemas/SearchObject'
+      responses:
+        '200':
+          description: Successful Response           
+    
+  #END

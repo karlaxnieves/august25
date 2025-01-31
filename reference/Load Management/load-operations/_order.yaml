@@ -6,3 +6,11 @@
 - post_loadmanagement-v2-load-search
 - get_loadmanagement-v2-load-searchfield
 - get_loadmanagement-v2-load-sortfield
+- post_loadmanagement-v2-load-1
+- put_loadmanagement-v2-load-loadguid-1
+- delete_loadmanagement-v2-load-loadguid-1
+- get_loadmanagement-v2-load-loadguid-1
+- post_loadmanagement-v2-load-refresh-integrator-1
+- post_loadmanagement-v2-load-search-1
+- get_loadmanagement-v2-load-searchfield-1
+- get_loadmanagement-v2-load-sortfield-1
