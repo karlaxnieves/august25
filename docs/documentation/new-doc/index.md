@@ -123,5 +123,17 @@ sequenceDiagram
 `}</HTMLBlock>
 
 <HTMLBlock>{`
-
+<html>
+  <head>
+    <style>
+      html[data-theme="dark"] h1 {
+        color: red !important;
+      }
+    </style>
+  </head>
+  <body>
+    <h1>This is a test heading</h1>
+    <p>If dark mode is enabled, this heading should turn red.</p>
+  </body>
+</html>
 `}</HTMLBlock>
