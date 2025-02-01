@@ -14,13 +14,7 @@ This is a test string to be edited!
 <html>
   <head>
     <style>
-      html[data-theme="dark"] h1 {
-        color: red !important;
-      }
       
-     [data-color-mode="dark"] [class^="messageLine"], .messageText   {
-       stroke: white !important;
-			}
     </style>
   </head>
 </html>
@@ -119,6 +113,13 @@ sequenceDiagram
 [data-color-mode="dark"] .messageLine0 .mermaid {
   color: white; 
 }
+  html[data-theme="dark"] h1 {
+        color: red !important;
+      }
+      
+     [data-color-mode="dark"] [class^="messageLine"], .messageText   {
+       stroke: white !important;
+			}
 </style>
 `}</HTMLBlock>
 
