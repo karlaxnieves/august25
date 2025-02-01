@@ -11,7 +11,19 @@ Playing around with Mermaid diagrams :stuck_out_tongue:
 This is a test string to be edited!
 
 <HTMLBlock>{`
-
+<html>
+  <head>
+    <style>
+      html[data-theme="dark"] h1 {
+        color: red !important;
+      }
+      
+     [data-color-mode="dark"] [class^="messageLine"], .messageText   {
+       stroke: white !important;
+			}
+    </style>
+  </head>
+</html>
 `}</HTMLBlock>
 
 <br />
