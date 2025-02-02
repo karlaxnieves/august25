@@ -103,5 +103,6 @@ sequenceDiagram
 
 <br />
 
-`<MyComponent>
-  This is inside a component </MyComponent>`
+<br />
+
+This is inside a component
