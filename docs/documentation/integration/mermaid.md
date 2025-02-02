@@ -100,3 +100,8 @@ sequenceDiagram
     deactivate EMP BE
     deactivate EMP App
 ```
+
+<br />
+
+`<MyComponent>
+  This is inside a component </MyComponent>`
