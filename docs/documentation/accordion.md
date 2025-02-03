@@ -607,3 +607,24 @@ A tool currently in Beta leverages the natural-language processing of ChatGPT to
   | Validity Period          | Search for cert records of certs with a validity start and end date that are the same            | `parsed.validity\_period.length\_seconds: 0`                      |
   | Certificate Transparency | Search for cert records not submitted to any CT log                                              | `not ct.entries: \*`                                              |
 </Accordion>
+
+<Accordion title="My Accordion Title" icon="fa-info-circle">
+  Lorem ipsum dolor sit amet, **consectetur adipiscing elit.** Ut enim
+  ad minim veniam, quis nostrud exercitation ullamco. Excepteur sint
+  occaecat cupidatat non proident!
+
+  <Accordion title="Certificate Attribute Examples" icon="fa-info-circle">
+    The table provides working queries you can use to learn the data model of certificate records.
+
+    The first column shows the type of information in the certificate record showcased in the query. The second column describes the query. The third column shows the query syntax, which is linked to the Results page on search.censys.io.
+
+    | Cert Record Attribute    | Description                                                                                      | Query                                                             |
+    | :----------------------- | :----------------------------------------------------------------------------------------------- | :---------------------------------------------------------------- |
+    | All Names                | Search for the name `[apple inc](censys.io)` in any of the names fields present in a cert record | `names=censys.io`                                                 |
+    | All Names                | Search for the name `about.censys.io` in subject alternative name (SAN) field                    | `parsed.extensions.subject\_alt\_name.dns\_names=about.censys.io` |
+    | Subject DN               | Search for cert records whose the subject DN includes an organization specified as "IBM"         | `parsed.subject.organization:”IBM”`                               |
+    | Issuer DN                | Search for cert records of certs with a validity start and end date that are the same            | `parsed.issuer.common\_name="GTS X3"`                             |
+    | Validity Period          | Search for cert records of certs with a validity start and end date that are the same            | `parsed.validity\_period.length\_seconds: 0`                      |
+    | Certificate Transparency | Search for cert records not submitted to any CT log                                              | `not ct.entries: \*`                                              |
+  </Accordion>
+</Accordion>
