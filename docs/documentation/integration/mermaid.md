@@ -15,8 +15,8 @@ This is a test string to be edited!
 
 <HTMLBlock>{`
 <style>
-@media (prefers-color-scheme: dark) 
-[data-color-mode="system"] .messageLine0 .mermaid {
+@media (prefers-color-scheme: dark) {
+  [data-color-mode="system"] .messageLine0 .mermaid {
    color: black; 
  }
 }
@@ -27,7 +27,6 @@ This is a test string to be edited!
     html[data-theme="dark"] h1 {
         color: red !important;
       }
-{
   [data-color-mode="dark"] [class^="messageLine"], .messageText   {
        stroke: white !important;
 			}  
