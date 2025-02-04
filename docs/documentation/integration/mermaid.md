@@ -17,7 +17,7 @@ This is a test string to be edited!
 <style>
 @media (prefers-color-scheme: dark) {
   [data-color-mode="dark"][class^="messageLine"], .messageText   {
-       background-color: white !important;
+       stroke: white !important;
 			}  
      
 </style>
