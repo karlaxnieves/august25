@@ -28,9 +28,7 @@ This is a test string to be edited!
         color: red !important;
       }
       
-     [data-color-mode="dark"] [class^="messageLine"], .messageText   {
-       stroke: black !important;
-			}
+     
 </style>
 `}</HTMLBlock>
 
