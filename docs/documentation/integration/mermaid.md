@@ -24,10 +24,9 @@ This is a test string to be edited!
 [data-color-mode="dark"] .messageLine0 .mermaid {
   color: black; 
 }
-  html[data-theme="dark"] h1 {
-        color: red !important;
-      }
-      
+  [data-color-mode="dark"] [class^="messageLine"], .messageText   {
+       stroke: black !important;
+			}  
      
 </style>
 `}</HTMLBlock>
