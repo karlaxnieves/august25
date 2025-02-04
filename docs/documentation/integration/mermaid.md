@@ -22,7 +22,7 @@ This is a test string to be edited!
 }
   
 [data-color-mode="dark"] .messageLine0 .mermaid {
-  color: white; 
+  color: black; 
 }
   html[data-theme="dark"] h1 {
         color: red !important;
