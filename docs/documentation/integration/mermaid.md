@@ -9,6 +9,10 @@ Playing around with Mermaid diagrams :stuck_out_tongue:
 
 This is a test string to be edited!
 
+<br />
+
+<br />
+
 <HTMLBlock>{`
 <style>
 @media (prefers-color-scheme: dark) {
