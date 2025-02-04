@@ -16,10 +16,6 @@ This is a test string to be edited!
 <HTMLBlock>{`
 <style>
 @media (prefers-color-scheme: dark) {
- 
-    html[data-theme="dark"] h1 {
-        color: red !important;
-      }
   [data-color-mode="dark"] [class^="messageLine"], .messageText   {
        stroke: white !important;
 			}  
