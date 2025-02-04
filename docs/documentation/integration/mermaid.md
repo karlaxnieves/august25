@@ -16,14 +16,6 @@ This is a test string to be edited!
 <HTMLBlock>{`
 <style>
 @media (prefers-color-scheme: dark) {
- [data-color-mode="system"] .messageLine0 .mermaid {
-   color: black; 
- }
-}
-  
-[data-color-mode="dark"] .messageLine0 .mermaid {
-  color: black; 
-}
   [data-color-mode="dark"] [class^="messageLine"], .messageText   {
        stroke: black !important;
 			}  
