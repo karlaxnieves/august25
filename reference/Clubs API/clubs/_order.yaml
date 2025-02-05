@@ -7,3 +7,12 @@
 - post_v1-clubs-club-id-members-customer-id-remove
 - post_v1-clubs-club-id-members-customer-id-ban
 - post_v1-clubs-club-id-members-customer-id-unban
+- get_v1-clubs-templates-1
+- get_v1-clubs-1
+- post_v1-clubs-1
+- get_v1-clubs-club-id-1
+- get_v1-clubs-club-id-members-1
+- get_v1-clubs-club-id-members-customer-id-1
+- post_v1-clubs-club-id-members-customer-id-remove-1
+- post_v1-clubs-club-id-members-customer-id-ban-1
+- post_v1-clubs-club-id-members-customer-id-unban-1
