@@ -23,11 +23,13 @@ This is a test string to be edited!
      color: white;
 }
  @media (prefers-color-scheme: dark) {
-     [data-color-mode="system"] [class^="messageLine"], .messageText {
+     [data-color-mode="system"] [class^="messageLine"],
+     [data-color-mode="system"] .messageText {
          fill: white !important;
     }
 }
- [data-color-mode="system"] [class^="messageLine"], .messageText {
+ [data-color-mode="dark"] [class^="messageLine"],
+ [data-color-mode="dark"] .messageText {
      fill: white !important;
 }
  </style>
