@@ -14,23 +14,8 @@ This is a test string to be edited!
 <br />
 
 <HTMLBlock>{`
-<style> @media (prefers-color-scheme: dark) {
-     [data-color-mode="system"] .messageLine0 .mermaid {
-         color: white;
-    }
-}
- [data-color-mode="dark"] .messageLine0 .mermaid {
-     color: white;
-}
- @media (prefers-color-scheme: dark) {
-     [data-color-mode="system"] [class^="messageLine"],
-     [data-color-mode="system"] .messageText {
-         fill: white !important;
-    }
-}
- [data-color-mode="dark"] [class^="messageLine"],
- [data-color-mode="dark"] .messageText {
-     fill: white !important;
+<style> .markdown-body pre.mermaid_single {
+    background: white;
 }
  </style>
 `}</HTMLBlock>
