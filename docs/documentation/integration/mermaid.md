@@ -29,7 +29,7 @@ This is a test string to be edited!
       }
       
      [data-color-mode="dark"] [class^="messageLine"], .messageText   {
-       stroke: white !important;
+       fill: white !important;
 			}
 </style>
 `}</HTMLBlock>
