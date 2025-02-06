@@ -14,24 +14,23 @@ This is a test string to be edited!
 <br />
 
 <HTMLBlock>{`
-<style>
-@media (prefers-color-scheme: dark) {
- [data-color-mode="system"] .messageLine0 .mermaid {
-   color: white; 
- }
+<style> @media (prefers-color-scheme: dark) {
+     [data-color-mode="system"] .messageLine0 .mermaid {
+         color: white;
+    }
 }
-  
-[data-color-mode="dark"] .messageLine0 .mermaid {
-  color: white; 
+ [data-color-mode="dark"] .messageLine0 .mermaid {
+     color: white;
 }
-  html[data-theme="dark"] h1 {
-        color: red !important;
-      }
-      
-     [data-color-mode="dark"] [class^="messageLine"], .messageText   {
-       fill: white !important;
-			}
-</style>
+ @media (prefers-color-scheme: dark) {
+     [data-color-mode="system"] [class^="messageLine"], .messageText {
+         fill: white !important;
+    }
+}
+ [data-color-mode="system"] [class^="messageLine"], .messageText {
+     fill: white !important;
+}
+ </style>
 `}</HTMLBlock>
 
 # TEST
