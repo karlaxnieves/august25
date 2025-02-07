@@ -14,10 +14,43 @@ This is a test string to be edited!
 <br />
 
 <HTMLBlock>{`
-<style> .markdown-body pre.mermaid_single {
-    background: white;
+<style>
+@media (prefers-color-scheme: dark) {
+[data-color-mode="system"] .messageLine0 .mermaid {
+color: white;
 }
- </style>
+}
+
+[data-color-mode="dark"] .messageLine0 .mermaid {
+color: white;
+}
+
+@media (prefers-color-scheme: dark) {
+[data-color-mode="system"] .messageText {
+fill: white !important;
+}
+
+/* Arrow coloring */
+[data-color-mode="system"] [class^="messageLine"],
+[data-color-mode="system"] #arrowhead path,
+[data-color-mode="system"] #crosshead path {
+fill: white !important;
+stroke: white !important;
+}
+}
+
+[data-color-mode="dark"] .messageText {
+fill: white !important;
+}
+
+/* Arrow coloring */
+[data-color-mode="dark"] [class^="messageLine"],
+[data-color-mode="dark"] #arrowhead path,
+[data-color-mode="dark"] #crosshead path {
+fill: white !important;
+stroke: white !important;
+}
+</style>
 `}</HTMLBlock>
 
 # TEST
