@@ -82,7 +82,7 @@ Additional example files can be accessed [here](https://github.com/lingohub/Exam
 
 **Rule**: `&` and `<` have to be escaped using `&amp;` and  `&lt;` unless they are used as an escape sequence (e.g. ") or element tag (e.g., `<b>`); otherwise, the *XML* document is not well-formed!
 
-**Exception**: if a strings element contains HTML (e.g., `</u>`) the behavior depends on the **HTML export setting**:
+**Exception**: if a strings element contains HTML (e.g., `<u>`) the behavior depends on the **HTML export setting**:
 
 **RAW**: *HTML* tags will not be escaped at all; only the characters `&` and `<` will be escaped according to the rule above
 
@@ -99,7 +99,7 @@ In case the content is already wrapped in a `CDATA` section during import, it wi
 * Whenever a single quote (‘) character is in the content, it has to be either escaped using `\'` or the whole string has to be quoted using double quotes (“)
 * The character double quote (“) itself has to be escaped using `\”`
 * For a quoted text like *”   this is some text   ”* no trimming will be done on import; the whitespace will also be contained in the exported file!
-* In case HTML tags (e.g. `<b>`, `<i>`, `</u>`) are present. They are handled according to the HTML export settings; however, if format strings (e.g. `%1$d`) are also present; all HTML tags will be escaped as if the option export setting.`ESCAPE` was selected!
+* In case HTML tags (e.g. `<b>`, `<i>`, `<u>`) are present. They are handled according to the HTML export settings; however, if format strings (e.g. `%1$d`) are also present; all HTML tags will be escaped as if the option export setting.`ESCAPE` was selected!
 * If format strings are used, any other occurrences of “%” have to be escaped using the according unicode point representation `&#0025;`. Therefore, the percent sign will always be escaped if not used as format String (e.g., `“Save 50&#0025; only now!”`).\
   Exception: if the XML attribute `formatted = “false”` is present on the element, no escaping of the percent sign is done!
 * The characters “@” and “?” are escaped with `\` if they are at the beginning of the content (or represent the only content) unless the whole string is quoted using double quotes (“) as well or they represent references (e.g., in the form `@string/keyName`)
