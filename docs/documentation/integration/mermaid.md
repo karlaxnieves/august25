@@ -5,7 +5,7 @@ hidden: false
 metadata:
   robots: index
 ---
-Playing around with Mermaid diagrams :stuck_out_tongue:
+Hello
 
 This is a test string to be edited!
 
