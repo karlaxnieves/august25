@@ -9,6 +9,10 @@ Lingohub supports *Android* `.xml` files, which are used to localize Android app
 
 Lingohub offers a tight coupling between [Apple iOS](doc:apple-ios) and Android projects to speed up your multi-mobile development. You must create one of these projects and export the translated resource files in another format.
 
+<Embed typeOfEmbed="youtube" url="https://vimeo.com/778648841/6d82551cbe" html="%3Ciframe%20class%3D%22embedly-embed%22%20src%3D%22%2F%2Fcdn.embedly.com%2Fwidgets%2Fmedia.html%3Fsrc%3Dhttps%253A%252F%252Fplayer.vimeo.com%252Fvideo%252F778648841%253Fh%253D6d82551cbe%2526app_id%253D122963%26dntp%3D1%26display_name%3DVimeo%26url%3Dhttps%253A%252F%252Fvimeo.com%252F778648841%252F6d82551cbe%26image%3Dhttps%253A%252F%252Fi.vimeocdn.com%252Fvideo%252F1957382148-e4317a80a082e0c737155864ab35b9dd74bab367f82168bb1bbcff3482bd9512-d_1280%253Fregion%253Dus%26type%3Dtext%252Fhtml%26schema%3Dvimeo%22%20width%3D%221920%22%20height%3D%221080%22%20scrolling%3D%22no%22%20title%3D%22Vimeo%20embed%22%20frameborder%3D%220%22%20allow%3D%22autoplay%3B%20fullscreen%3B%20encrypted-media%3B%20picture-in-picture%3B%22%20allowfullscreen%3D%22true%22%3E%3C%2Fiframe%3E" href="https://vimeo.com/778648841/6d82551cbe" providerUrl="https://vimeo.com/" providerName="Vimeo" />
+
+<br />
+
 # Format
 
 * this format is based on *XML*
@@ -104,7 +108,7 @@ In case the content is already wrapped in a `CDATA` section during import, it wi
   Exception: if the XML attribute `formatted = “false”` is present on the element, no escaping of the percent sign is done!
 * The characters “@” and “?” are escaped with `\` if they are at the beginning of the content (or represent the only content) unless the whole string is quoted using double quotes (“) as well or they represent references (e.g., in the form `@string/keyName`)
 * Newlines are escaped using `\n`, Tabs are escaped using `\t`,\
-   the backslash character is escaped using `\\`
+  the backslash character is escaped using `\\`
 
 ## Additional export rules
 
