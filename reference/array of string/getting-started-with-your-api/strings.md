@@ -1,5 +1,5 @@
 ---
-title: strings
+title: post
 api:
   file: array-of-string.json
   operationId: post_new-endpoint

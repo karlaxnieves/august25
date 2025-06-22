@@ -5,7 +5,7 @@ api:
   file: array-of-string.json
   operationId: mnp-lookup
 deprecated: false
-hidden: true
+hidden: false
 metadata:
   title: ''
   description: ''
