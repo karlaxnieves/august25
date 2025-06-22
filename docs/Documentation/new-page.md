@@ -11,35 +11,17 @@ metadata:
 next:
   description: ''
 ---
-[block:image]
-{
-  "images": [
-    {
-      "image": [
-        "https://files.readme.io/c15fc85-Income_1.png",
-        "Income (1).png",
-        1288
-      ],
-      "align": "center",
-      "sizing": "80"
-    }
-  ]
-}
-[/block]
-
-
+<Image align="center" width="80%" src="https://files.readme.io/c15fc85-Income_1.png" />
 
 ## Overview
 
-Okra’s Income API calculates an end user’s income using real-time financial transactions from their bank accounts. At the core of the Income API is the Okra NLU (_Natural Language System_), which incorporates online machine learning and active learning to provide data for your business needs.
+Okra’s Income API calculates an end user’s income using real-time financial transactions from their bank accounts. At the core of the Income API is the Okra NLU (*Natural Language System*), which incorporates online machine learning and active learning to provide data for your business needs.
 
 Whether it’s a day laborer earnings, salary, pension, or an uncle who provides monthly aid, Okra makes it easy to understand the structured and unstructured income sources of your user. This provides a wealth of opportunity in KYC validation, enabling critical eligibility information like employment verification, spending patterns, and credit power.
 
 Understanding your customer's income history enables you to speed up your decision-making process. Okra's API provides accurate and extensive income data for many use cases, including disbursement amounts, product recommendations, payment tenures, and more.
 
 ***
-
-
 
 ## How it works
 
@@ -49,9 +31,9 @@ Once your user grants Okra permission to access their bank accounts, Okra servic
 
 The NLU system analyzes and groups income data based on details such as:
 
-- **Named Entities**: Named Entities are special keywords and sub-text identified in the transaction descriptions. These entities include _transaction beneficiary_, _utility keywords, reference codes, transaction narration_, _transaction channel,_ and _income-related_ keywords.
-- **Transaction Groups**: Transactions can belong to any of these seven categories: VAT, Commissions, ATM/POS, Transfer, Deposits, Returns on Investments, and Reversals.
-- **Transaction Frequency**: The API also groups similar transactions together based on their rate of recurrence.
+* **Named Entities**: Named Entities are special keywords and sub-text identified in the transaction descriptions. These entities include *transaction beneficiary*, *utility keywords, reference codes, transaction narration*, *transaction channel,* and *income-related* keywords.
+* **Transaction Groups**: Transactions can belong to any of these seven categories: VAT, Commissions, ATM/POS, Transfer, Deposits, Returns on Investments, and Reversals.
+* **Transaction Frequency**: The API also groups similar transactions together based on their rate of recurrence.
 
 The Income Engine uses these data groups to accurately identify income streams, and group transactions that belong to the same income stream together. Okra sorts income streams into these categories:
 
@@ -73,31 +55,27 @@ The Income API classifies income on accounts that do not have a fixed amount of 
 
 ***
 
-
-
 ## How to use
 
 Okra recommends that you leverage the Income API in this order:
 
-1. Use the [**`process` income**](https://docs.okra.ng/reference/processincome) operation for first-time users 
+1. Use the [**`process`income**](https://docs.okra.ng/reference/processincome) operation for first-time users 
 
 This operation analyzes the income data of a first-time user and returns a processed income profile. This process usually takes a few seconds - the duration depends on the depth of the user’s transaction history, and the number of income streams.
 
-2. Use the **`get` income** operations based on your business needs
+2. Use the **`get`income** operations based on your business needs
 
 These operations enable you to retrieve already processed income data faster. Power your application by retrieving data based on [**ID**](https://docs.okra.ng/reference/getincomebyid), [**customer**](https://docs.okra.ng/reference/getincomebycustomer), [**date**](https://docs.okra.ng/reference/getincomebydate), [**record**](https://docs.okra.ng/reference/getbyrecord), or by retrieving [**all your users’ income data**](https://docs.okra.ng/reference/getallincomes) in a single request.
 
 ***
 
-
-
 ## Key features of the Income API
 
 ### Trailing Income History
 
-The trailing history gives a historical summary of each income stream using 3, 6, and 12 months’ chunks of transactions that the Income Engine refers to as _history blocks_. The Income Engine calculates the maximum credit amount, average monthly amount, total sum, minimum monthly amount, and count of an income stream in each _history block_. 
+The trailing history gives a historical summary of each income stream using 3, 6, and 12 months’ chunks of transactions that the Income Engine refers to as *history blocks*. The Income Engine calculates the maximum credit amount, average monthly amount, total sum, minimum monthly amount, and count of an income stream in each *history block*. 
 
-These _history blocks_ provide insight into how your users' income streams change over time.
+These *history blocks* provide insight into how your users' income streams change over time.
 
 ### Stream Ranking
 
@@ -107,26 +85,24 @@ This helps you identify your user’s primary stream of income.
 
 ### Evaluating the Income Model
 
-Your user’s income model is evaluated using a _confidence score_. The NLU uses a confidence score to indicate an estimated level of accuracy in classifying transaction data as income. By extension, the confidence score also indicates the correctness of the projected income sums and the trailing history figures.
+Your user’s income model is evaluated using a *confidence score*. The NLU uses a confidence score to indicate an estimated level of accuracy in classifying transaction data as income. By extension, the confidence score also indicates the correctness of the projected income sums and the trailing history figures.
 
 As with most machine learning models, the NLU uses accuracy, recall, and precision to evaluate the performance of the system by deriving values from a confusion matrix:
 
 ![](https://files.readme.io/49a3889-confusion_matrix.png)
 
-- **TP**: True positive - the number of income transactions in a stream correctly identified as income transactions
-- **FN**: False negative - the number of actual income transactions in a stream classified incorrectly as non-income transactions
-- **FP:** False positive - the number of non-income transactions in a stream classified incorrectly as income transactions
-- **TN:** True negative - the number of non-income transactions in a stream correctly identified as non-income transactions
+* **TP**: True positive - the number of income transactions in a stream correctly identified as income transactions
+* **FN**: False negative - the number of actual income transactions in a stream classified incorrectly as non-income transactions
+* **FP:** False positive - the number of non-income transactions in a stream classified incorrectly as income transactions
+* **TN:** True negative - the number of non-income transactions in a stream correctly identified as non-income transactions
 
-> 📘 
-> 
+> 📘
+>
 > The confidence score is the total number of correctly classified income and non-income transactions expressed as a percentage:
-> 
-> **Confidence Score** **=** **(TP + TN) / (TP + TN + FP + FN) \* 100**
+>
+> **Confidence Score** **=** **(TP + TN) / (TP + TN + FP + FN)\* 100**
 
 ***
-
-
 
 ## Attributes of the `income` object
 
@@ -156,7 +132,7 @@ An `income` object can contain these attributes:
 | `past_six_months`                              | object  | Contains the summary of all income streams of the past 6 months.                                                                                                                                                                                                         |
 | `past_twelve_months`                           | object  | Contains the summary of all income streams of the past 12 months.                                                                                                                                                                                                        |
 | `primary_stream_age_months`                    | integer | Indicates the number of months the primary income stream has existed on a specific account. This value provides an estimate of how long a user has been earning income from that income stream.                                                                          |
-| `this_year_projected_sum`                      | float   | Indicates the total income that the user is estimated to make by the end of the current calendar year. The value is calculated using the _monthly_income_, _number_of_months_, and _projected_months_ of each income stream.                                             |
+| `this_year_projected_sum`                      | float   | Indicates the total income that the user is estimated to make by the end of the current calendar year. The value is calculated using the *monthly\_income*, *number\_of\_months*, and *projected\_months* of each income stream.                                         |
 
 ##### Attributes for past income data in the `summary` object
 
@@ -178,19 +154,19 @@ The objects `past_three_months`, `past_six_months`, and `past_twelve_months` con
 
 ##### Attributes within `details`
 
-| Attribute                | Type        | Description                                                                                                                                                                                                                                                                                                                |
-| ------------------------ | ----------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| `account`                | string      | The bank account in which the stream was identified.                                                                                                                                                                                                                                                                       |
-| `bank`                   | object      | The name or ID of the bank that holds the user’s account.                                                                                                                                                                                                                                                                  |
-| `source`                 | object      | Provides details about user's source of income as identified by the Named Entity Recognition (NER).                                                                                                                                                                                                                        |
-| `monthly_amount`         | float       | The amount of income generated on a monthly basis by this income stream.                                                                                                                                                                                                                                                   |
-| `number_of_transactions` | integer     | The number of transactions that are part of this income stream.                                                                                                                                                                                                                                                            |
-| `occurrence`             | object      | Lists details about dates, actual and projected occurrences, and total number of income transactions for this income stream.                                                                                                                                                                                               |
-| `primary_stream`         | boolean     | Indicates whether the current stream is the primary source of income.                                                                                                                                                                                                                                                      |
-| `stream_id`              | string uuid | A unique identifier for this income stream.                                                                                                                                                                                                                                                                                |
-| `stream_rank`            | float       | Indicates a relative rank of an income stream with respect to the other streams. The highest value is 1.0, while the lowest is 0.0. The stream with the highest value is designated as the primary stream. stream_rank is calculated using weighted attributes such as total amounts of income, and number of occurrences. |
-| `type`                   | string      | Indicates the type of income. Possible values: `salary`, `recurrent credit`, `recurrent deposit`, `rent`, `unstructured`.                                                                                                                                                                                                  |
-| `working_days_this_year` | integer     | Indicates the number of working days this year for which the income stream was made.                                                                                                                                                                                                                                       |
+| Attribute                | Type        | Description                                                                                                                                                                                                                                                                                                                 |
+| ------------------------ | ----------- | --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `account`                | string      | The bank account in which the stream was identified.                                                                                                                                                                                                                                                                        |
+| `bank`                   | object      | The name or ID of the bank that holds the user’s account.                                                                                                                                                                                                                                                                   |
+| `source`                 | object      | Provides details about user's source of income as identified by the Named Entity Recognition (NER).                                                                                                                                                                                                                         |
+| `monthly_amount`         | float       | The amount of income generated on a monthly basis by this income stream.                                                                                                                                                                                                                                                    |
+| `number_of_transactions` | integer     | The number of transactions that are part of this income stream.                                                                                                                                                                                                                                                             |
+| `occurrence`             | object      | Lists details about dates, actual and projected occurrences, and total number of income transactions for this income stream.                                                                                                                                                                                                |
+| `primary_stream`         | boolean     | Indicates whether the current stream is the primary source of income.                                                                                                                                                                                                                                                       |
+| `stream_id`              | string uuid | A unique identifier for this income stream.                                                                                                                                                                                                                                                                                 |
+| `stream_rank`            | float       | Indicates a relative rank of an income stream with respect to the other streams. The highest value is 1.0, while the lowest is 0.0. The stream with the highest value is designated as the primary stream. stream\_rank is calculated using weighted attributes such as total amounts of income, and number of occurrences. |
+| `type`                   | string      | Indicates the type of income. Possible values: `salary`, `recurrent credit`, `recurrent deposit`, `rent`, `unstructured`.                                                                                                                                                                                                   |
+| `working_days_this_year` | integer     | Indicates the number of working days this year for which the income stream was made.                                                                                                                                                                                                                                        |
 
 ###### Attributes within `source`
 
@@ -241,8 +217,8 @@ The objects `past_three_months`, `past_six_months`, and `past_twelve_months` con
 | `stream_ids` | array of strings | Lists the UUID of the income stream where a transaction belongs to.                                                                                          |
 | `term`       | string           | Defines which history block a transaction within an income stream belongs to. Possible values: `past_three_months`, `past_six_months`, `past_twelve_months`. |
 
-> 📘 
-> 
+> 📘
+>
 > `term` helps pinpoint which 3, 6, or 12 months’ chunk of transactions, or history block does a transaction belong to. Transactions within the `past_tree_months` term are a subset of transactions within `past_six_months`, which in turn are a subset of `past_twelve_months`.
 
 ## Sample objects
