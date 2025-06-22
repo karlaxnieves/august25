@@ -12,12 +12,12 @@ next:
 ---
 If you are interested in building a highly custom enrollment funnel instead of using the [Enrollment Widget](doc:credit-as-a-service-signup-widget), we've got you covered!  Our Signup API (SAPI) allows you to build and control the flow of input fields.
 
-> 🚧 
-> 
+> 🚧
+>
 > By using the SAPI, you will need to keep up to date with any improvements to the API and adjust accordingly on your end.  ConsumerDirect® will always give ample notice of upcoming changes.
 
 > ❗️ Proxy Enrollments
-> 
+>
 > To prevent fraud and protect the data of your customers, the system may block traffic identified to the same device or IP address. If you plan on doing proxy enrollments for your customers on the same device, please reach out to your Partner Support representative.
 
 ## Step-By-Step Guide
@@ -29,38 +29,63 @@ This tutorial walks you through the process of using the ConsumerDirect® Signup
 In order to use the SAPI you will need an API client key for our stage environment to begin testing. If you don’t already have a client key, you can request one by emailing [partnerintegration@consumerdirect.com](mailto:partnerintegration@consumerdirect.com).
 
 > 🚧 Client Key and Environment
-> 
+>
 > Client keys are issued per environment.  Please make sure you are testing against the correct environment for the client key issued. 
-> 
-> Stage:         <https://stage-api.consumerdirect.io>  
-> Production:    <https://api.consumerdirect.io>
-> 
+>
+> Stage:         [https://stage-api.consumerdirect.io](https://stage-api.consumerdirect.io)\
+> Production:    [https://api.consumerdirect.io](https://api.consumerdirect.io)
+>
 > White label partners, please reach out to your partner support representative to get the proper URLs for your environment.
 
 ### 2. Build The Funnel
 
-Initially all development will be against our stage environment, please point your API calls to:  
-<https://stage-api.consumerdirect.io>
+Initially all development will be against our stage environment, please point your API calls to:\
+[https://stage-api.consumerdirect.io](https://stage-api.consumerdirect.io)
 
 Here are some examples of the typical flow of API calls for the SAPI depending on which type of subscription you're trying to support.
 
-[block:parameters]
-{
-  "data": {
-    "h-0": "Typical Flow For Paid Subscription",
-    "h-1": "Typical Flow For Sponsored Subscription",
-    "0-0": "1. [GET /start](ref:getstart-4)  \n2. [GET /campaign](ref:getcampaign-4)  \n3. [POST /validate/email](ref:postvalidateemail)  \n4. [POST /customer/create](ref:postcustomercreate-4)  \n5. [POST /customer/update/identity](ref:postcustomerupdateidentity-4)  \n6. [GET /id-verification](ref:getidverification-4)  \n7. [POST /id-verification](ref:postidverification-4)  \n8. [POST /validate/credit-card](ref:postvalidatecreditcardnumber)  \n9. [POST /customer/update/credit-card](ref:postcustomerupdatecreditcard-4)  \n10. [POST /complete](ref:postcomplete-4)",
-    "0-1": "1. [GET /start](ref:getstart-4)  \n2. [GET /campaign](ref:getcampaign-4)  \n3. [POST /validate/email](ref:postvalidateemail)  \n4. [POST /validate/sponsor-code](ref:postvalidatesponsorcode)  \n5. [POST /customer/create](ref:postcustomercreate-4)  \n6. [POST /customer/update/identity](ref:postcustomerupdateidentity-4)  \n7. [GET /id-verification](ref:getidverification-4)  \n8. [POST /id-verification](ref:postidverification-4)  \n9. [POST /complete](ref:postcomplete-4)"
-  },
-  "cols": 2,
-  "rows": 1,
-  "align": [
-    "left",
-    "left"
-  ]
-}
-[/block]
+<Table align={["left","left"]}>
+  <thead>
+    <tr>
+      <th>
+        Typical Flow For Paid Subscription
+      </th>
 
+      <th>
+        Typical Flow For Sponsored Subscription
+      </th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <tr>
+      <td>
+        1. [GET /start](ref:getstart-4)  
+        2. [GET /campaign](ref:getcampaign-4)  
+        3. [POST /validate/email](ref:postvalidateemail)  
+        4. [POST /customer/create](ref:postcustomercreate-4)  
+        5. [POST /customer/update/identity](ref:postcustomerupdateidentity-4)  
+        6. [GET /id-verification](ref:getidverification-4)  
+        7. [POST /id-verification](ref:postidverification-4)  
+        8. [POST /validate/credit-card](ref:postvalidatecreditcardnumber)  
+        9. [POST /customer/update/credit-card](ref:postcustomerupdatecreditcard-4)  
+        10. [POST /complete](ref:postcomplete-4)
+      </td>
+
+      <td>
+        1. [GET /start](ref:getstart-4)  
+        2. [GET /campaign](ref:getcampaign-4)  
+        3. [POST /validate/email](ref:postvalidateemail)  
+        4. [POST /validate/sponsor-code](ref:postvalidatesponsorcode)  
+        5. [POST /customer/create](ref:postcustomercreate-4)  
+        6. [POST /customer/update/identity](ref:postcustomerupdateidentity-4)  
+        7. [GET /id-verification](ref:getidverification-4)  
+        8. [POST /id-verification](ref:postidverification-4)  
+        9. [POST /complete](ref:postcomplete-4)
+      </td>
+    </tr>
+  </tbody>
+</Table>
 
 ### 3. Test Your Funnel
 
@@ -84,17 +109,17 @@ If approved, you should receive your production client key within 24-48 hours.
 
 There are 2 steps to move from the stage environment to production:
 
-1. Change the stage environment URL to <https://api.consumerdirect.io>
+1. Change the stage environment URL to [https://api.consumerdirect.io](https://api.consumerdirect.io)
 2. Replace the stage client key with the production client key issued by ConsumerDirect® for all API calls
 
 Once completed you can start sending real enrollments!
 
 > ❗️ Production Testing
-> 
+>
 > Testing with real customer information on production is not recommended as they will be treated as real enrollment which you and/or the customer will be charged for.  This can also cause unwanted data corruption.    
-> 
+>
 > However, during your initial launch of your enrollment funnel using SAPI, we do recommend you test with the [Sandbox Testing Identities](doc:sandbox-testing) to ensure a successful cutover to production.
-> 
+>
 > For additional support please reach out to your Partner Support Specialist.
 
 ## Enrollment API Flow
@@ -106,7 +131,7 @@ This section will walk you step-by-step through the entire enrollment process fo
 The first call you'll make is to our [Start Enrollment](ref:getstart-4) API endpoint.  You'll pass your `clientKey` and optional tracking parameters associated with the enrollment.  To support the dynamic display of offer details associated with the enrollment, you can optionally call the [Campaign Details](ref:getcampaign-4) endpoint.
 
 > ❗️ PID Importance
-> 
+>
 > The most important tracking parameter is PID which controls subscription options and pricing, if not passed the PID will be set to your default PID associated with your client key.
 
 The Start Enrollment API call returns the `trackingToken` that is used in subsequent SAPI calls and an additional anonymous id for the user since they're not yet a customer on the platform.  Below is a sample response from the Start Enrollment API call.
@@ -119,7 +144,7 @@ The Start Enrollment API call returns the `trackingToken` that is used in subseq
 ```
 
 > ❗️ One Tracking Token Per Enrollment
-> 
+>
 > The trackingToken will be used throughout the current enrollment **ONLY**.  It's important to understand that tracking tokens cannot be reused for future enrollments.  For each unique enrollment please call Start Enrollment again to be issued a new trackingToken.
 
 ### 2. Create Customer
@@ -138,11 +163,11 @@ Since the email address has to be unique, we advise calling the [Validate Email 
 ```
 
 > 👍 Customer Token Created
-> 
+>
 > Congratulations, you have now created the customer on the ConsumerDirect® platform, but they do not yet have an active subscription.  This means we will not bill for these customers.  You'll want to store the customerToken GUID for subsequent calls as this is their unique identifier in our system.  If you have your own identity store you'll want to connect our customerToken with your own customer ID.
 
 > 📘 Sponsor Code Verification (optional feature)
-> 
+>
 > If your enrollment funnel requires a customer to enter in your sponsor code, use the [Validate Sponsor Code](ref:getvalidatesponsorcode-4) API endpoint to confirm if the sponsored code provided valid before calling the create customer endpoint.
 
 ### 3. Set Identity
@@ -154,7 +179,7 @@ SSN will be one of those mandatory data point which has a similar unique restric
 If you find the SSN already exists, the enrollment cannot move forward and you should notify the customer that their SSN has already been registered with the platform.  
 
 > 📘 identity.ssnPartial Behavior
-> 
+>
 > When using our SSNs from our Sandbox Test Identities during the Validate SSN call, identity.ssnPartial will always fail and will require another call to check the full identity.ssn to succeed.
 
 ### 4. Verify Identity
@@ -165,7 +190,7 @@ Now that we have the customer's PII, we can begin the process of verifying their
 
 This is risk assessment service of a digital transaction providing device information used by consumers to access client’s web-site or portal. You will need to generate and pass along a digital Blackbox retrieved using the following TU javascript files.
 
-1. include config.js and loader_only.js onto your signup page
+1. include config.js and loader\_only.js onto your signup page
    1. ```Text loader_only.js
       /*
        Copyright(c) 2018, iovation, inc. All rights reserved.
@@ -253,7 +278,7 @@ Due to the risk level of some customer's PII, they may be required to answer a s
 
 If the customer is eligible for OTP, the [Get Questions](ref:getidverification-4) call will return `idVerificationCriteria.question1.name == 'IDM_Choice` 
 
-The formatting of the question/answer response for this step is unchanged from KBA, but you may want to change the text on the page to more accurately reflect the question.  Also, the POST object from this step is identical to the original Q&A flow from KBA.  
+The formatting of the question/answer response for this step is unchanged from KBA, but you may want to change the text on the page to more accurately reflect the question.  Also, the POST object from this step is identical to the original Q\&A flow from KBA.  
 
 Although the customer is eligible for OTP, KBA can still be an option. Here are the 3 options in a OTP process:
 
@@ -263,19 +288,19 @@ Although the customer is eligible for OTP, KBA can still be an option. Here are 
 
 The response from the POST will include `idVerificationCriteria.question1.name === 'IDM_PINVERIFY'` if either a voice call or text verification is submitted.
 
-- This step requires an open text input for the user to input their pin, this value should be submitted in the POST data to /id-verification as `'idVerificationCriteria.userInput'`
-- This text input has the following validation rules: Only numbers, minimum length of 4, maximum length of 8
-- Each PIN can be tried only 3 times before it is considered a failed verification attempt
-- Each PIN is only valid for 15 minutes before it is considered a failed verification attempt
+* This step requires an open text input for the user to input their pin, this value should be submitted in the POST data to /id-verification as `'idVerificationCriteria.userInput'`
+* This text input has the following validation rules: Only numbers, minimum length of 4, maximum length of 8
+* Each PIN can be tried only 3 times before it is considered a failed verification attempt
+* Each PIN is only valid for 15 minutes before it is considered a failed verification attempt
 
 In situations where the user does not receive a PIN or cannot retrieve a PIN, you may POST a value of `'RESET'` to the `'idVerificationCriteria.userInput'` field.  This request returns a ID verification failed error and clears the current verification attempt.  Once this is done, we highly recommend that you allow the user to confirm and resubmit their info to the [Set Identity (WITH SSN)](ref:postcustomerupdateidentity-4) API endpoint, or you can simply request a new verification session with the [Get Questions](ref:getidverification-4) API endpoint.  
 
 > 📘 Sandbox Questions and Answers
-> 
+>
 > Certain sandbox test identities will produce canned questions which means any answer will trigger a pass.  To properly test a failure scenario, make sure you are using test identities that provide unique questions and answers for passing.
 
 > ❗️ Production Max Attempt
-> 
+>
 > In production, the [Get Questions](ref:getidverification-4) call, regardless of OTP or KBA, is only allowed up to 3 times per SSN in a rolling 30 days.  Since this can be due to bad data provided by the customer during the Set Identity call, we recommend that the UI allows a customer to review their PII again before attempting to get a new set of questions.  Any changes to the PII would require another Set Identity call before moving onto the Verify Identity call.
 
 ### 5. Set Payment Method
@@ -298,13 +323,13 @@ If successful you'll be returned a `creditCardToken` representing the customers 
 ```
 
 > 📘 Sponsored Codes
-> 
+>
 > For sponsored subscriptions where you have collected a Sponsored Code during the [Customer Create](ref:postcustomercreate-4) call, you can bypass this step.  
-> 
+>
 > However, we do recommend to still expose an ability to collect the sponsored code on the credit card page in case your customer missed entering it in on the first step of enrollment.  To do this, use the [Customer Update Sponsor Code](ref:postcustomerupdatesponsorcode-4) API endpoint to pass that information now.
 
 > 🚧 Set Member Plan (optional)
-> 
+>
 > If you are offering multiple plan options and you would like to give customers an option to change the plan they originally elected during the create identity call, you can [Set Member Plan](ref:postcustomerupdatememberplan-4) to present the options.
 
 ### 6. Complete Enrollment
@@ -314,17 +339,15 @@ Last but not least, let's [Complete](ref:postcomplete-4) this enrollment.  A suc
 This is a secure way way to get customers to login without you having to store their password for security purposes.  This temporary password is only valid for 15 minutes.  Please reference the login code to allow the customer to login. 
 
 > 📘 Confirmation Page
-> 
+>
 > When hosting the enrollment funnel on your website, be sure to include a confirmation page recapping the offer details of the member plan they just enrolled into.  To enhance engagement and lower the risk of refunds and chargebacks, allowing them to log in and use their membership immediately is advised.
 
 > 🚧 Set Security Questions (optional feature)
-> 
+>
 > After a customer has successfully completes their signup and logs into SmartCredit® they will be prompted to set up a security question.  If you would like to include the security question within your enrollment funnel you can do so with the [Security Question](ref:getsecurityquestions-1) call to get a list of valid security questions.
 
 ## Troubleshooting
 
-[block:html]
-{
-  "html": "<div style=\"padding:48.08% 0 0 0;position:relative;\"><iframe src=\"https://player.vimeo.com/video/881841785?badge=0&amp;autopause=0&amp;quality_selector=1&amp;player_id=0&amp;app_id=58479\" frameborder=\"0\" allow=\"autoplay; fullscreen; picture-in-picture\" style=\"position:absolute;top:0;left:0;width:100%;height:100%;\" title=\"ER_OCR Views\"></iframe></div><script src=\"https://player.vimeo.com/api/player.js\"></script>"
-}
-[/block]
+<HTMLBlock>{`
+<div style="padding:48.08% 0 0 0;position:relative;"><iframe src="https://player.vimeo.com/video/881841785?badge=0&amp;autopause=0&amp;quality_selector=1&amp;player_id=0&amp;app_id=58479" frameborder="0" allow="autoplay; fullscreen; picture-in-picture" style="position:absolute;top:0;left:0;width:100%;height:100%;" title="ER_OCR Views"></iframe></div><script src="https://player.vimeo.com/api/player.js"></script>
+`}</HTMLBlock>
