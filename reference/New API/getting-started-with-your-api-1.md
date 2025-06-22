@@ -17,10 +17,10 @@ Create a payment to collect money into a Rapyd Wallet
 
 Use this method in the following situations:
 
-- To collect money immediately for a one-time charge.
-- To fund one or more Rapyd Wallets.
-- To start the collection process in the middle of a billing cycle. Relevant to subscriptions.
-- To replace a failed payment in a group payment. You can replace all or part of the portion that failed.
+* To collect money immediately for a one-time charge.
+* To fund one or more Rapyd Wallets.
+* To start the collection process in the middle of a billing cycle. Relevant to subscriptions.
+* To replace a failed payment in a group payment. You can replace all or part of the portion that failed.
 
 If the `payment_method` is not specified, Rapyd collects the funds from the `default_payment_method` of the Customer object. The default payment method must be tokenizable. 
 
@@ -30,51 +30,51 @@ This method triggers [Webhook - Payment Succeeded](ref:webhook-payment-succeeded
 
 The following asynchronous webhooks provide information about later changes to the Payment object:
 
-- [Webhook - Payment Completed](ref:webhook-payment-completed) 
-- [Webhook - Payment Failed](ref:webhook-payment-failed) 
-- [Webhook - Payment Expired](ref:webhook-payment-expired) 
-- [Webhook - Escrow Payment Released](ref:webhook-escrow-payment-released)
+* [Webhook - Payment Completed](ref:webhook-payment-completed) 
+* [Webhook - Payment Failed](ref:webhook-payment-failed) 
+* [Webhook - Payment Expired](ref:webhook-payment-expired) 
+* [Webhook - Escrow Payment Released](ref:webhook-escrow-payment-released)
 
 In the sandbox:
 
-- To simulate completion of a payment method that requires the action of a third party, you must run [Complete Payment](ref:complete-payment).
+* To simulate completion of a payment method that requires the action of a third party, you must run [Complete Payment](ref:complete-payment).
 
-- To simulate completion of a payment that requires 3DS authentication, see [Simulating 3DS Authentication](ref:simulating-3ds-authentication). Relevant where the payment method type is **card**.              
+* To simulate completion of a payment that requires 3DS authentication, see [Simulating 3DS Authentication](ref:simulating-3ds-authentication). Relevant where the payment method type is **card**.              
 
   **Notes:**  
 
-- Only clients with [PCI](ref:glossary) certification can handle personal identifying information for cards. Clients that are not PCI-certified can use Rapyd Checkout to collect money from a card. See [Rapyd Checkout Overview](doc:rapyd-checkout-overview).
+* Only clients with [PCI](ref:glossary) certification can handle personal identifying information for cards. Clients that are not PCI-certified can use Rapyd Checkout to collect money from a card. See [Rapyd Checkout Overview](doc:rapyd-checkout-overview).
 
-- If you create a payment that is split by amount and the total of the identified wallets is less than the amount of the payment, the remainder is paid into the client wallet.
+* If you create a payment that is split by amount and the total of the identified wallets is less than the amount of the payment, the remainder is paid into the client wallet.
 
-- For a split payment, you must choose `amount` for all wallets or `percentage` for all wallets. You cannot mix these options.  
+* For a split payment, you must choose `amount` for all wallets or `percentage` for all wallets. You cannot mix these options.\
   -Before you create a payment with a tokenized payment method, verify that the value of `is_tokenizable` is **true**. See also [Payment Method Type Object](ref:payment-method-type-object).
 
-- When you create a card payment, a zero-amount transaction is processed.
+* When you create a card payment, a zero-amount transaction is processed.
 
-- Transactions with 3DS authentication must be authenticated within 15 minutes.
+* Transactions with 3DS authentication must be authenticated within 15 minutes.
 
-- Requests for very small amounts are rounded down to zero are not processed and throw an error. This can occur in payments that are split among two or more wallets, or in payments with FX.
+* Requests for very small amounts are rounded down to zero are not processed and throw an error. This can occur in payments that are split among two or more wallets, or in payments with FX.
 
-- Use this method to create a network reference ID for a recurring card payment. See [Payment Method Data Object](ref:payment-method-data-object). You also can create a network reference ID when you add a payment method to a customer. See [Add Payment Method to Customer](ref:add-payment-method-to-customer).
+* Use this method to create a network reference ID for a recurring card payment. See [Payment Method Data Object](ref:payment-method-data-object). You also can create a network reference ID when you add a payment method to a customer. See [Add Payment Method to Customer](ref:add-payment-method-to-customer).
 
-- A SEPA (Single Euro Payments Area) bank transfer can be disputed for 13 months after the payment is created.
+* A SEPA (Single Euro Payments Area) bank transfer can be disputed for 13 months after the payment is created.
 
-- Account funding transaction (AFT). You can transfer funds from a card directly to the cardholder's own wallet. You can also transfer the funds indirectly through the 'company' wallet of a licensed business entity that manages the customer's wallet. The business forwards the funds to the customer's wallet. Relevant to payment method types that support this feature.
+* Account funding transaction (AFT). You can transfer funds from a card directly to the cardholder's own wallet. You can also transfer the funds indirectly through the 'company' wallet of a licensed business entity that manages the customer's wallet. The business forwards the funds to the customer's wallet. Relevant to payment method types that support this feature.
 
-  - Set `payment_method_options`.`aft` to **true**. 
+  * Set `payment_method_options`.`aft` to **true**. 
 
-  - `complete_payment_url` and `error_payment_url` are required.> 
+  * `complete_payment_url` and `error_payment_url` are required.> 
 
-  - To transfer funds directly, set the ID of the cardholder's 'person' `ewallet`. The wallet contact must include first name, last name, country, and the `address` object, which must contain street (`line_1`), city, and zip. The cardholder's first name, last name, and country must match the values of the wallet contact.
+  * To transfer funds directly, set the ID of the cardholder's 'person' `ewallet`. The wallet contact must include first name, last name, country, and the `address` object, which must contain street (`line_1`), city, and zip. The cardholder's first name, last name, and country must match the values of the wallet contact.
 
-  - To transfer funds indirectly, set the ID of the `customer`. The `address` in the `customer` profile must include phone number, street (`line_1`), city, country, and zip. > \* This feature is in beta testing. To enable this feature, contact **[Rapyd Client Support](https://support.rapyd.net)**.
+  * To transfer funds indirectly, set the ID of the `customer`. The `address` in the `customer` profile must include phone number, street (`line_1`), city, country, and zip. > \* This feature is in beta testing. To enable this feature, contact **[Rapyd Client Support](https://support.rapyd.net)**.
 
 **Prerequisites**
 
-- You must run [Get Payment Method Required Fields](ref:get-payment-method-required-fields) before creating a payment.
-- Customer - Required for using a customer's default payment method on file. See [Create Customer](ref:create-customer).
-- Payment Method - Required for using a payment method on file. See [Add Payment Method to Customer](ref:add-payment-method-to-customer) and [Create Card Token](ref:create-card-token).
-- Wallet - Required for directing the collected funds to a merchant or customer. See [Create Wallet](ref:create-wallet).
+* You must run [Get Payment Method Required Fields](ref:get-payment-method-required-fields) before creating a payment.
+* Customer - Required for using a customer's default payment method on file. See [Create Customer](ref:create-customer).
+* Payment Method - Required for using a payment method on file. See [Add Payment Method to Customer](ref:add-payment-method-to-customer) and [Create Card Token](ref:create-card-token).
+* Wallet - Required for directing the collected funds to a merchant or customer. See [Create Wallet](ref:create-wallet).
 
 <a href="https://readme.com" target="_blank">ReadMe</a>
