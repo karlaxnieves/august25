@@ -5,3 +5,4 @@
 - logoutuser
 - getuserbyname
 - updateuser
+- deleteuser
