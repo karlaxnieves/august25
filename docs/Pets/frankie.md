@@ -11,7 +11,7 @@ metadata:
 next:
   description: ''
 ---
-```json Itaú PF\*
+```json Itaú PF*
 {   
     "connectorId": 201,
     "parameters": {
@@ -33,7 +33,7 @@ next:
     "clientUserId": ""
 }
 ```
-```json Caixa PF\*
+```json Caixa PF*
 {
     "connectorId": 219,
     "parameters": {
@@ -128,7 +128,7 @@ next:
 }
 ```
 
-```coffeescript Itaú P\*
+```coffeescript Itaú P*
 wat, the duck
 ```
 ```
