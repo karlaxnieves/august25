@@ -3,3 +3,4 @@
 - deactivatesubscription
 - get-scheduled-exports-logs-subscription-subscription_id-jobs
 - getdetailsonallexportsubscription
+- getexternalidbranch
