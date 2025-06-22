@@ -2,3 +2,4 @@
 - ccsapigwsso_managementsaml_ssoget_domain_list
 - ccsapigwsso_managementsaml_ssoadd_authentication_source
 - ccsapigwsso_managementsaml_ssoupdate_idp_config
+- ccsapigwsso_managementsaml_ssodelete_domain
