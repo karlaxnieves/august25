@@ -17,14 +17,12 @@ Data types in Gantry encode the way data should be interpreted, regardless of th
 
 The data type for each field determines how that field can be used in Gantry. For example:
 
-- How that data is displayed in the data table
-- What alerts, metrics, and projections can be computed on the field
+* How that data is displayed in the data table
+* What alerts, metrics, and projections can be computed on the field
 
 ## Available data types
 
 The following types are available in Gantry:
-
-
 
 ### Array types
 
@@ -50,8 +48,8 @@ The following table details supported types, and the logic used to infer that ty
 | UnixTime         | Time from Unix Epoch in ms or seconds. Since this is impossible to distinguish from large integers, this must be manually set as UnixTime.                                       |
 | ArrayString      | if the value is a pyarrow list with the list's `value_type` being a pyarrow string                                                                                               |
 | ArrayFloat       | if the value is a pyarrow list with the list's `value_type` being a pyarrow float                                                                                                |
-| ArrayInteger     | if the value is a pyarrow list with the list’s value_type being a pyarrow integer                                                                                                |
-| ArrayBoolean     | if the value is a pyarrow list with the list’s value_type being a pyarrow boolean                                                                                                |
+| ArrayInteger     | if the value is a pyarrow list with the list’s value\_type being a pyarrow integer                                                                                               |
+| ArrayBoolean     | if the value is a pyarrow list with the list’s value\_type being a pyarrow boolean                                                                                               |
 | ArrayID          | if the values contain arrays which consist of values that can be inferred as ID types                                                                                            |
 | Image            | Currently, we assume files stored in s3 are images, and so if the value is an s3 url, we infer the column to be an Image. We plan to support other sources in the future.        |
 | Audio            | Currently, we assume files stored in GCS are audio, and so if the value is a GCS presigned url, we infer the column to be Audio. We plan to support other sources in the future. |
@@ -84,45 +82,89 @@ Here is an example of data with nested fields:
 }
 ```
 
-
-
 Gantry infers the above schema as follows:
 
-| Field                 | Type        |
-| :-------------------- | :---------- |
-| numeric.feature_1     | Integer     |
-| numeric.feature_2     | Integer     |
-| numeric.feature_3     | Integer     |
-| categorical.feature_1 | Categorical |
-| categorical.feature_2 | Categorical |
-| text_feature_1        | Text        |
+| Field                  | Type        |
+| :--------------------- | :---------- |
+| numeric.feature\_1     | Integer     |
+| numeric.feature\_2     | Integer     |
+| numeric.feature\_3     | Integer     |
+| categorical.feature\_1 | Categorical |
+| categorical.feature\_2 | Categorical |
+| text\_feature\_1       | Text        |
 
 ## Handling bad data
 
 Gantry does data cleaning to handle bad data for primitives. Future support is planned for cleaning more complex types.
 
-[block:parameters]
-{
-  "data": {
-    "h-0": "Type",
-    "h-1": "Data Cleaning",
-    "0-0": "Integer",
-    "0-1": "If the bad value is a:  \n- Float: Floats get set to `null`  \n- Boolean: True gets set to 1 and False gets set to 0.  \n- String: If the value can be parsed as an Integer or Float, it will be, then Floats get further casted to Integers. If not, the value gets set to `null`.",
-    "1-0": "Float",
-    "1-1": "If the bad value is a:  \n- Integer: Integers work fine and get casted as Float.  \n- Boolean: True gets set to 1.0 and False gets set to 0.0.  \n- String: If the value can be parsed as a Float, then it will be, otherwise it will be set to `null`.",
-    "2-0": "Boolean",
-    "2-1": "If the bad value is a:  \n- Integer: If the value is equal to 0 then it gets set to False. If it equal to 1 it gets set to True.  \n- Float: If the value is equal to 0.0 then it gets set to False. If it is equal to 1.0 it gets set to True.  \n  \nAll other values and strings get set to `null`.",
-    "3-0": "Text",
-    "3-1": "All values get casted to a string, and `null` values stay as `null`"
-  },
-  "cols": 2,
-  "rows": 4,
-  "align": [
-    "left",
-    "left"
-  ]
-}
-[/block]
+<Table align={["left","left"]}>
+  <thead>
+    <tr>
+      <th>
+        Type
+      </th>
+
+      <th>
+        Data Cleaning
+      </th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <tr>
+      <td>
+        Integer
+      </td>
+
+      <td>
+        If the bad value is a:  
+
+        * Float: Floats get set to `null`  
+        * Boolean: True gets set to 1 and False gets set to 0.  
+        * String: If the value can be parsed as an Integer or Float, it will be, then Floats get further casted to Integers. If not, the value gets set to `null`.
+      </td>
+    </tr>
+
+    <tr>
+      <td>
+        Float
+      </td>
+
+      <td>
+        If the bad value is a:  
+
+        * Integer: Integers work fine and get casted as Float.  
+        * Boolean: True gets set to 1.0 and False gets set to 0.0.  
+        * String: If the value can be parsed as a Float, then it will be, otherwise it will be set to `null`.
+      </td>
+    </tr>
+
+    <tr>
+      <td>
+        Boolean
+      </td>
+
+      <td>
+        If the bad value is a:  
+
+        * Integer: If the value is equal to 0 then it gets set to False. If it equal to 1 it gets set to True.  
+        * Float: If the value is equal to 0.0 then it gets set to False. If it is equal to 1.0 it gets set to True.  
+
+        All other values and strings get set to `null`.
+      </td>
+    </tr>
+
+    <tr>
+      <td>
+        Text
+      </td>
+
+      <td>
+        All values get casted to a string, and `null` values stay as `null`
+      </td>
+    </tr>
+  </tbody>
+</Table>
 
 ## Editing the schema
 
@@ -132,13 +174,9 @@ Sometimes the schema will be inferred incorrectly, or the data type of a field w
 
 ![](https://files.readme.io/2dc7380-edit_schema_first_ingestion.png "edit_schema_first_ingestion.png")
 
-
-
 2. Click the three dots on the right side of the page to change the data type:
 
 ![](https://files.readme.io/b54e041-click_dots.png "click_dots.png")
-
-
 
 ## Example: data types and schemas
 
@@ -157,21 +195,19 @@ gantry.log_record(
 )
 ```
 
-
-
 In this example, there are a few ambiguities in how the data will be handled:
 
-- Both of the inputs `numerical_feature_*` are numbers, but they each have different Python data types.
-- The inputs `categorical_feature_1` and `text_feature_1` are both represented as strings in Python, but the former is meant to be interpreted as a category and the latter as text.
-- All of `text_feature_1`, `image_feature_1`  , `audio_feature_1` are strings, but the first one is just text, whereas the latter two should be specially treated as Image and Audio.
+* Both of the inputs `numerical_feature_*` are numbers, but they each have different Python data types.
+* The inputs `categorical_feature_1` and `text_feature_1` are both represented as strings in Python, but the former is meant to be interpreted as a category and the latter as text.
+* All of `text_feature_1`, `image_feature_1`  , `audio_feature_1` are strings, but the first one is just text, whereas the latter two should be specially treated as Image and Audio.
 
 Data types are stored in an application’s Schema. The Schema maps fields to Gantry data types. The following is an example schema for the example application above:
 
-| Field                 | Type        |
-| :-------------------- | :---------- |
-| numerical_feature_1   | Integer     |
-| numerical_feature_2   | Float       |
-| categorical_feature_1 | Categorical |
-| text_feature_1        | Text        |
-| image_feature_1       | Image       |
-| audio_feature_1       | Audio       |
+| Field                   | Type        |
+| :---------------------- | :---------- |
+| numerical\_feature\_1   | Integer     |
+| numerical\_feature\_2   | Float       |
+| categorical\_feature\_1 | Categorical |
+| text\_feature\_1        | Text        |
+| image\_feature\_1       | Image       |
+| audio\_feature\_1       | Audio       |
