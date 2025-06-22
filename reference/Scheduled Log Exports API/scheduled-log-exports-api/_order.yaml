@@ -1,3 +1,4 @@
 - createscheduledlogexportsubscription
 - checksubscriptionstatus
 - deactivatesubscription
+- get-scheduled-exports-logs-subscription-subscription_id-jobs
