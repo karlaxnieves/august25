@@ -88,8 +88,7 @@ The following items are slated for AppCloud Release 1912.1:
 * **Enhancement: Increase AWS SQS Invisibility Timing.** When importing data into Eloqua we noticed some slower than expected response times. We have increased the message invisibility timing to 2 minutes (up from the standard 30 seconds) to prevent the same message from being unnecessarily reprocessed. 
 * **Enhancement: Increase Record Processing Speed by Switching to Bulk Updates to Internal Database.** When processing data, we now update record status in bulk, instead of record-by-record, based on the Eloqua execution ID and record notification size.
 
-<HTMLBlock>\{\`
-
+<HTMLBlock>{`
 <div></div>
 <hr>
 <style></style>
@@ -111,8 +110,7 @@ When enabled, the Play Builder query will be executed against the Data Warehouse
 
 * **Bug Fix: Odd characters in the Talking Points Creator app when using the hyperlink tool within the Talking Points editor being translated as question marks (?) in Salesforce.com.** This fix removes the special characters that were being added in the HTML which caused the Talking Points field in Salesforce.com to have extra questions marks around a link.
 
-<HTMLBlock>\{\`
-
+<HTMLBlock>{`
 <div></div>
 <hr>
 <style></style>
@@ -130,10 +128,9 @@ The following items were included in AppCloud Release 1910.1:
   * Hot Play
   * Talking Points content (including field merges)
 
-* **Bug Fix: Inconsistencies in Drag/Drop of field merges on the Talking Points editor.** This was caused by trying to drag merge fields into HTML a <div> area which isn't allowed and causes the merge fields to visually "bounce" back to the right-hand field list area. The HTML structure was updated so it does not include those nested <div> areas. Please keep in mind, older configurations created prior to this fix will still work when being processed for record creation but my have this "bouncy" behavior. If this happens, the content for the Talking Points should be deleted and recreated and the configuration saved (per training notes).
+* **Bug Fix: Inconsistencies in Drag/Drop of field merges on the Talking Points editor.** This was caused by trying to drag merge fields into HTML a `<div>` area which isn't allowed and causes the merge fields to visually "bounce" back to the right-hand field list area. The HTML structure was updated so it does not include those nested `<div>` areas. Please keep in mind, older configurations created prior to this fix will still work when being processed for record creation but my have this "bouncy" behavior. If this happens, the content for the Talking Points should be deleted and recreated and the configuration saved (per training notes).
 
-<HTMLBlock>\{\`
-
+<HTMLBlock>{`
 <div></div>
 <hr>
 <style></style>
