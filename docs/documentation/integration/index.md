@@ -2,9 +2,7 @@
 title: Integration
 deprecated: false
 hidden: false
-link:
-  new_tab: true
-  url: https://www.apollo.io/product/integrations
 metadata:
   robots: index
 ---
+[Accordion Link](https://git-bi-di-sync-1.readme.io/v2_new/docs/accordion#/)
