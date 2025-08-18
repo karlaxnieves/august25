@@ -7,7 +7,7 @@ metadata:
 ---
 Hello
 
-This is a test string to be edited!
+TEST
 
 <br />
 
